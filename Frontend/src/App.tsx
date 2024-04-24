@@ -1,12 +1,12 @@
-import React from 'react'
-import Sasip from './Sasip'
+import React from "react";
+import LandingAboutUS from "./components/LandingAboutUS";
 
 const App = () => {
   return (
     <div>
-      <Sasip/>
+      <LandingAboutUS />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
