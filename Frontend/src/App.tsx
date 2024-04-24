@@ -10,11 +10,10 @@ const App = () => {
       <Navibar/>
       <BrowserRouter>
         <Routes>
-          {/* <Route path='/navi' element={}/> */}
           <Route path='/login' element={<LoginForm/>}/>
         </Routes>
       </BrowserRouter>
-      {/* <Sasip/> */}
+     
     </div>
   )
 }
