@@ -1,0 +1,29 @@
+.Navibar a {
+    color: white;
+    font-weight: 700;
+  
+}
+.underline-animation {
+    position: relative;
+    text-decoration: none;
+    color:#E40000; /* Set your desired text color */
+  }
+  
+  .underline-animation::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
+    background-color:#E40000; /* Set your desired underline color */
+    transition: width 0.3s ease-in-out; /* Animation duration and easing */
+  }
+  
+  .underline-animation:hover::before {
+    width: 100%; /* Underline expands to 100% width */
+  }
+
+  .Navibar button {
+    font-weight: 700;
+  }
