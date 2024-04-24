@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import sasiplogo from './assets/sasip-logo.jpeg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function Sasip() {
