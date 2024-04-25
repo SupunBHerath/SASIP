@@ -1,0 +1,40 @@
+.GCard {
+    width: 300px;
+    display: inline-block;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin: 10px;
+    overflow: hidden; /* Hide any overflowing content */
+    transition: transform 0.3s ease; /* Add smooth transition on hover */
+}
+.GCard:hover {
+    transform: scale(1.05); /* Enlarge the card on hover */
+}
+
+/* Image styling */
+.GCard img {
+    width: 100%;
+    height: 250px;
+}
+
+/* Title styling */
+.GCard .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+/* Link styling */
+.GCard a {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+.GCard a:hover {
+    background-color: #555;
+}
