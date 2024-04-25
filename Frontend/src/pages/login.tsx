@@ -1,6 +1,9 @@
-import { FC, FormEvent } from "react";
+import { FC, useState } from "react";
 import { Form, Input, Button, Checkbox, Card, Typography } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { MD5 } from "crypto-js";
+
 const { Title } = Typography;
 
 interface Values {
@@ -10,22 +13,29 @@ interface Values {
 }
 
 const LoginForm: FC = () => {
-  const onFinish = (values: Values) => {
-    console.log("Received values of form: ", values);
-    if (values.remember) {
-      localStorage.setItem("username", values.username);
-      localStorage.setItem("password", values.password);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = (values: Values) => {
+    const { username, password, remember } = values;
+    if (!username || !password) {
+      alert("Please input your username and password");
+      return;
     }
-  };
-
-  const handleForgotPassword = (e: FormEvent) => {
-    e.preventDefault();
-    console.log("Handle password recovery logic here");
-  };
-
-  const handleRegister = (e: FormEvent) => {
-    e.preventDefault();
-    console.log("Handle registration logic here");
+    const encryptedPassword = MD5(password).toString();
+    if (
+      username === "admin" &&
+      encryptedPassword === "25d55ad283aa400af464c76d713c07ad"
+    ) {
+      if (remember) {
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+      }
+      navigate("/admin");
+    } else {
+      alert("Invalid username or password");
+    }
   };
 
   return (
@@ -37,15 +47,15 @@ const LoginForm: FC = () => {
         height: "100vh",
       }}
     >
-      <Card style={{ width: 500 }}>
+      <Card style={{ width: 400 }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Title level={2}>Company Logo </Title>
+          <Title level={2}>Login</Title>
         </div>
         <Form
           name="normal_login"
           className="login-form"
           initialValues={{ remember: true }}
-          onFinish={onFinish}
+          onFinish={handleLogin}
         >
           <Form.Item
             name="username"
@@ -54,6 +64,8 @@ const LoginForm: FC = () => {
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
               placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </Form.Item>
           <Form.Item
@@ -64,15 +76,9 @@ const LoginForm: FC = () => {
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <a
-              style={{ float: "right" }}
-              className="login-form-forgot"
-              href=""
-              onClick={handleForgotPassword}
-            >
-              Forgot password
-            </a>
           </Form.Item>
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
@@ -89,9 +95,7 @@ const LoginForm: FC = () => {
               Log in
             </Button>
             Don't have an account{" "}
-            <a href="" onClick={handleRegister}>
-              sign up
-            </a>
+            <a href="#">sign up</a>
           </Form.Item>
         </Form>
       </Card>
