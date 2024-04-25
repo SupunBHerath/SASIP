@@ -14,12 +14,8 @@
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.15",
     "antd": "^5.16.4",
-
-    "bcryptjs": "^2.4.3",
-    "boostrap": "^2.0.0",
-
     "aos": "^2.3.4",
-
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "crypto-js": "^4.2.0",
     "react": "^18.2.0",
