@@ -1,0 +1,23 @@
+.SideShow img {
+    border-radius: 20px;
+}
+.SideShow h1 {
+   text-shadow: 0 0 6px black;
+   font-size: 55px;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ line-height: 54px;
+}
+
+
+.SideShow{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    /* outline: 5px solid red; */
+
+    border-color: red;
+    border: 5px solid red;
+    border-right-color: blue;
+    border-bottom-color: blue;
+    border-top-left-radius: 150px;
+    border-bottom-right-radius:100px;
+}
