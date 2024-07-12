@@ -1,0 +1,18 @@
+import './Card.css'
+
+import {Color} from '../../CSS/Css.jsx'
+const HeaderCard = (prop) => {
+  return (
+    <div className='HeaderCard mt-4' >
+      <div className='HeaderCard__left'>
+        <img src={prop.icon} alt="" />
+      </div>
+      <div className='HeaderCard__right  w-100 mt-2 '>
+        <h2 style={{color:Color.PrimaryColor }}>{prop.title}</h2>
+        <h3 style={{ color: Color.SecondaryColor }}>{prop.count}</h3>
+      </div>
+    </div>
+  )
+}
+
+export default HeaderCard
