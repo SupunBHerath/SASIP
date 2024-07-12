@@ -18,14 +18,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonIcon from "@mui/icons-material/Person";
-import Admin from "./admin";
-import Projects from "./projects";
-import SocialPosts from "./social-posts";
 import pplogo from "../images/pplogo.png";
-import UserTable from "./user-docTable";
 import TaskIcon from "@mui/icons-material/Task";
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import AdminSection from "./dashboard-utils/admin-tab-page";
+import AdminDashboard from "./dashboard";
+import Lecturers from "./lecturers";
+import Subjects from "./subjects";
+import Gallery from "./gallery";
+import Messages from "./messages";
 
 const drawerWidth = 240;
 
@@ -95,11 +95,11 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const customComponents = [
-  { text: "Dashboard", icon: <DashboardIcon />, component: <Admin /> },
-  { text: "Users", icon: <PersonIcon />, component: <UserTable /> },
-  { text: "Projects", icon: <TaskIcon />, component: <Projects /> },
-  { text: "Posts", icon: <PostAddIcon />, component: <SocialPosts /> },
-  { text: "Admin", icon: <PostAddIcon />, component: <AdminSection /> },
+  { text: "Dashboard", icon: <DashboardIcon />, component: <AdminDashboard /> },
+  { text: "Lecturers", icon: <PersonIcon />, component: <Lecturers /> },
+  { text: "Subjects", icon: <TaskIcon />, component: <Subjects /> },
+  { text: "Gallery", icon: <PostAddIcon />, component: <Gallery /> },
+  { text: "Messages", icon: <PostAddIcon />, component: <Messages /> },
   // Add more custom components as needed
 ];
 
