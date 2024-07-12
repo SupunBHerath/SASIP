@@ -1,9 +1,18 @@
 import React from 'react'
+import AdminHome from './Pages/Admin/AdminHome'
 
 export default function App() {
   return (
     <div>
-      <h1>SASIP</h1>
+      <BrowserRouter>
+        <Routes>
+          {/* =====================Admin====================== */}
+
+          <Route path='/admin' element={<AdminHome/>} />
+          
+        </Routes>
+      </BrowserRouter>
     </div>
+  
   )
 }
