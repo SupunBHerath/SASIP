@@ -1,9 +1,10 @@
 import React from 'react'
-
+import AdminNavbar from '../../Comporant/Admin/AdminNavbar';
 export default function AdminHome() {
   return (
     <div>
-      <h1>Admin Homepage</h1>
+      <AdminNavbar/>
+   
     </div>
   )
 }
