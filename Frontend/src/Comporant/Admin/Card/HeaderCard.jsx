@@ -11,7 +11,8 @@ const HeaderCard = (prop) => {
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
     borderRadius: '8px',
     cursor: 'pointer',
-    margin:'20px',
+    height: '150px',
+    
     
 
 
@@ -19,10 +20,10 @@ const HeaderCard = (prop) => {
   
   return (
     <div  style={cardStyle}  >
-      <div className='HeaderCard__left' style={{width:'auto' , height:'100px' }}>
+      <div className='HeaderCard__left' style={{width:'auto' , height:'80px' }}>
         <img src={prop.icon} alt="" />
       </div>
-      <div className='HeaderCard__right  w-100 mt-2 '>
+      <div className='HeaderCard__right  w-100 mt-2  '>
         <h2 style={{color:Color.PrimaryColor }}>{prop.title}</h2>
         <h3 style={{ color: Color.SecondaryColor }}>{prop.count}</h3>
       </div>
