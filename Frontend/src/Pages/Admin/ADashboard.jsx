@@ -9,6 +9,7 @@ import timeS from '../../../public/Image/smTime.jpg';
 import { Color, Font } from '../../Comporant/CSS/Css';
 import TimeTable from '../../Comporant/TimeTable/TimeTable';
 import TimeTableT from '../../Comporant/Admin/Table/TimeTableT';
+import BasicSpeedDial from '../../Comporant/ChatBot/SpeedDial';
 
 
 const ITEMS_PER_PAGE = 4; // Number of tables to show per page
@@ -115,6 +116,7 @@ export default function ADashboard() {
 
   return (
     <div style={rootStyle}>
+      <BasicSpeedDial/>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={3}>
           <HeaderCard icon={teacher} title="Lectures" count="110" />
