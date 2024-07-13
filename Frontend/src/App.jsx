@@ -4,6 +4,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import SignIn from './Pages/Admin/AdminLogin';
+import TimeTablePage from './Pages/User/TimeTablePage';
 
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
         <Routes>
           {/* =====================Admin====================== */}
 
+          <Route path='/timetable' element={<TimeTablePage/>} />
           <Route path='/admin' element={<AdminHome/>} />
           <Route path='/admin/login' element={<SignIn/>} />
           

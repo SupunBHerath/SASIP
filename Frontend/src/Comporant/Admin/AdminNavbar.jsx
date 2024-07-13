@@ -34,7 +34,7 @@ import { Color, Font } from '../CSS/Css';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import axios from 'axios';
 import ADashboard from '../../Pages/Admin/ADashboard';
-import Lecher from '../../Pages/Admin/Lecher';
+import Lecher from '../../Pages/Admin/Lecture';
 import Gallery from '../../Pages/Admin/Gallery';
 import TimeTable from '../../Pages/Admin/TimeTable';
 import Notification from '../../Pages/Admin/Notification';
