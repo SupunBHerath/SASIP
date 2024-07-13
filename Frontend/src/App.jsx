@@ -1,5 +1,6 @@
 import React from 'react'
 import AdminHome from './Pages/Admin/AdminHome'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import SignIn from './Pages/Admin/AdminLogin';
