@@ -6,7 +6,7 @@ import notification from '../../../public/Icon/notification.png';
 import subject from '../../../public/Icon/books.png';
 import image from '../../../public/Icon/picture.png';
 import timeS from '../../../public/Image/smTime.jpg';
-import { Font } from '../../Comporant/CSS/Css';
+import { Color, Font } from '../../Comporant/CSS/Css';
 import TimeTable from '../../Comporant/TimeTable/TimeTable';
 import TimeTableT from '../../Comporant/Admin/Table/TimeTableT';
 
@@ -133,7 +133,7 @@ export default function ADashboard() {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={12}>
           <div className="text-center" style={{ fontFamily: Font.PrimaryFont }}>
-            <h2 className='text-bg-secondary p-2'>Time Table of Stream</h2>
+            <h2 style={{color:Color.PrimaryColor,fontWeight:'bolder'}}>Time Table of Stream</h2>
           </div>
           <TimeTableT/>
         </Grid>

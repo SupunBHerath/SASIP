@@ -103,16 +103,20 @@ const TeacherTable = () => {
 
   return (
     <div>
-      <TextField
-        label="Filter by Teacher Name"
-        variant="outlined"
-        size="small"
-        value={filterValue}
-        onChange={handleFilterChange}
-        style={{ marginBottom: 10 }}
-      />
 
-      <TableContainer component={Paper}>
+
+      <TableContainer component={Paper} className='shadow-sm border border-danger-subtle'>
+        <div className="p-2">
+          <TextField
+            label="Filter by Teacher Name"
+            variant="outlined"
+            size="small"
+            value={filterValue}
+            onChange={handleFilterChange}
+            style={{ marginBottom: 10, }}
+          />
+        </div>
+
         <Table>
           <TableHead>
             <TableRow>
