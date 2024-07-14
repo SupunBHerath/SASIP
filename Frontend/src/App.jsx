@@ -6,6 +6,8 @@ import SignIn from './Pages/Admin/AdminLogin';
 import TimeTablePage from './Pages/User/TimeTablePage';
 import { AuthProvider } from './Config/AuthContext';
 import PrivateRoute from './Config/PrivateRoute'; 
+import Home from './Comporant/Landing/home/Home';
+import ResetPassword from './Pages/Admin/ResetPassword';
 
 export default function App() {
   return (
