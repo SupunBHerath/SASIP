@@ -22,24 +22,20 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import Badge from '@mui/material/Badge';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import AddAlertIcon from '@mui/icons-material/AddAlert';
+import CollectionsIcon from '@mui/icons-material/Collections';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom';
-// import UserManage from '../../Pages/UserManage';
-// import ADashboard from '../../Pages/ADashboard';
-// import PaymentManage from '../../Pages/PaymentManage';
 import { Color, Font } from '../CSS/Css';
-// import AdsManagePage from '../../Pages/AdsManage';
-// import Notification from '../../Pages/Notification';
-// import SubjectTable from '../Table/SubjectTable';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import axios from 'axios';
 import ADashboard from '../../Pages/Admin/ADashboard';
-import Lecher from '../../Pages/Admin/Lecher';
+import Lecher from '../../Pages/Admin/Lecture';
 import Gallery from '../../Pages/Admin/Gallery';
 import TimeTable from '../../Pages/Admin/TimeTable';
 import Notification from '../../Pages/Admin/Notification';
 import Subject from '../../Pages/Admin/Subject';
-
+import BookIcon from '@mui/icons-material/Book';
+import { AuthContext } from '../../Config/AuthContext';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -113,7 +109,14 @@ export default function AdminNavbar() {
   const [open, setOpen] = React.useState(false);
   const [activeComponent, setActiveComponent] = React.useState('dashboard');
   const [row, setRow] = React.useState(null);
-  const navigation = useNavigate();
+  const [title, setTite] = React.useState('Welcome to Admin Dashboard');
+  const navigate = useNavigate();
+  const { logout } = React.useContext(AuthContext);
+
+ const handleLogout = () => {
+    logout();
+    navigate('/admin/login');
+  };
 
   React.useEffect(() => {
     axios.get('/ads/pending')
@@ -125,10 +128,7 @@ export default function AdminNavbar() {
       });
   }, [activeComponent]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigation('/')
-  };
+ 
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -140,32 +140,38 @@ export default function AdminNavbar() {
 
   const dashboard = () => {
     setActiveComponent('dashboard');
+    setTite('Welcome to Admin Dashboard');
   };
 
   const lecher = () => {
     setActiveComponent('lecher');
+    setTite('Lectures Table ');
   };
 
   const timetable = () => {
     setActiveComponent('timetable');
+
   };
 
   const gallery = () => {
     setActiveComponent('gallery');
+    setTite('Gallery');
   };
 
   const notification = () => {
     setActiveComponent('notification');
+    setTite('Notification Table ');
   };
 
   const subject = () => {
     setActiveComponent('subject');
+    setTite('Subject Table ');
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} style={{ backgroundColor: Color.PrimaryColor }}>
+      <AppBar position="fixed" open={open} className='text-bg-secondary'>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -179,12 +185,14 @@ export default function AdminNavbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {/* You can add a title here */}
+          <Typography variant="h6" noWrap component="div" className='w-100'>
+            <div className="text-center w-100" style={{ fontFamily: Font.PrimaryFont }}>
+              <h2 >{title} </h2>
+            </div>
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} >
         <DrawerHeader>
           <Typography className='mx-5 w-100'
             variant="h6"
@@ -192,7 +200,7 @@ export default function AdminNavbar() {
             component="div"
             sx={{ display: { xs: 'block', sm: 'block' } }}
             style={{ fontFamily: Font.PrimaryFont }}>
-            TUTOR<span style={{ color: Color.SecondaryColor }}>NET</span>
+            SASIP
           </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -220,13 +228,11 @@ export default function AdminNavbar() {
             <ListItemText primary={<span style={{ fontFamily: Font.PrimaryFont }}>Lechers</span>} sx={activeComponent === 'lecher' ? { color: Color.SecondaryColor } : {}} />
           </ListItemButton>
           <br /><br />
-          <ListItemButton onClick={gallery}>
+          <ListItemButton onClick={subject}>
             <ListItemIcon>
-              <Badge badgeContent={row} color="success">
-                <PaymentIcon sx={activeComponent === 'gallery' ? { color: Color.SecondaryColor } : {}} />
-              </Badge>
+              <BookIcon sx={activeComponent === 'subject' ? { color: Color.SecondaryColor } : {}} />
             </ListItemIcon>
-            <ListItemText primary={<span style={{ fontFamily: Font.PrimaryFont }}>Gallery</span>} sx={activeComponent === 'gallery' ? { color: Color.SecondaryColor } : {}} />
+            <ListItemText primary={<span style={{ fontFamily: Font.PrimaryFont }}>Subject List</span>} sx={activeComponent === 'subject' ? { color: Color.SecondaryColor } : {}} />
           </ListItemButton>
           <br /><br />
           <ListItemButton onClick={notification}>
@@ -238,13 +244,17 @@ export default function AdminNavbar() {
             <ListItemText primary={<span style={{ fontFamily: Font.PrimaryFont }}>Notification</span>} sx={activeComponent === 'notification' ? { color: Color.SecondaryColor } : {}} />
           </ListItemButton>
           <br /><br />
-          <ListItemButton onClick={subject}>
+          <ListItemButton onClick={gallery}>
             <ListItemIcon>
-              <AddAlertIcon sx={activeComponent === 'subject' ? { color: Color.SecondaryColor } : {}} />
+              <Badge >
+                <CollectionsIcon sx={activeComponent === 'gallery' ? { color: Color.SecondaryColor } : {}} />
+              </Badge>
             </ListItemIcon>
-            <ListItemText primary={<span style={{ fontFamily: Font.PrimaryFont }}>Subject List</span>} sx={activeComponent === 'subject' ? { color: Color.SecondaryColor } : {}} />
+            <ListItemText primary={<span style={{ fontFamily: Font.PrimaryFont }}>Gallery</span>} sx={activeComponent === 'gallery' ? { color: Color.SecondaryColor } : {}} />
           </ListItemButton>
           <br /><br />
+       
+       
           <ListItemButton onClick={handleLogout}>
             <ListItemIcon>
               <LogoutIcon />
