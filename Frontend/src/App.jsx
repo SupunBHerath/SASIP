@@ -19,7 +19,8 @@ export default function App() {
           <Route path='/timetable' element={<TimeTablePage />} />
 
 
-          
+          <Route path="/teachers" element={<Team />} />
+        
           {/* =====================Admin====================== */}
           <Route path='/admin' element={<PrivateRoute element={<AdminHome />} />} /> 
           <Route path='/admin/login' element={<SignIn />} />
@@ -32,3 +33,4 @@ export default function App() {
 
 }
 
+        
