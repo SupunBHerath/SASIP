@@ -33,11 +33,102 @@ const Chatbot = ({ handleClose }) => {
     const botAvatarUrl = `${logo}`;
 
     const keywords = [
-        { keyword: 'How to Contact ', defaultMessage: 'You can email us at <span style="color: #f6921e;">supunbherath@gmail.com</span> <br> or call us at <br> <span style="color: #f6921e;">078 250 33 87</span>.' },
-        { keyword: 'How To Search Teacher', defaultMessage: 'To search for a teacher, <br> go to the search page, enter the teacher\'s name, location, or class type. You can then view their profile and contact details.' },
-
+        {
+            keyword: 'How to Contact',
+            defaultMessage: `<div style="font-family: Arial, sans-serif; border: 1px solid #ccc; padding: 10px; max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5); color: #0000;">
+                <h2 style="font-size: 24px; margin-bottom: 10px; color: #0056b3;  ">Contact Details</h2>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 10px; color: #333;">
+                        <strong style="font-weight: bold; color: #0056b3;">Phone Numbers:</strong> 
+                        0723 825 193,<br>
+                        0112 825 193
+                    </li>
+                    <li style="margin-bottom: 10px; color: #333;">
+                        <strong style="font-weight: bold; color: #0056b3;">Website:</strong> 
+                        <a href="http://www.sasip.lk" style="color: #007bff; text-decoration: none;">www.sasip.lk</a>
+                    </li>
+                    <li style="margin-bottom: 10px; color: #333;">
+                        <strong style="font-weight: bold; color: #0056b3;">Educational Programs Website:</strong> 
+                        <a href="http://www.sasipinstitute.com" style="color: #007bff; text-decoration: none;">www.sasipinstitute.com</a>
+                    </li>
+                    <li style="margin-bottom: 10px; color: #333;">
+                        <strong style="font-weight: bold; color: #0056b3;">Email:</strong> 
+                        <a href="mailto:sasip.physics@gmail.com" style="color: #007bff; text-decoration: none;">sasip.physics@gmail.com</a>
+                    </li>
+                    <li style="margin-bottom: 10px; color: #333;">
+                        <strong style="font-weight: bold; color: #0056b3;">Address:</strong><br>
+                        282/7, Hayelawala Road,<br>
+                        Nugagoda,<br>
+                        Sri Lanka.
+                    </li>
+                    <li style="margin-bottom: 10px; color: #333;">
+                        <strong style="font-weight: bold; color: #0056b3;">Postal Code:</strong> 10250
+                    </li>
+                </ul>
+                <h3 style="font-size: 20px; margin-top: 20px; margin-bottom: 10px; color: #0056b3;">Locations</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 10px; color: #333;">
+                        <strong style="font-weight: bold; color: #0056b3;">City:</strong> Colombo
+                    </li>
+                    <li style="margin-bottom: 10px; color: #333;">
+                        <strong style="font-weight: bold; color: #0056b3;">Town:</strong> Nugagoda
+                    </li>
+                </ul>
+            </div>`
+        },
+        {
+            keyword: 'About us',
+            defaultMessage: `<div">
+                <div style="background-color: #fff; border: 1px solid #ccc; padding: 20px; max-width: 600px; width: 100%; margin: 0 auto; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                    <h2 style="color: #0056b3; font-size: 24px; margin-bottom: 10px;">About Sasip Institute</h2>
+                    <p style="color: #333; margin-bottom: 20px;">
+                        Sasip Institute, established in 1997, is a leading educational institution dedicated to providing comprehensive educational services. We specialize in nurturing future generations with outstanding academic achievements and exemplary character development. Our commitment extends to delivering excellence in education through advanced teaching methodologies and a supportive learning environment.
+                    </p>
+                    <p style="color: #333; margin-bottom: 20px;">
+                        At Sasip, we strive for continuous improvement and excellence in every aspect of education. Our goal is to empower students with the knowledge and skills necessary to succeed in a competitive world. We are proud to foster a community where learning is enriched, and achievements are celebrated.
+                    </p>
+                    <h3 style="color: #0056b3; font-size: 20px; margin-bottom: 10px;">For more information:</h3>
+                    <h4 style="color: #0056b3; font-size: 18px; margin-bottom: 10px;">Contact Details:</h4>
+                    <ul style="list-style-type: none; padding: 0; margin: 0 0 20px 0;">
+                        <li style="margin-bottom: 10px; color: #333;">
+                            <strong style="font-weight: bold; color: #0056b3;">Phone Numbers:</strong> 0723 825 193, 0112 825 193
+                        </li>
+                        <li style="margin-bottom: 10px; color: #333;">
+                            <strong style="font-weight: bold; color: #0056b3;">Website:</strong> 
+                            <a href="http://www.sasip.lk" style="color: #007bff; text-decoration: none;">www.sasip.lk</a>
+                        </li>
+                        <li style="margin-bottom: 10px; color: #333;">
+                            <strong style="font-weight: bold; color: #0056b3;">Educational Programs Website:</strong> 
+                            <a href="http://www.sasipinstitute.com" style="color: #007bff; text-decoration: none;">www.sasipinstitute.com</a>
+                        </li>
+                        <li style="margin-bottom: 10px; color: #333;">
+                            <strong style="font-weight: bold; color: #0056b3;">Email:</strong> 
+                            <a href="mailto:sasip.physics@gmail.com" style="color: #007bff; text-decoration: none;">sasip.physics@gmail.com</a>
+                        </li>
+                        <li style="margin-bottom: 10px; color: #333;">
+                            <strong style="font-weight: bold; color: #0056b3;">Address:</strong><br>
+                            282/7, Hayelawala Road,<br>
+                            Nugagoda,<br>
+                            Sri Lanka.
+                        </li>
+                        <li style="margin-bottom: 10px; color: #333;">
+                            <strong style="font-weight: bold; color: #0056b3;">Postal Code:</strong> 10250
+                        </li>
+                    </ul>
+                    <h4 style="color: #0056b3; font-size: 18px; margin-bottom: 10px;">Locations:</h4>
+                    <ul style="list-style-type: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 10px; color: #333;">
+                            <strong style="font-weight: bold; color: #0056b3;">City:</strong> Colombo
+                        </li>
+                        <li style="margin-bottom: 10px; color: #333;">
+                            <strong style="font-weight: bold; color: #0056b3;">Town:</strong> Nugagoda
+                        </li>
+                    </ul>
+                </div>
+            </div>`
+        },
     ];
-
+    
     const defaultName = "Amith Pussalla ";
 
     const defaultHistory = [
@@ -84,7 +175,7 @@ const Chatbot = ({ handleClose }) => {
             avatar: botAvatarUrl,
             type: 'text',
         }
-        
+
     ];
 
     const scrollToBottom = () => {
@@ -141,7 +232,7 @@ const Chatbot = ({ handleClose }) => {
         switch (message.type) {
             case 'text':
                 return (
-                    <ListItemText primary={<div style={{ fontFamily: 'sans-serif' }} dangerouslySetInnerHTML={{ __html: message.content }} />} style={{ color: '#fff' }} />
+                    <ListItemText primary={<div style={{ fontFamily: 'sans-serif' }} dangerouslySetInnerHTML={{ __html: message.content }} />} style={{ color: '#ffff' }} />
                 );
             case 'code':
                 return (
@@ -156,7 +247,7 @@ const Chatbot = ({ handleClose }) => {
         <Container maxWidth="sm" style={{ padding: '0', display: 'flex', flexDirection: 'column', height: '80vh', backgroundColor: '#1E1E1E' }} className='shadow-lg'>
             <AppBar position="static" style={{ backgroundColor: Color.PrimaryColor }}>
                 <Toolbar>
-                    <Typography variant="h6" style={{ flexGrow: 1, color: Color.SecondaryColor, fontFamily: Font.PrimaryFont }} className='text-center' >
+                    <Typography variant="h6" style={{ flexGrow: 1, fontFamily: Font.PrimaryFont,fontWeight:'bold' }} className='text-center ' >
                         SASIP AI BOT
                     </Typography>
                     <div className=" text-danger  ">
@@ -253,9 +344,8 @@ const Chatbot = ({ handleClose }) => {
                             style={{
                                 margin: '5px',
                                 backgroundColor: Color.PrimaryColor,
-                                color: Color.SecondaryColor,
                                 fontFamily: Font.PrimaryFont,
-                                minWidth: '297px',
+                                minWidth: '197px',
                             }}
                             onClick={() => handleSend(keywordObj.keyword)}
                         >
