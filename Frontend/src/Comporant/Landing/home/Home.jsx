@@ -7,17 +7,19 @@ import Heading from "../common/header/Header"
 import Footer from "../common/footer/Footer"
 import "./Home.css"
 import Testimonal from "./testimonal/Testimonal"
+import SocialMediaSidebar from "../../Social/SocialMediaSidebar"
 
 const Home = () => {
   return (
     <>
-<Heading />
+      <SocialMediaSidebar />
+      <Heading />
       <Hero />
       <AboutCard />
       <HAbout />
       <Testimonal />
       <Hblog />
-     <Footer />
+      <Footer />
     </>
   )
 }

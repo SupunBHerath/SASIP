@@ -21,8 +21,8 @@ const TimeTableCard = ({ image, title, onClick }) => {
       style={{ 
         position: 'relative',
         cursor: 'pointer', 
-        width: 345, 
-        height: 400,
+        width: 315, 
+        height: 350,
         transition: 'transform 0.2s ease-in-out',
         transform: isHovered ? 'scale(1.05)' : 'scale(1)',
         boxShadow: isHovered ? '0px 8px 16px rgba(0, 0, 0, 0.2)' : 'none',
