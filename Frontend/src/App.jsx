@@ -7,6 +7,8 @@ import SignIn from './Pages/Admin/AdminLogin';
 import TimeTablePage from './Pages/User/TimeTablePage';
 import { AuthProvider } from './Config/AuthContext';
 import PrivateRoute from './Config/PrivateRoute'; 
+import Home from './Comporant/Landing/home/Home';
+
 import Team from "./Pages/team/Team";
 
 
@@ -16,7 +18,10 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           {/* =====================User====================== */}
+          <Route path='/' element={<Home />} />
           <Route path='/timetable' element={<TimeTablePage />} />
+
+
           <Route path="/teachers" element={<Team />} />
         
           {/* =====================Admin====================== */}
@@ -26,5 +31,7 @@ export default function App() {
       </BrowserRouter>
     </AuthProvider>
   );
+
 }
+
         
