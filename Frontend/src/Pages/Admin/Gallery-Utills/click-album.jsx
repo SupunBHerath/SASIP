@@ -14,12 +14,30 @@ import Button from '@mui/material/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import { Menu, MenuItem } from '@mui/material';
 
-// AlbumDialog Component
+// Define keyframes for pulse effect
+const pulseAnimation = `
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+`;
+
 const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
   const [newImages, setNewImages] = useState([]);
   const [deleteImage, setDeleteImage] = useState(null); // State to keep track of the image to delete
   const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false); // State to control the delete confirmation dialog
   const [anchorEl, setAnchorEl] = React.useState(null); // State to manage the Share menu
+  const [fullScreenImage, setFullScreenImage] = useState(''); // State to manage the full-screen image view
 
   const handleShare = (src) => {
     if (navigator.share) {
@@ -81,6 +99,9 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
 
   return (
     <>
+      {/* Adding a style tag to inject keyframes for the animation */}
+      <style>{pulseAnimation}</style>
+
       <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
         <DialogTitle
           sx={{
@@ -100,7 +121,7 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
             onClick={() => document.getElementById('upload').click()}
             aria-label="add images"
           >
-            <AddPhotoAlternateIcon />
+            <AddPhotoAlternateIcon sx={{ fontSize: 30 }} /> {/* Increase icon size */}
           </IconButton>
         </DialogTitle>
         <DialogContent>
@@ -115,31 +136,44 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
                   src={`${src}?w=248&fit=crop&auto=format`}
                   alt={`image-${index}`}
                   loading="lazy"
+                  onClick={() => setFullScreenImage(src)} // Set the clicked image as the full-screen image
+                  style={{ cursor: 'pointer' }} // Add a pointer cursor for the clickable image
                 />
-                <IconButton
-                  sx={{
-                    position: 'absolute',
-                    top: 8,
-                    right: 8,
-                    color: 'white',
-                  }}
-                  onClick={() => handleShare(src)}
-                  aria-label={`share image ${index}`}
-                >
-                  <ShareIcon />
-                </IconButton>
-                <IconButton
-                  sx={{
-                    position: 'absolute',
-                    top: 8,
-                    right: 40,
-                    color: 'white',
-                  }}
-                  onClick={() => handleDelete(src)}
-                  aria-label={`delete image ${index}`}
-                >
-                  <DeleteIcon />
-                </IconButton>
+                <div style={{ position: 'absolute', top: 8, right: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <IconButton
+                    sx={{
+                      color: 'rgba(255, 255, 255, 0.7)',
+                      '&:hover': {
+                        color: 'yellow',
+                        animation: 'pulse 1s infinite',
+                      },
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                      borderRadius: '50%',
+                      marginBottom: 1,
+                      p: 0.5,
+                    }}
+                    onClick={() => handleShare(src)}
+                    aria-label={`share image ${index}`}
+                  >
+                    <ShareIcon />
+                  </IconButton>
+                  <IconButton
+                    sx={{
+                      color: 'rgba(255, 255, 255, 0.7)',
+                      '&:hover': {
+                        color: 'red',
+                        animation: 'pulse 1s infinite',
+                      },
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                      borderRadius: '50%',
+                      p: 0.5,
+                    }}
+                    onClick={() => handleDelete(src)}
+                    aria-label={`delete image ${index}`}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
               </ImageListItem>
             ))}
           </ImageList>
@@ -159,7 +193,38 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
           </Button>
         </DialogActions>
       </Dialog>
-      
+
+      {/* Full-Screen Image View Dialog */}
+      <Dialog
+        open={!!fullScreenImage}
+        onClose={() => setFullScreenImage('')}
+        maxWidth="md"
+        fullWidth
+        sx={{
+          border: '2px solid blue', // Add blue border
+          borderRadius: '8px', // Optional: add border radius for rounded corners
+        }}
+      >
+        <DialogContent
+          sx={{
+            padding: 0,
+          }}
+        >
+          <img
+            src={fullScreenImage}
+            alt="Full Screen"
+            style={{
+              width: '100%',
+              height: 'auto',
+              objectFit: 'contain',
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setFullScreenImage('')}>Close</Button>
+        </DialogActions>
+      </Dialog>
+
       {/* Share Options Menu */}
       <Menu
         anchorEl={anchorEl}

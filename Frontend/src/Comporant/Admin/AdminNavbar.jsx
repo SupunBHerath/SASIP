@@ -39,6 +39,7 @@ import Gallery from '../../Pages/Admin/Gallery';
 import TimeTable from '../../Pages/Admin/TimeTable';
 import Notification from '../../Pages/Admin/Notification';
 import Subject from '../../Pages/Admin/Subject';
+import { AuthContext } from '../../Config/AuthContext';
 
 const drawerWidth = 240;
 
@@ -109,11 +110,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function AdminNavbar() {
+  const { logout } = React.useContext(AuthContext);
+  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [activeComponent, setActiveComponent] = React.useState('dashboard');
   const [row, setRow] = React.useState(null);
-  const navigation = useNavigate();
 
   React.useEffect(() => {
     axios.get('/ads/pending')
@@ -126,8 +128,8 @@ export default function AdminNavbar() {
   }, [activeComponent]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigation('/')
+    logout();
+    navigate('/admin/login');
   };
 
   const handleDrawerOpen = () => {

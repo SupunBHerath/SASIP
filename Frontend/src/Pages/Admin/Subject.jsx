@@ -24,7 +24,10 @@ import {
   FormControl,
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
 
 // Dummy data for the table
 const dummyData = [
@@ -114,16 +117,40 @@ const Subject = () => {
   });
 
   return (
-    <Container sx={{ paddingY: 0 }}>
+    <Container sx={{ paddingY: 2 }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={2}>
         <Box display="flex" alignItems="center">
-          <Button variant="contained" color="primary" onClick={handleAddClick} sx={{ marginRight: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddClick}
+            sx={{
+              marginRight: 2,
+              height: 55,
+              background: 'linear-gradient(45deg, #FF6F61, #FFCC00, #6B5B95, #88B04B)',  // Colorful gradient background
+              backgroundSize: '400% 400%',  // For smooth animation
+              borderRadius: '12px',  // Rounded corners for a modern look
+              boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',  // Shadow for depth
+              color: '#fff',  // Text color
+              fontWeight: 'bold',  // Bold text
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',  // Smooth transitions for hover effects
+              '&:hover': {
+                transform: 'scale(1.1)',  // Slightly enlarge the button on hover
+                boxShadow: '0 12px 24px rgba(0, 0, 0, 0.4)',  // Darker shadow on hover
+                animation: 'gradientShift 3s ease infinite',  // Gradient animation
+              },
+              '&:focus': {
+                outline: 'none',  // Remove default focus outline
+              },
+              '&:active': {
+                transform: 'scale(0.95)',  // Slightly shrink the button on click
+              },
+            }}
+            startIcon={<AddIcon />}
+          >
             Add Subject
           </Button>
-          <Button variant="contained" color="secondary" sx={{ marginRight: 2 }}>
-            Filter
-          </Button>
-          <FormControl sx={{ minWidth: 120, marginRight: 2 }}>
+          <FormControl sx={{ minWidth: 420, marginRight: 2 }}>
             <InputLabel>Stream</InputLabel>
             <Select value={filter} onChange={handleFilterChange} label="Stream">
               <MenuItem value="">
@@ -139,6 +166,12 @@ const Subject = () => {
           placeholder="Search..."
           value={searchTerm}
           onChange={handleSearchChange}
+          sx={{ width: 550 }}
+          InputProps={{
+            endAdornment: (
+              <SearchIcon />
+            ),
+          }}
         />
       </Box>
       <TableContainer component={Paper} sx={{ width: '100%', margin: 'auto', padding: 2 }}>
@@ -160,7 +193,7 @@ const Subject = () => {
                 <TableCell sx={{ textAlign: 'center' }}>{item.stream}</TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>
                   <IconButton onClick={() => handleToggleVisibility(item.id)}>
-                    <VisibilityIcon color={item.visible ? 'primary' : 'action'} />
+                    {item.visible ? <VisibilityIcon color="primary" /> : <VisibilityOffIcon color="action" />}
                   </IconButton>
                 </TableCell>
                 <TableCell sx={{ textAlign: 'center' }}>
