@@ -11,7 +11,7 @@ import Testimonal from "./testimonal/Testimonal"
 const Home = () => {
   return (
     <>
-<Heading />
+      <Heading />
       <Hero />
       <AboutCard />
       <HAbout />

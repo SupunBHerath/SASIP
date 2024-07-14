@@ -8,9 +8,12 @@ const Header = () => {
 
   return (
     <>
-      <Head />
+      {/* <Head /> */}
       <header>
         <nav className='flexSB'>
+          <div className='logo'>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsvE9gEtv1x4EFbaD8aBI4A55L65guOAr1-g&s" alt="Logo" style={{ width: '150px'}} />
+          </div>
           <ul className={click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)}>
             <li>
               <Link to='/'>Home</Link>
