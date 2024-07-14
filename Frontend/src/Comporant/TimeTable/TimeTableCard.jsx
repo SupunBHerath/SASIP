@@ -46,7 +46,7 @@ const TimeTableCard = ({ image, title, onClick }) => {
         alt={title}
         style={{ 
           objectFit: 'cover',
-          transition: 'transform 0.2s ease-in-out',
+          transition: 'transform 0.8s ease-in-out',
           transform: isHovered ? 'scale(1.2)' : 'scale(1)',
           borderRadius: isHovered ? '8px' : '0'
         }}
@@ -61,7 +61,7 @@ const TimeTableCard = ({ image, title, onClick }) => {
             transform: 'translate(-50%, -50%)',
             textAlign: 'center',
             zIndex: 100,
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
             padding: '10px',
             borderRadius: '8px',
             color: '#fff',
