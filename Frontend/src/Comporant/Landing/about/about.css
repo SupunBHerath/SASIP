@@ -6,6 +6,7 @@
   padding: 0;
 }
 .aboutHome .left img {
+  padding-top: 25px;
   width: 80%;
   margin-left: 20%;
   height: 90%;
@@ -39,15 +40,8 @@
   font-size: 23px;
   color: #000000;
 }
-.aboutHome .item:hover {
-  background-color: #1eb2a6;
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 5px 25px -2px rgb(0 0 0 / 6%);
-}
-.aboutHome .item:hover p {
-  color: #fff;
-}
+
+
 /*----------awrapper------------*/
 .awrapper {
   background-image: url("../public/image/awrapper.webp");
