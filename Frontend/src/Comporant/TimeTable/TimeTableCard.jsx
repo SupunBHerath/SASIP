@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import { AccessTimeOutlined, SchoolOutlined, LanguageOutlined, PersonOutline } from '@mui/icons-material';
 import { Color } from '../CSS/Css';
+import { useMediaQuery } from '@mui/material';
 
-const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class, medium,note }) => {
+const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class, medium, note }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isSmallScreen = useMediaQuery('(max-width:750px)'); 
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -44,50 +46,49 @@ const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class
           <Typography
             style={{
               fontWeight: 'bold',
-              fontSize: '1.55rem',
+              fontSize: isSmallScreen ? '1.2rem' : '1.55rem',
               color: Color.PrimaryColor,
             }}
           >
             {subjectName}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary" style={{    fontSize: '1.10rem',fontWeight: 'bold'  }}>
+          <Typography variant="subtitle1" color="textSecondary" style={{ fontSize: isSmallScreen ? '0.8rem' : '1.10rem', fontWeight: 'bold' }}>
             {year}-{classType.toUpperCase()}
           </Typography>
         </Box>
         <Typography style={{
           marginTop: 8, fontWeight: 'bold',
-          fontSize: '1.10rem',
-          marginBottom:12,
+          fontSize: isSmallScreen ? '0.9rem' : '1.10rem',
+          marginBottom: 12,
         }}>
-          <PersonOutline style={{ marginRight: 8, color: '#3f51b5', }} />Lecture &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {lecture}
+          <PersonOutline style={{ marginRight: 8, color: '#3f51b5' }} />Lecture &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {lecture}
         </Typography>
         <Typography style={{
           marginTop: 8, fontWeight: 'bold',
-          fontSize: '1.10rem',
-          marginBottom:12,
+          fontSize: isSmallScreen ? '0.9rem' : '1.10rem',
+          marginBottom: 12,
         }}>
           <SchoolOutlined style={{ marginRight: 8, color: '#f50057' }} /> Class &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {Class}
         </Typography>
         <Typography style={{
           marginTop: 8, fontWeight: 'bold',
-          fontSize: '1.10rem',
-          marginBottom:12,
+          fontSize: isSmallScreen ? '0.9rem' : '1.10rem',
+          marginBottom: 12,
         }}>
           <LanguageOutlined style={{ marginRight: 8, color: '#009688' }} /> Medium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {medium}
         </Typography>
         <Typography style={{
           marginTop: 8, color: '#666', fontWeight: 'bold',
-          fontSize: '1.10rem',
-          marginBottom:12,
+          fontSize: isSmallScreen ? '0.8rem' : '1.10rem',
+          marginBottom: 12,
         }}>
           <AccessTimeOutlined style={{ marginRight: 8, color: '#ff9800' }} /> {day} - {time}
         </Typography>
         <hr />
         <Typography style={{
           marginTop: 4, color: 'red', fontWeight: 'bold',
-          fontSize: '1.0rem',
-          textAlign:'center',
-        
+          fontSize: isSmallScreen ? '0.9rem' : '1.0rem',
+          textAlign: 'center',
         }}>
           {note}
         </Typography>

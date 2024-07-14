@@ -3,8 +3,10 @@ import TeamCard from "../../Comporant/Card/TeamCard";
 import "./team.css";
 import { team as dummyTeamData } from "../../DummyData/dummydata";
 import Heading from "../../Comporant/Landing/common/header/Header";
-import { IconButton, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, FormControl, InputLabel, Button } from "@mui/material";
+import { IconButton, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, FormControl, InputLabel, Button, Pagination } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import Navbar from "../../Comporant/Navibar/Navbar";
+import ScrollToTopButton from "../../Comporant/ScrollToTopButton/ScrollToTopButton";
 
 const Team = () => {
   const [nameFilter, setNameFilter] = useState("");
@@ -16,6 +18,8 @@ const Team = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [classType, setClassType] = useState("");
   const [medium, setMedium] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     let timer;
@@ -65,9 +69,14 @@ const Team = () => {
     setOpenDialog(false);
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredTeam.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredTeam.length / itemsPerPage);
+
   return (
     <>
-      <Heading />
+      <Navbar position={true}/>
       <div className="teacher">
         <div className={`filters-container ${scrolling ? "hidden" : ""}`}>
           <div className="filters">
@@ -155,9 +164,17 @@ const Team = () => {
 
         <section className="team padding">
           <div className="container grid">
-            {filteredTeam.map((member, index) => (
+            {currentItems.map((member, index) => (
               <TeamCard key={index} member={member} />
             ))}
+          </div>
+          <div className="pagination d-flex justify-center mt-5">
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={(event, value) => setCurrentPage(value)}
+              color="primary"
+            />
           </div>
         </section>
       </div>

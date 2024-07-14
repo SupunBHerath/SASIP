@@ -25,7 +25,7 @@ export default function App() {
           {/* =====================User====================== */}
           <Route path="/" element={<Home />} />
           <Route path="/timetable" element={<TimeTablePage />} />
-          <Route path="/teachers" element={<Team />} />
+          <Route path="/lecturers" element={<Team />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/profile" element={<Profile />} />
 

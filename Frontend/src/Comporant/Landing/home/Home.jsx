@@ -14,13 +14,14 @@ import SocialMediaSidebar from "../../Social/SocialMediaSidebar";
 import TimeTableCard2 from "../../TimeTable/TimeTableCard2";
 import Card from "./Card";
 import BasicSpeedDial from "../../ChatBot/SpeedDial";
+import Navbar from "../../Navibar/Navbar";
+import Head from "../common/header/Head";
 
 const Home = () => {
   return (
     <>
-      <Header />
-      <SocialMediaSidebar />
-      {/* <Heading /> */}
+      {/* <Header /> */}
+      <Navbar/>
       <BasicSpeedDial/>
       <Hero />
       <AboutCard />
@@ -33,8 +34,7 @@ const Home = () => {
       </div>
       <TimeTableCard2 />
       <ImageGalleryContainer />
-      {/* <Card abc="fgfd" /> */}
-      {/* <Hblog /> */}
+    
       <Footer />
     </>
   );

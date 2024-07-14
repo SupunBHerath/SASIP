@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
+import Avatar from '@mui/material/Avatar';
 import ChatIcon from '@mui/icons-material/Chat';
 import logo from '../../../public/Icon/robo.png';
-
-import { Avatar, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
-import Chatbot from './Chatbot';
 import icon from '../../../public/Icon/help2.png';
-
-
-const actions = [
-    { icon: <ChatIcon />, name: 'ChatBot' },
-];
+import { Dialog, DialogContent } from '@mui/material';
+import Chatbot from './Chatbot';
 
 export default function BasicSpeedDial() {
     const [open, setOpen] = useState(false); // State to manage dialog visibility
 
     const handleClick = () => {
-        setOpen(true); // Open the dialog when clicking the SpeedDialAction
+        setOpen(true); // Open the dialog when clicking the SpeedDial
     };
 
     const handleClose = () => {
@@ -30,43 +24,30 @@ export default function BasicSpeedDial() {
             <Box
                 sx={{
                     position: 'fixed',
-                   bottom:"50px",
-                    right:'50px',
+                    bottom: '150px',
+                    right: '10px',
                     zIndex: 1000,
-                    transform: 'scale(1.3)',
+                    transform: 'scale(1.1)',
                 }}
             >
                 <SpeedDial
-                    ariaLabel="SpeedDial basic example"
-                    icon={<Avatar className='p-1' src={icon}></Avatar>}
+                    ariaLabel="SpeedDial ChatBot"
+                    icon={<Avatar className='p-1' src={logo} />}
                     direction="up"
+                    onClick={handleClick} // Open dialog on SpeedDial click
                 >
-                    {actions.map((action) => (
-                        <SpeedDialAction
-                            key={action.name}
-                            sx={{
-                                transform: 'scale(1.3)',
-                            }}
-                            icon={<Avatar className='p-1' style={{border:'1px solid #f6921e'}} src={logo}></Avatar>}
-                            tooltipTitle={action.name}
-                            onClick={() => handleClick()}
-                        />
-                    ))}
+                    {/* No SpeedDialAction components */}
                 </SpeedDial>
-
-
             </Box>
 
             <Dialog
                 open={open}
+                onClose={handleClose} // Close dialog when clicking outside
                 fullWidth
                 maxWidth="xs"
-                >
-                <DialogContent style={{ width: 'max-container', padding: '0', border: "3px solid #f6921e" }} >
-
-                    <DialogContent className='p-0' >
+            >
+                <DialogContent style={{ padding: '0', border: "3px solid #f6921e" }}>
                     <Chatbot handleClose={handleClose} />
-                    </DialogContent>
                 </DialogContent>
             </Dialog>
         </>
