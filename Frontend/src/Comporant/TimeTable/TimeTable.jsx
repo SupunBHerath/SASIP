@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, TextField, Button, Pagination, Autocomplete, Tabs, Tab, Dialog, DialogTitle, DialogContent, DialogActions, Select, MenuItem, FormControl, InputLabel, Snackbar, Alert } from '@mui/material';
 import timeS from '../../../public/Image/smTime.jpg';
-import { Font } from '../CSS/Css';
+import { Color, Font } from '../CSS/Css';
 import TimeTableCard from './TimeTableCard';
 
 const ITEMS_PER_PAGE = 4;
@@ -41,7 +41,7 @@ export default function TimeTable() {
     const [openAlert, setOpenAlert] = useState(false); // State for controlling alert visibility
 
     const currentYear = new Date().getFullYear();
-    const last3Years = [currentYear - 1, currentYear , currentYear+1];
+    const last3Years = [currentYear - 1, currentYear, currentYear + 1];
 
     useEffect(() => {
         // Simulating admin role here, you would integrate this with your authentication logic
@@ -152,7 +152,52 @@ export default function TimeTable() {
 
     return (
         <div style={rootStyle}>
+            <br />
             <Grid container spacing={2}>
+                <Grid container spacing={2} alignItems="center" className='justify-content-center' style={{backgroundColor:Color.PrimaryColor}} >
+                    <Grid item xs={12} sm={6} md={4}>
+                        <Autocomplete
+                            fullWidth
+                            options={sampleTimeTables}
+                            getOptionLabel={(option) => option.title}
+                            value={sampleTimeTables.find((option) => option.title === filter) || null}
+                            onChange={handleAutocompleteChange}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Filter"
+                                    variant="outlined"
+                                    size="medium"
+                                    style={{ backgroundColor: isFilterActive ? '#f0f0f0' : 'transparent', float: 'right' }}
+                                />
+                            )}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4}>
+                        <FormControl fullWidth>
+                            <InputLabel id="year-filter-label">Year</InputLabel>
+                            <Select
+                                labelId="year-filter-label"
+                                id="year-filter"
+                                value={selectedYearFilter}
+                                onChange={(e) => {
+                                    setSelectedYearFilter(e.target.value);
+                                    filterTimeTables(filter, tabValue, e.target.value);
+                                }}
+                                label="Year"
+                                style={{ maxWidth: '400px' }}
+                            >
+                                <MenuItem value="">All</MenuItem>
+                                {last3Years.map((yr) => (
+                                    <MenuItem key={yr} value={yr}>
+                                        {yr}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    {/* <br /> */}
+                </Grid>
                 <Grid item xs={12}>
                     <div className="d-flex justify-content-center">
                         <Tabs
@@ -173,54 +218,12 @@ export default function TimeTable() {
                     </div>
 
                     <br />
-                    <Grid container spacing={2} alignItems="center"  className='justify-content-center' >
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Autocomplete
-                                fullWidth
-                                options={sampleTimeTables}
-                                getOptionLabel={(option) => option.title}
-                                value={sampleTimeTables.find((option) => option.title === filter) || null}
-                                onChange={handleAutocompleteChange}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label="Filter"
-                                        variant="outlined"
-                                        size="medium"
-                                        style={{ backgroundColor: isFilterActive ? '#f0f0f0' : 'transparent',maxWidth:'400px',float: 'right' }}
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <FormControl fullWidth>
-                                <InputLabel id="year-filter-label">Year</InputLabel>
-                                <Select
-                                    labelId="year-filter-label"
-                                    id="year-filter"
-                                    value={selectedYearFilter}
-                                    onChange={(e) => {
-                                        setSelectedYearFilter(e.target.value);
-                                        filterTimeTables(filter, tabValue, e.target.value);
-                                    }}
-                                    label="Year"
-                                    style={{maxWidth:'400px'}}
-                                >
-                                    <MenuItem value="">All</MenuItem>
-                                    {last3Years.map((yr) => (
-                                        <MenuItem key={yr} value={yr}>
-                                            {yr}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                    </Grid>
+
                     <br />
                     <Grid container spacing={2} className='justify-content-center d-flex'>
                         {filteredTimeTables.slice(startIndex, endIndex).map((table, index) => (
                             <Grid item xs={12} sm={6} md={3} key={index} className='justify-content-center d-flex'>
-                                <TimeTableCard 
+                                <TimeTableCard
                                     image={table.image}
                                     title={table.title}
                                     onClick={() => handleCardClick(table.image, table.title)}
