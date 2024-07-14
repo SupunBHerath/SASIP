@@ -21,7 +21,7 @@
   bottom: 0;
   left: 50%; /* Centers icon horizontally */
   transform: translateX(-50%); /* Centers icon exactly under the image */
-  background-color: #1eb2a6;
+  background-color: #004aad;
   color: #fff;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .testimonal .name span {
-  color: #1eb2a6;
+  color: #004aad;
 }
 
 .testimonal p {
@@ -47,7 +47,7 @@
 }
 
 .testimonal .items:hover {
-  background-color: #1eb2a6;
+  background-color: #004aad;
   color: #fff;
   cursor: pointer;
 }
@@ -59,7 +59,7 @@
 
 .testimonal .items:hover i {
   background-color: #fff;
-  color: #1eb2a6;
+  color: #004aad;
 }
 
 /* Media Query for Mobile Devices */
