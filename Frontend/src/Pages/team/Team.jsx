@@ -1,7 +1,8 @@
 import React, {useState,useEffect } from "react";
 import TeamCard from "../../Comporant/Card/TeamCard";
 import "./team.css";
-import {team as dummyTeamData} from "../../DummyData/dummydata";
+import { team as dummyTeamData } from "../../DummyData/dummydata";
+import Heading from "../../Comporant/Landing/common/header/Header";
 const Team = () => {
   const [nameFilter, setNameFilter] = useState("");
   const [workFilter, setWorkFilter] = useState("");
@@ -58,6 +59,7 @@ const Team = () => {
 
   return (
     <>
+      <Heading />
       <div className={`filters-container ${scrolling ? "hidden" : ""}`}>
         <div className="filters">
           <div className="filter-input">
