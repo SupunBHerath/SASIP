@@ -1,6 +1,6 @@
-import React from "react"
-import { blog } from "../../dummydata"
-import "./footer.css"
+import React from "react";
+import { blog } from "../../dummydata";
+import "./footer.css";
 
 const Footer = () => {
   return (
@@ -20,14 +20,8 @@ const Footer = () => {
       <footer>
         <div className='container padding'>
           <div className='box logo'>
-         
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsvE9gEtv1x4EFbaD8aBI4A55L65guOAr1-g&s" alt="Logo" style={{ width: '190px', height: '70px' }} />
-
-           
-         
-           
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsvE9gEtv1x4EFbaD8aBI4A55L65guOAr1-g&s" alt="Logo" style={{ width: '190px', height: '70px' }} />
             <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-
             <i className='fab fa-facebook-f icon'></i>
             <i className='fab fa-twitter icon'></i>
             <i className='fab fa-instagram icon'></i>
@@ -54,16 +48,15 @@ const Footer = () => {
           </div>
           <div className='box'>
             <h3>Recent Post</h3>
-            {blog.slice(0, 3).map((val) => (
-              <div className='items flexSB'>
+            {blog.slice(0, 3).map((val, index) => (
+              <div className='items flexSB' key={index}>
                 <div className='img'>
                   <img src={val.cover} alt='' />
                   <i className='fa fa-calendar-alt'></i>
                   <i className='fa fa-user'></i>
                 </div>
                 <div className='text'>
-                
-                  
+                  {/* Additional content can go here */}
                 </div>
               </div>
             ))}
@@ -93,7 +86,7 @@ const Footer = () => {
         </p>
       </div>
     </>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
