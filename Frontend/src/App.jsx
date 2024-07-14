@@ -8,6 +8,7 @@ import { AuthProvider } from './Config/AuthContext';
 import PrivateRoute from './Config/PrivateRoute'; 
 import Home from './Comporant/Landing/home/Home';
 import ResetPassword from './Pages/Admin/ResetPassword';
+import Team from './Pages/team/Team';
 
 export default function App() {
   return (
