@@ -10,6 +10,7 @@ import { AuthProvider } from './Config/AuthContext';
 import PrivateRoute from './Config/PrivateRoute'; 
 import Home from './Comporant/Landing/home/Home';
 
+
 export default function App() {
   return (
     <AuthProvider>
@@ -19,6 +20,7 @@ export default function App() {
           <Route path='/' element={<Home />} />
           <Route path='/timetable' element={<TimeTablePage />} />
 
+
           
           {/* =====================Admin====================== */}
           <Route path='/admin' element={<PrivateRoute element={<AdminHome />} />} />  {/* Use PrivateRoute for AdminHome */}
@@ -27,4 +29,6 @@ export default function App() {
       </BrowserRouter>
     </AuthProvider>
   );
+
 }
+
