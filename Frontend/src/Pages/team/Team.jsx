@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState,useEffect } from "react";
 import TeamCard from "../../Comporant/Card/TeamCard";
 import "./team.css";
 import {team as dummyTeamData} from "../../DummyData/dummydata";
@@ -8,11 +8,32 @@ const Team = () => {
   const [language, setLanguage] = useState("English");
   const [showNameSuggestions, setShowNameSuggestions] = useState(false);
   const [showWorkSuggestions, setShowWorkSuggestions] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    const handleScroll = () => {
+      setScrolling(true);
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        setScrolling(false);
+      }, 200);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timer);
+    };
+  }, []);
 
   // Function to filter team members
   const filteredTeam = dummyTeamData.filter((member) => {
-    const nameMatches = member.name.toLowerCase().includes(nameFilter.toLowerCase());
-    const workMatches = member.work.toLowerCase().includes(workFilter.toLowerCase());
+    const nameMatches = member.name
+      .toLowerCase()
+      .includes(nameFilter.toLowerCase());
+    const workMatches = member.work
+      .toLowerCase()
+      .includes(workFilter.toLowerCase());
     return nameMatches && workMatches;
   });
 
@@ -37,55 +58,67 @@ const Team = () => {
 
   return (
     <>
-      
-      <div className="filters">
-        <div className="filter-input">
-          <input
-            type="text"
-            placeholder="Filter by Name"
-            value={nameFilter}
-            onChange={(e) => {
-              setNameFilter(e.target.value);
-              setShowNameSuggestions(e.target.value.length > 0); // Show suggestions if input is not empty
-            }}
-          />
-          {showNameSuggestions && nameSuggestions.length > 0 && (
-            <ul className="suggestions">
-              {nameSuggestions.map((suggestion, index) => (
-                <li key={index} onClick={() => handleNameSuggestionClick(suggestion)}>
-                  {suggestion.name}
-                </li>
-              ))}
-            </ul>
-          )}
+      <div className={`filters-container ${scrolling ? "hidden" : ""}`}>
+        <div className="filters">
+          <div className="filter-input">
+            <input
+              type="text"
+              placeholder="Filter by Name"
+              value={nameFilter}
+              onChange={(e) => {
+                setNameFilter(e.target.value);
+                setShowNameSuggestions(e.target.value.length > 0); // Show suggestions if input is not empty
+              }}
+            />
+            {showNameSuggestions && nameSuggestions.length > 0 && (
+              <ul className="suggestions">
+                {nameSuggestions.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleNameSuggestionClick(suggestion)}
+                  >
+                    {suggestion.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div className="filter-input">
+            <input
+              type="text"
+              placeholder="Filter by Work"
+              value={workFilter}
+              onChange={(e) => {
+                setWorkFilter(e.target.value);
+                setShowWorkSuggestions(e.target.value.length > 0); // Show suggestions if input is not empty
+              }}
+            />
+            {showWorkSuggestions && workSuggestions.length > 0 && (
+              <ul className="suggestions">
+                {workSuggestions.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleWorkSuggestionClick(suggestion)}
+                  >
+                    {suggestion.work}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            className="language-select"
+          >
+            <option value="English">English</option>
+            <option value="Sinhala">Sinhala</option>
+          </select>
         </div>
-        
-        <div className="filter-input">
-          <input
-            type="text"
-            placeholder="Filter by Work"
-            value={workFilter}
-            onChange={(e) => {
-              setWorkFilter(e.target.value);
-              setShowWorkSuggestions(e.target.value.length > 0); // Show suggestions if input is not empty
-            }}
-          />
-          {showWorkSuggestions && workSuggestions.length > 0 && (
-            <ul className="suggestions">
-              {workSuggestions.map((suggestion, index) => (
-                <li key={index} onClick={() => handleWorkSuggestionClick(suggestion)}>
-                  {suggestion.work}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        
-        <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-          <option value="English">English</option>
-          <option value="Sinhala">Sinhala</option>
-        </select>
       </div>
+
       <section className="team padding">
         <div className="container grid">
           {filteredTeam.map((member, index) => (

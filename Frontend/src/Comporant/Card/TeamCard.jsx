@@ -2,8 +2,8 @@ import React from "react";
 
 const TeamCard = ({member}) => {
   return (
-    <div className="items shadow">
-      <div className="img">
+    <div className="rounded-4 items shadow">
+      <div className="img ">
         <img
           src={member.cover}
           alt={`${member.name}'s cover`}
@@ -11,9 +11,8 @@ const TeamCard = ({member}) => {
             e.target.src = "/path/to/default-image.jpg"; // Fallback image
           }}
         />
-        <div className="overlay">
+        <div className="overlay rounded-4">
           <i className="fab fa-facebook-f icon" aria-label="Facebook"></i>
-          <i className="fab fa-twitter icon" aria-label="Twitter"></i>
           <i className="fab fa-instagram icon" aria-label="Instagram"></i>
           <i className="fab fa-tiktok icon" aria-label="TikTok"></i>
         </div>

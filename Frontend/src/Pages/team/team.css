@@ -50,7 +50,7 @@
 }
 
 .team .items:hover {
-  background-color: #1eb2a6;
+  background-color: #004aad;
   color: #fff;
   cursor: pointer;
 }
@@ -64,7 +64,7 @@
 }
 
 .team .items:hover .overlay i:hover {
-  background-color: #1eb2a6;
+  background-color: #004aad;
   color: #fff;
 }
 
@@ -86,13 +86,13 @@
 .outline-btn {
   margin: 0;
   box-shadow: none;
-  border: 2px solid #1eb2a6;
+  border: 2px solid #004aad;
   width: 100%;
   transition: 0.5s;
 }
 
 .outline-btn:hover {
-  background-color: #1eb2a6;
+  background-color: #004aad;
   color: #fff;
 }
 
@@ -122,10 +122,9 @@
   color: #fff;
 }
 
-
 /* ////////////////////////////////////////////////////////////////////////////////////////// */
 
-.filters {
+.filters-container {
   display: flex;
   justify-content: center;
   /* Center the filter inputs */
@@ -133,15 +132,15 @@
   /* Allows wrapping on smaller screens */
   gap: 15px;
   /* Space between filters */
-  margin: 20px 0;
+  margin: 0;
   /* Top and bottom margin */
   position: sticky;
   /* Change to 'fixed' if you want them to stay in view while scrolling */
-  top: 20px;
+  top: 0px;
   /* Distance from the top */
   z-index: 100;
   /* Ensure they stay above other content */
-  background-color: white;
+  background-color: #004aad;
   /* Background color for visibility */
   padding: 15px;
   /* Padding for the filter container */
@@ -149,12 +148,18 @@
   /* Subtle shadow for depth */
 }
 
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .filter-input {
-  
   flex: 0 1 200px;
   /* Fixed size, allows input to shrink/grow */
   position: relative;
 }
+
 input[type="text"] {
   width: 100%;
   /* Full width of the container */
@@ -193,12 +198,6 @@ input[type="text"] {
 }
 
 .language-select {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-.language-select {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -207,9 +206,8 @@ input[type="text"] {
 }
 
 .toggle-sidebar-btn {
-  margin: 10px 0;
-  padding: 10px 20px;
-  background-color: #1eb2a6;
+  padding: 8px 15px;
+  background-color: #000;
   color: white;
   border: none;
   cursor: pointer;
@@ -217,17 +215,16 @@ input[type="text"] {
 }
 
 .toggle-sidebar-btn:hover {
-  background-color: #179d93;
+  background-color: #444;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
-  .filters {
+  .filters-container {
     flex-direction: column;
     /* Stack inputs on smaller screens */
   }
 }
-
 
 /* Media Queries for Tablets */
 @media screen and (min-width: 600px) {
