@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Dialog,
-    DialogActions, DialogContent, DialogTitle, TextField, IconButton, FormControl, Select, MenuItem, InputLabel
+    DialogActions, DialogContent, DialogTitle, IconButton, TextField, FormControl, Select, MenuItem, InputLabel
 } from '@mui/material';
 import { Delete, Send } from '@mui/icons-material';
 
 const NotificationTable = () => {
     const [openSendDialog, setOpenSendDialog] = useState(false);
-    const [openStatusDialog, setOpenStatusDialog] = useState(false);
     const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
     const [selectedEmail, setSelectedEmail] = useState('');
     const [selectedMessage, setSelectedMessage] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedRow, setSelectedRow] = useState(null);
-    const [selectedStatus, setSelectedStatus] = useState('');
     const [filterStatus, setFilterStatus] = useState('');
     const [data, setData] = useState([
         { no: 1, name: 'John Doe', email: 'john@example.com', message: 'Hello', status: 'unread', date: '2023-01-01' },
@@ -26,12 +24,6 @@ const NotificationTable = () => {
         setOpenSendDialog(true);
     };
 
-    const handleOpenStatusDialog = (row) => {
-        setSelectedRow(row);
-        setSelectedStatus(row.status);
-        setOpenStatusDialog(true);
-    };
-
     const handleOpenDeleteDialog = (row) => {
         setSelectedRow(row);
         setOpenDeleteDialog(true);
@@ -39,13 +31,11 @@ const NotificationTable = () => {
 
     const handleClose = () => {
         setOpenSendDialog(false);
-        setOpenStatusDialog(false);
         setOpenDeleteDialog(false);
         setSelectedEmail('');
         setSelectedMessage('');
         setSelectedFile(null);
         setSelectedRow(null);
-        setSelectedStatus('');
     };
 
     const handleFileChange = (event) => {
@@ -60,12 +50,16 @@ const NotificationTable = () => {
         handleClose();
     };
 
-    const handleChangeStatus = () => {
+    const handleChangeStatus = (row, status) => {
         const updatedData = data.map(item =>
-            item.no === selectedRow.no ? { ...item, status: selectedStatus } : item
+            item.no === row.no ? { ...item, status: status } : item
         );
         setData(updatedData);
-        handleClose();
+    };
+
+    const handleMarkAllAsRead = () => {
+        const updatedData = data.map(item => ({ ...item, status: 'read' }));
+        setData(updatedData);
     };
 
     const handleDelete = () => {
@@ -77,17 +71,22 @@ const NotificationTable = () => {
 
     return (
         <TableContainer component={Paper} className='shadow-sm border border-danger-subtle'>
-            <FormControl variant="standard" sx={{ m: 2, minWidth: 120 }}>
-                <InputLabel>Status Filter</InputLabel>
-                <Select
-                    value={filterStatus}
-                    onChange={(e) => setFilterStatus(e.target.value)}
-                >
-                    <MenuItem value=""><em>None</em></MenuItem>
-                    <MenuItem value="unread">Unread</MenuItem>
-                    <MenuItem value="read">Read</MenuItem>
-                </Select>
-            </FormControl>
+            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
+                <FormControl variant="standard" sx={{ m: 2, minWidth: 120 }}>
+                    <InputLabel>Status Filter</InputLabel>
+                    <Select
+                        value={filterStatus}
+                        onChange={(e) => setFilterStatus(e.target.value)}
+                    >
+                        <MenuItem value=""><em>None</em></MenuItem>
+                        <MenuItem value="unread">Unread</MenuItem>
+                        <MenuItem value="read">Read</MenuItem>
+                    </Select>
+                </FormControl>
+                <Button variant="contained" color="primary" onClick={handleMarkAllAsRead} sx={{ m: 2 }}>
+                    Mark All as Read
+                </Button>
+            </div>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -120,10 +119,10 @@ const NotificationTable = () => {
                                 <Button
                                     variant="outlined"
                                     size="small"
-                                    onClick={() => handleOpenStatusDialog(row)}
+                                    onClick={() => handleChangeStatus(row, row.status === 'unread' ? 'read' : 'unread')}
                                     sx={{ ml: 1 }}
                                 >
-                                    Change Status
+                                    {row.status === 'unread' ? 'Mark as Read' : 'Mark as Unread'}
                                 </Button>
                                 <IconButton onClick={() => handleOpenDeleteDialog(row)}>
                                     <Delete />
@@ -176,36 +175,6 @@ const NotificationTable = () => {
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={handleSend}>Send</Button>
-                </DialogActions>
-            </Dialog>
-
-            <Dialog open={openStatusDialog} onClose={handleClose}>
-                <DialogTitle>Change Status</DialogTitle>
-                <DialogContent>
-                    <FormControl variant="standard" fullWidth>
-                        <Select
-                            value={selectedStatus}
-                            onChange={(e) => setSelectedStatus(e.target.value)}
-                            sx={{
-                                color: selectedStatus === 'unread' ? 'red' : 'green',
-                                fontWeight: 'bold',
-                                '& .MuiSelect-select': {
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                },
-                                '& .MuiSvgIcon-root': {
-                                    color: selectedStatus === 'unread' ? 'red' : 'green',
-                                },
-                            }}
-                        >
-                            <MenuItem value="unread" sx={{ color: 'red', fontWeight: 'bold' }}>Unread</MenuItem>
-                            <MenuItem value="read" sx={{ color: 'green', fontWeight: 'bold' }}>Read</MenuItem>
-                        </Select>
-                    </FormControl>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleChangeStatus}>Change</Button>
                 </DialogActions>
             </Dialog>
 
