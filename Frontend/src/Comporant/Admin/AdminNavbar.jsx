@@ -35,6 +35,7 @@ import TimeTable from '../../Pages/Admin/TimeTable';
 import Notification from '../../Pages/Admin/Notification';
 import Subject from '../../Pages/Admin/Subject';
 import BookIcon from '@mui/icons-material/Book';
+import { AuthContext } from '../../Config/AuthContext';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -109,7 +110,13 @@ export default function AdminNavbar() {
   const [activeComponent, setActiveComponent] = React.useState('dashboard');
   const [row, setRow] = React.useState(null);
   const [title, setTite] = React.useState('Welcome to Admin Dashboard');
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+  const { logout } = React.useContext(AuthContext);
+
+ const handleLogout = () => {
+    logout();
+    navigate('/admin/login');
+  };
 
   React.useEffect(() => {
     axios.get('/ads/pending')
@@ -121,10 +128,7 @@ export default function AdminNavbar() {
       });
   }, [activeComponent]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigation('/')
-  };
+ 
 
   const handleDrawerOpen = () => {
     setOpen(true);

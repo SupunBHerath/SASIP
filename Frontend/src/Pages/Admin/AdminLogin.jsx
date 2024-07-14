@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Config/AuthContext';
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -26,19 +32,62 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
+export default function AdminLogin() {
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [successMessage, setSuccessMessage] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+  const { login } = React.useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const email = data.get('email');
+    const password = data.get('password');
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post('http://localhost:5005/api/login', {
+        email,
+        password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 200) {
+        const { token } = response.data;
+        login(token);
+
+        setSuccessMessage('Login successful');
+        setErrorMessage('');
+        navigate('/admin');
+      } else {
+        setErrorMessage('Login failed: ' + response.data);
+        setSuccessMessage('');
+      }
+    } catch (error) {
+      setErrorMessage('Error logging in: ' + (error.response?.data || error.message));
+      setSuccessMessage('');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  React.useEffect(() => {
+    if (successMessage || errorMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage('');
+        setErrorMessage('');
+      }, 3000);  // Hide messages after 3 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage, errorMessage]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -88,9 +137,22 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
             >
-              Sign In
+              {loading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : 'Sign In'}
             </Button>
+            {successMessage && (
+              <Alert severity="success" onClose={() => setSuccessMessage('')}>
+                <AlertTitle>Success</AlertTitle>
+                {successMessage}
+              </Alert>
+            )}
+            {errorMessage && (
+              <Alert severity="error" onClose={() => setErrorMessage('')}>
+                <AlertTitle>Error</AlertTitle>
+                {errorMessage}
+              </Alert>
+            )}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
