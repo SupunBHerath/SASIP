@@ -12,7 +12,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Container, Grid, Card, CardMedia, CardContent, Typography, Box, InputAdornment } from '@mui/material';
 import AlbumDialog from './click-album';
-import SearchIcon from '@mui/icons-material/Search'; 
+import SearchIcon from '@mui/icons-material/Search';
 import Pagination from '@mui/material/Pagination';
 
 // Dummy album data with images
@@ -50,44 +50,100 @@ const dummyAlbums = [
     'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
     'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
   ] },
+  { id: 6, title: 'Album 6', cover: 'https://picsum.photos/150?random=5?text=Album+6', images: [
+    'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
+    'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
+    'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
+    'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
+  ] },
   // Add more dummy albums as needed
 ];
 
 const StyledCard = styled(Card)({
-    maxWidth: 320,  // Slightly increased width
-    maxHeight: 320, // Slightly increased height
-    margin: 'auto',
-    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',  // Enhanced shadow for more depth
-    borderRadius: '12px',  // Slightly larger radius for a more modern look
-    overflow: 'hidden',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease',  // Smooth transition for hover effects
-    '&:hover': {
-      transform: 'scale(1.05)',  // Slightly enlarge the card on hover
-      boxShadow: '0 12px 24px rgba(0, 0, 0, 0.4)',  // Darker shadow on hover
-    },
-  });
-  
+  maxWidth: 320,  // Slightly increased width
+  maxHeight: 320, // Slightly increased height
+  margin: 'auto',
+  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',  // Enhanced shadow for more depth
+  borderRadius: '12px',  // Slightly larger radius for a more modern look
+  overflow: 'hidden',
+  position: 'relative',  // To position the text overlay
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease',  // Smooth transition for hover effects
+  '&:hover': {
+    transform: 'scale(1.05)',  // Slightly enlarge the card on hover
+    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.4)',  // Darker shadow on hover
+  },
+});
 
-// Styled Button
+const AlbumCover = styled(CardMedia)({
+  height: '100%',  // Full height to fit the card
+  width: '100%',   // Full width to fit the card
+  objectFit: 'cover',  // Ensure the image covers the area without distortion
+  transition: 'opacity 0.3s ease',  // Smooth transition for hover effects
+  '&:hover': {
+    opacity: 0.8,  // Slightly fade the image on hover
+  },
+});
+
+const AlbumTitleOverlay = styled(Typography)({
+  position: 'absolute',
+  bottom: '0',
+  left: '0',
+  right: '0',
+  padding: '12px',
+  background: 'rgba(0, 0, 0, 0.5)',  // Semi-transparent background for text visibility
+  color: '#fff',
+  textAlign: 'center',
+  fontSize: '1.2rem',
+  fontWeight: 'bold',
+  borderTop: '3px solid #ffffff',  // White top border for added emphasis
+});
+
 const StyledButton = styled(Button)({
   position: 'relative',
-  left: '70px',
   zIndex: 1000,
+  height: 54,
+  width: 160,
+  left: 60,
+  background: 'linear-gradient(45deg, #FF6F61, #FFCC00, #6B5B95, #88B04B)',  // Colorful gradient background
+  backgroundSize: '400% 400%',  // For smooth animation
+  borderRadius: '12px',  // Rounded corners for a modern look
+  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',  // Shadow for depth
+  color: '#fff',  // Text color
+  fontWeight: 'bold',  // Bold text
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease',  // Smooth transitions for hover effects
+  '&:hover': {
+    transform: 'scale(1.1)',  // Slightly enlarge the button on hover
+    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.4)',  // Darker shadow on hover
+    animation: 'gradientShift 3s ease infinite',  // Gradient animation
+  },
+  '&:focus': {
+    outline: 'none',  // Remove default focus outline
+  },
+  '&:active': {
+    transform: 'scale(0.95)',  // Slightly shrink the button on click
+  },
 });
 
-// Styled Search Bar
+// Define keyframes for gradient shift animation
+const gradientShift = `
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+`;
+
 const SearchBar = styled(TextField)({
-  minWidth: '300px',
-  left: '50px',
+  minWidth: '920px',
+  left: '100px',
 });
 
-// Styled Filter Button
-const FilterButton = styled(Button)({
-  marginRight: '16px',
-  marginLeft: '80px'
-});
-
-// Container for the search bar, filter button, and add button
 const ActionsContainer = styled(Box)({
   display: 'flex 1',
   alignItems: 'center',
@@ -166,11 +222,6 @@ const AddAlbumButtonWithAlbums = () => {
     setCurrentPage(1); // Reset to the first page when the search query changes
   };
 
-  const handleFilterClick = () => {
-    // Implement filter logic here
-    console.log('Filter button clicked');
-  };
-
   const getPaginatedAlbums = () => {
     const startIndex = (currentPage - 1) * albumsPerPage;
     const endIndex = startIndex + albumsPerPage;
@@ -183,6 +234,7 @@ const AddAlbumButtonWithAlbums = () => {
 
   return (
     <div>
+      <style>{gradientShift}</style>
       <ActionsContainer>
         <StyledButton
           variant="contained"
@@ -192,13 +244,6 @@ const AddAlbumButtonWithAlbums = () => {
         >
           Add Album
         </StyledButton>
-        <FilterButton
-          variant="contained"
-          color="secondary"
-          onClick={handleFilterClick}
-        >
-          Filter
-        </FilterButton>
         <SearchBar
           variant="outlined"
           placeholder="Search Albums"
@@ -259,17 +304,14 @@ const AddAlbumButtonWithAlbums = () => {
           {getPaginatedAlbums().map((album) => (
             <Grid item xs={12} sm={6} md={4} lg={4} key={album.id}>
               <StyledCard onClick={() => handleOpenAlbumDialog(album)}>
-                <CardMedia
+                <AlbumCover
                   component="img"
-                  height="220"
                   image={album.cover}
                   alt={album.title}
                 />
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div" textAlign="center">
-                    {album.title}
-                  </Typography>
-                </CardContent>
+                <AlbumTitleOverlay>
+                  {album.title}
+                </AlbumTitleOverlay>
               </StyledCard>
             </Grid>
           ))}
@@ -302,7 +344,6 @@ const AddAlbumButtonWithAlbums = () => {
                 },
             }}
             />
-
       </Container>
 
       {selectedAlbum && (
