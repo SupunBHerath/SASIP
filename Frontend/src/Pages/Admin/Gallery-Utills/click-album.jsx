@@ -102,12 +102,20 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
       {/* Adding a style tag to inject keyframes for the animation */}
       <style>{pulseAnimation}</style>
 
-      <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth sx={{
+          '& .MuiPaper-root': {
+            border: '3px solid #FF8C00', // Add border with blue color
+            borderRadius: '8px', // Optional: Add border radius
+          },
+        }}>
         <DialogTitle
           sx={{
             position: 'relative',
             borderBottom: '2px solid blue', // Add blue border to the title
             paddingBottom: '16px',
+            textAlign: 'center',
+            color: '#FF8C00',
+            fontSize: '1.6rem'
           }}
         >
           {album?.title}
@@ -201,7 +209,6 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
         maxWidth="md"
         fullWidth
         sx={{
-          border: '2px solid blue', // Add blue border
           borderRadius: '8px', // Optional: add border radius for rounded corners
         }}
       >
