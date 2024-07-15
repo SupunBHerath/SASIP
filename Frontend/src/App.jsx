@@ -31,6 +31,7 @@ export default function App() {
           <Route path="/admin/login" element={<SignIn />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
