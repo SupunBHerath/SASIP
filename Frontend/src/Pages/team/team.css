@@ -1,4 +1,5 @@
-/* Base Styles for Mobile Devices */
+.teacher{
+  /* Base Styles for Mobile Devices */
 .team .items {
   transition: 0.5s;
   background-color: #004aad;
@@ -265,4 +266,5 @@ input[type="text"] {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 30px;
   }
+}
 }
