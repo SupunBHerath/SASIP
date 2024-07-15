@@ -1,5 +1,3 @@
-// src/App.js
-
 import React from 'react';
 import AdminHome from './Pages/Admin/AdminHome';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -9,7 +7,8 @@ import TimeTablePage from './Pages/User/TimeTablePage';
 import { AuthProvider } from './Config/AuthContext';
 import PrivateRoute from './Config/PrivateRoute'; 
 import Home from './Comporant/Landing/home/Home';
-
+import ResetPassword from './Pages/Admin/ResetPassword';
+import Team from './Pages/team/Team';
 
 export default function App() {
   return (
@@ -21,10 +20,13 @@ export default function App() {
           <Route path='/timetable' element={<TimeTablePage />} />
 
 
-          
+          <Route path="/teachers" element={<Team />} />
+        
           {/* =====================Admin====================== */}
-          <Route path='/admin' element={<PrivateRoute element={<AdminHome />} />} />  {/* Use PrivateRoute for AdminHome */}
+          <Route path='/admin' element={<PrivateRoute element={<AdminHome />} />} /> 
           <Route path='/admin/login' element={<SignIn />} />
+          <Route path='/reset-password/:token' element={<ResetPassword />} />
+
         </Routes>
       </BrowserRouter>
     </AuthProvider>
@@ -32,3 +34,4 @@ export default function App() {
 
 }
 
+        
