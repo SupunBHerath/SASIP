@@ -12,6 +12,7 @@ import Home from "./Comporant/Landing/home/Home";
 import ResetPassword from "./Pages/Admin/ResetPassword";
 import Team from "./Pages/team/Team";
 import Profile from "./Pages/User/LecturerProfile";
+import ContactPage from "./Comporant/Landing/contactpage/contactpage";
 
 export default function App() {
   return (
@@ -22,16 +23,13 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/timetable" element={<TimeTablePage />} />
           <Route path="/teachers" element={<Team />} />
+          <Route path="/contact" element={<ContactPage/>} />
+          <Route path="/profile" element={<Profile />} />
+        
           {/* =====================Admin====================== */}
-          <Route
-            path="/admin"
-            element={<PrivateRoute element={<AdminHome />} />}
-          />{" "}
-          {/* Use PrivateRoute for AdminHome */}
+          <Route path="/admin" element={<PrivateRoute element={<AdminHome />} />} />
           <Route path="/admin/login" element={<SignIn />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

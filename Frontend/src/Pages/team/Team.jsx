@@ -60,8 +60,8 @@ const Team = () => {
   return (
     <>
       <Heading />
-     <div className="teacher">
-     <div className={`filters-container ${scrolling ? "hidden" : ""}`}>
+      <div className="teacher">
+      <div className={`filters-container ${scrolling ? "hidden" : ""}`}>
         <div className="filters">
           <div className="filter-input">
             <input
@@ -129,7 +129,7 @@ const Team = () => {
           ))}
         </div>
       </section>
-     </div>
+      </div>
     </>
   );
 };
