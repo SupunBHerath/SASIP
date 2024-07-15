@@ -9,6 +9,7 @@ import PrivateRoute from './Config/PrivateRoute';
 import Home from './Comporant/Landing/home/Home';
 import ResetPassword from './Pages/Admin/ResetPassword';
 import Team from './Pages/team/Team';
+import ContactPage from './Comporant/Landing/contactpage/contactpage';
 
 export default function App() {
   return (
@@ -21,6 +22,8 @@ export default function App() {
 
 
           <Route path="/teachers" element={<Team />} />
+          <Route path="/contact" element={<ContactPage/>} />
+
         
           {/* =====================Admin====================== */}
           <Route path='/admin' element={<PrivateRoute element={<AdminHome />} />} /> 
