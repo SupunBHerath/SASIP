@@ -1,3 +1,7 @@
+
+// import Testimonal from "./testimonal/Testimonal";
+import ImageGalleryContainer from "./ImageGalleryContainer";
+import Header from "../common/header/Headerl";
 import React from "react"
 import AboutCard from "../about/AboutCard"
 import Hblog from "./Hblog"
@@ -13,8 +17,9 @@ import TimeTableCard2 from "../../TimeTable/TimeTableCard2"
 const Home = () => {
   return (
     <>
+      <Header />
       <SocialMediaSidebar />
-      <Heading />
+      {/* <Heading /> */}
       <Hero />
       <AboutCard />
       <HAbout />
@@ -24,10 +29,12 @@ const Home = () => {
         <br /><br />
       </div>
       <TimeTableCard2 />
-      <Hblog />
+      <ImageGalleryContainer />
+
+      {/* <Hblog /> */}
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

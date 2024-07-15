@@ -1,6 +1,6 @@
-import './Card.css'
-
-import {Color} from '../../CSS/Css.jsx'
+import "./Card.css";
+import React from "react";
+import { Color } from "../../CSS/Css.jsx";
 const HeaderCard = (prop) => {
   const cardStyle = {
     display: 'flex',
@@ -17,7 +17,7 @@ const HeaderCard = (prop) => {
 
 
   };
-  
+
   return (
     <div  style={cardStyle}  >
       <div className='HeaderCard__left' style={{width:'auto' , height:'80px' }}>
@@ -28,7 +28,7 @@ const HeaderCard = (prop) => {
         <h3 style={{ color: Color.SecondaryColor }}>{prop.count}</h3>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HeaderCard
+export default HeaderCard;

@@ -61,18 +61,33 @@ const dummyAlbums = [
 
 const StyledCard = styled(Card)({
   maxWidth: 320,  // Slightly increased width
-  maxHeight: 320, // Slightly increased height
+  maxHeight: 350, // Slightly increased height
   margin: 'auto',
   boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',  // Enhanced shadow for more depth
-  borderRadius: '12px',  // Slightly larger radius for a more modern look
+  borderRadius: '40px',  // Slightly larger radius for a more modern look
   overflow: 'hidden',
   position: 'relative',  // To position the text overlay
-  transition: 'transform 0.3s ease, box-shadow 0.3s ease',  // Smooth transition for hover effects
+  backgroundColor: '#fff',  // Set a white background color for the card
+  border: '1px solid #ddd',  // Add a light border for a more defined box look
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',  // Smooth transition for hover effects
   '&:hover': {
     transform: 'scale(1.05)',  // Slightly enlarge the card on hover
     boxShadow: '0 12px 24px rgba(0, 0, 0, 0.4)',  // Darker shadow on hover
+    borderColor: '#bbb',  // Change border color on hover
+  },
+  // Optional: Add a border to the bottom for more emphasis
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '5px',
+    backgroundColor: '#FF8C00',  // Border color at the bottom
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',  // Light shadow at the bottom
   },
 });
+
 
 const AlbumCover = styled(CardMedia)({
   height: '100%',  // Full height to fit the card
@@ -89,7 +104,7 @@ const AlbumTitleOverlay = styled(Typography)({
   bottom: '0',
   left: '0',
   right: '0',
-  padding: '12px',
+  padding: '20px',
   background: 'rgba(0, 0, 0, 0.5)',  // Semi-transparent background for text visibility
   color: '#fff',
   textAlign: 'center',
@@ -259,13 +274,45 @@ const AddAlbumButtonWithAlbums = () => {
         />
       </ActionsContainer>
 
-      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-        <DialogTitle>Add New Album</DialogTitle>
+      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth sx={{
+          '& .MuiPaper-root': {
+            border: '3px solid #FF8C00', // Add border with dark yellow color
+            borderRadius: '8px', // Optional: Add border radius
+            position: 'relative', // To position the animated border
+            overflow: 'hidden', // Ensure content doesn’t overflow the border
+            transition: 'border-color 0.3s ease', // Smooth transition for border color
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              border: '3px solid #FF8C00', // Same border color as the dialog
+              borderRadius: 'inherit',
+              boxSizing: 'border-box',
+              zIndex: -1, // Ensure it’s behind the content
+              animation: 'pulse 2s infinite', // Add pulse animation
+            },
+          },
+        }}
+      >
+        <DialogTitle       sx={{
+        position: 'relative',
+        borderBottom: '2px solid blue', // Add border to the title
+        paddingBottom: '16px',
+        textAlign: 'center', // Center the title text
+        fontSize: '1.5rem', // Increase font size of the title
+        color: '#FF8C00'
+      }}
+    >Add New Album</DialogTitle>
         <DialogContent>
+        <br></br>
           <DialogContentText>
             Enter the album name and select images from your device gallery.
           </DialogContentText>
           <form onSubmit={handleFormSubmit}>
+            <br></br>
             <TextField
               autoFocus
               margin="dense"
@@ -328,7 +375,7 @@ const AddAlbumButtonWithAlbums = () => {
                 display: 'flex',
                 justifyContent: 'end',
                 '& .MuiPaginationItem-root': {
-                backgroundColor: '#f5f5f5',  // Background color of pagination items
+                backgroundColor: '#FF8C00',  // Background color of pagination items
                 borderRadius: '50%',  // Circular pagination items
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',  // Subtle shadow for depth
                 '&:hover': {

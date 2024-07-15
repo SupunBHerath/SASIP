@@ -1,5 +1,5 @@
 .hero {
-  background-image: url("../../../../public/image/backg.jpg");
+  background-image: url("../../../../public/image/mbg.jpg");
   background-size: cover;
   background-attachment: fixed;
   position: absolute;
@@ -21,6 +21,25 @@
   text-align: left;
   margin: 0;
   padding: 0;
+}
+.button1 {
+  padding: 17px 30px;
+  background-color: #fff;
+  color: #004aad;
+  font-weight: 600;
+  border: none;
+  margin: 30px 10px 0 0;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 24px 36px -11px rgb(0 0 0 / 9%);
+  transition: 0.5s;
+}
+.button1 i {
+  margin-left: 20px;
+}
+.button1:hover {
+  box-shadow: none;
+  cursor: pointer;
 }
 @media screen and (max-width: 768px) {
   .margin {

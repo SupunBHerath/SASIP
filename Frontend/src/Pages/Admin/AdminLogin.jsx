@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,6 +18,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Config/AuthContext';
 import axios from 'axios';
+import ForgotPasswordDialog from './ForgetPassword';
 
 function Copyright(props) {
   return (
@@ -35,11 +36,21 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function AdminLogin() {
-  const [errorMessage, setErrorMessage] = React.useState('');
-  const [successMessage, setSuccessMessage] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const { login } = React.useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
+
+  const handleForgotPasswordClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -83,7 +94,7 @@ export default function AdminLogin() {
       const timer = setTimeout(() => {
         setSuccessMessage('');
         setErrorMessage('');
-      }, 3000);  // Hide messages after 3 seconds
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
@@ -153,21 +164,18 @@ export default function AdminLogin() {
                 {errorMessage}
               </Alert>
             )}
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
+            <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="#" variant="body2" onClick={handleForgotPasswordClick}>
+                  Forgot password?
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
+        
+        <ForgotPasswordDialog open={open} handleClose={handleClose} />
       </Container>
     </ThemeProvider>
   );
