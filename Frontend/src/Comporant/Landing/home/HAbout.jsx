@@ -12,7 +12,7 @@ const HAbout = () => {
     <>
       <section className='homeAbout'>
         <div className='container'>
-          <Heading subtitle='our Classes' title='explore our popular Classes' />
+          <Heading className="titlem" subtitle='our Classes' title='explore our popular Classes' />
 
           <div className='coursesCard'>
             <div className='scroll-container'>

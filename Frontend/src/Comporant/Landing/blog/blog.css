@@ -16,14 +16,14 @@
 }
 
 .blog h1:hover {
-  color: #1eb2a6;
+  color: #004aad;
   cursor: pointer;
 }
 
 .blog span {
   text-transform: uppercase;
   font-weight: 500;
-  color: #1eb2a6;
+  color: #004aad;
 }
 
 .blog span label {
@@ -33,7 +33,7 @@
 }
 
 .blog span:nth-last-child(1) label {
-  color: #1eb2a6;
+  color: #004aad;
 }
 
 .blog p {
