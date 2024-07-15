@@ -2,7 +2,8 @@ import React from "react";
 
 const TeamCard = ({member}) => {
   return (
-    <div className="rounded-4 items shadow">
+   <div className="teacher">
+     <div className="rounded-4 items shadow">
       <div className="img ">
         <img
           src={member.cover}
@@ -22,6 +23,7 @@ const TeamCard = ({member}) => {
         <p>{member.work}</p>
       </div>
     </div>
+   </div>
   );
 };
 
