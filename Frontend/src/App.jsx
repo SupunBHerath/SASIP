@@ -11,6 +11,7 @@ import PrivateRoute from "./Config/PrivateRoute";
 import Home from "./Comporant/Landing/home/Home";
 import ResetPassword from "./Pages/Admin/ResetPassword";
 import Team from "./Pages/team/Team";
+import Profile from "./Pages/User/LecturerProfile";
 
 export default function App() {
   return (
