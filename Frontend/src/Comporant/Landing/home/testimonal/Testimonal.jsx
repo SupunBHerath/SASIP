@@ -1,14 +1,15 @@
 import React from "react"
 import { testimonal } from "../../dummydata"
-import Heading from "../../common/heading/Heading"
 import "./style.css"
+import Heading from "../../common/heading/Heading"
 
 const Testimonal = () => {
   return (
     <>
       <section className='testimonal padding'>
         <div className='container'>
-          <Heading subtitle='Profesional Teachers' title='Our Sasip Teachers' />
+        <Heading title="[ Lecturer's comments ]" />
+      
 
           <div className='content grid2'>
             {testimonal.map((val, index) => (

@@ -154,8 +154,8 @@ export default function TimeTable() {
         <div style={rootStyle}>
             <br />
             <Grid container spacing={2}>
-                <Grid container spacing={2} alignItems="center" className='justify-content-center' style={{backgroundColor:Color.PrimaryColor}} >
-                    <Grid item xs={12} sm={6} md={4}>
+                <Grid container spacing={2} alignItems="center" className='justify-content-center m-0 py-0  pb-3' style={{backgroundColor:Color.PrimaryColor}} >
+                    <Grid item xs={12} sm={6} md={4} >
                         <Autocomplete
                             fullWidth
                             options={sampleTimeTables}
@@ -168,7 +168,7 @@ export default function TimeTable() {
                                     label="Filter"
                                     variant="outlined"
                                     size="medium"
-                                    style={{ backgroundColor: isFilterActive ? '#f0f0f0' : 'transparent', float: 'right' }}
+                                    style={{ backgroundColor: isFilterActive ? 'transparent' : 'transparent', float: 'right',border: '2px solid #c0c0c0',color:'white' }}
                                 />
                             )}
                         />
@@ -185,7 +185,7 @@ export default function TimeTable() {
                                     filterTimeTables(filter, tabValue, e.target.value);
                                 }}
                                 label="Year"
-                                style={{ maxWidth: '400px' }}
+                                style={{ maxWidth: '400px',border: '2px solid #c0c0c0',color:'white' }}
                             >
                                 <MenuItem value="">All</MenuItem>
                                 {last3Years.map((yr) => (

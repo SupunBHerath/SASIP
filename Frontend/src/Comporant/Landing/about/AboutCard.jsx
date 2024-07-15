@@ -25,10 +25,13 @@ const AboutCard = () => {
                 )
               })}
             </div>
+            <button className="btn outline p-1">Read More</button>
+
           </div>
         </div>
       </section>
       <Awrapper />
+      
     </>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaCalendarAlt, FaArrowRight } from 'react-icons/fa';
-
+import '../../../public/Image/logoonenew.png'
+import { useNavigate } from 'react-router-dom';
 const cardStyle = {
     border: '1px solid #ddd',
     borderRadius: '12px',
@@ -33,7 +34,11 @@ const containerStyle = {
 const allStyle = {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     padding: '20px',
-    borderRadius: '12px',
+    backgroundImage: 'url("../../../public/Image/mbg.jpg")',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+
+    
 };
 
 const iconStyle = {
@@ -75,6 +80,7 @@ const buttonHoverStyle = {
 
 const Card = ({ title, year }) => {
     const [isHovered, setIsHovered] = React.useState(false);
+   
 
     return (
         <div
@@ -82,7 +88,7 @@ const Card = ({ title, year }) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <FaCalendarAlt style={iconStyle} />
+            {/* <FaCalendarAlt style={iconStyle} /> */}
             <div>
                 <h2 style={titleStyle}>{title}</h2>
                 <p style={yearStyle}>{year}</p>
@@ -93,7 +99,11 @@ const Card = ({ title, year }) => {
 
 const TimeTableCard2 = () => {
     const [isButtonHovered, setIsButtonHovered] = React.useState(false);
+    const navi = useNavigate();
 
+    const handleClick = () => {
+        navi('/timetable');
+    };
     return (
         <div style={allStyle}>
             <div style={containerStyle}>
@@ -111,6 +121,7 @@ const TimeTableCard2 = () => {
                     style={isButtonHovered ? buttonHoverStyle : buttonStyle}
                     onMouseEnter={() => setIsButtonHovered(true)}
                     onMouseLeave={() => setIsButtonHovered(false)}
+                    onClick={handleClick}
                 >
                     <FaArrowRight style={{ marginRight: '8px' }} />
                     View All Time Tables
