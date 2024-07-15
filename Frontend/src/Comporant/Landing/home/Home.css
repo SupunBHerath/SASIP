@@ -31,7 +31,7 @@ li {
 .row {
   width: 50%;
 }
-button {
+.button1 {
   padding: 17px 30px;
   background-color: #fff;
   color: #004aad;
@@ -43,11 +43,12 @@ button {
   box-shadow: 0 24px 36px -11px rgb(0 0 0 / 9%);
   transition: 0.5s;
 }
-button i {
+.button1 i {
   margin-left: 20px;
 }
-button:hover {
+.button1:hover {
   box-shadow: none;
+  cursor: pointer;
 }
 .primary-btn {
   background-color: #004aad;
@@ -137,6 +138,18 @@ p {
 .shadow {
   box-shadow: 0 5px 25px -2px rgb(0 0 0 / 6%);
   background-color: #fff;
+}
+.testimonal h1:hover {
+  color: #004aad;
+  cursor: pointer;
+}
+.homeAbout h1:hover {
+  color: #004aad;
+  cursor: pointer;
+}
+.titlem:hover {
+  color: #004aad;
+  cursor: pointer;
 }
 @media screen and (max-width: 768px) {
   .grid2,

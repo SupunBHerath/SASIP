@@ -10,10 +10,10 @@ const AboutCard = () => {
       <section className='aboutHome'>
         <div className='container flexSB'>
           <div className='left row'>
-            <img src='../public/image/logoe4.png' alt='Logo'/>
+            <img src='../public/image/logoe1.png' alt='Logo'/>
           </div>
           <div className='right row'>
-            <center><h1>WHO WE ARE</h1></center>
+            <center><h1 className="titlem">WHO WE ARE</h1></center>
             <div className='items'>
               {homeAbout.map((val, index) => {
                 return (
