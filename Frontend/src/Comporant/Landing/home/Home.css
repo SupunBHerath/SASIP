@@ -13,7 +13,7 @@
   line-height: 40px;
   border-radius: 50%;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgb(255, 255, 255);
   color: #004aad;
   transition: 0.5s;
 }
@@ -118,7 +118,7 @@ p {
 .outline-btn {
   margin: 0;
   box-shadow: none;
-  border: 2px solid #1eb2a6;
+  border: 2px solid #004aad;
   width: 100%;
   transition: 0.5s;
 }
