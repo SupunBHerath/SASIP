@@ -12,13 +12,14 @@ const HAbout = () => {
     <>
       <section className='homeAbout'>
         <div className='container'>
-          <Heading subtitle='our Classes' title='explore our popular Classes' />
+          <Heading className="titlem" subtitle='our Classes' title='explore our popular Classes' />
 
           <div className='coursesCard'>
             <div className='scroll-container'>
               {duplicatedCourses.slice(0, 6).map((val, index) => (
                 <div className='items' key={index}>
-                  <div className='content flex'>
+                  <div className="seccard">
+                  <div className='content flex '>
                     <div className='left'>
                       <div style={{marginLeft:'30%'}} className='img'>
                         <img src={val.cover} alt={val.coursesName} />
@@ -36,13 +37,14 @@ const HAbout = () => {
                       </div>
                     </div>
                   </div>
-                  <div className='price'>
+                  <div className='price1'>
                     <h5> Institute of Universal Higher Studies<br></br>
                          Institute of Universal Higher Studies (Pvt) Ltd (IUHS Campus) is <br></br>
                           the sister company of “SASIP”, a well renowned and leading <br></br>
                           Advanced Level (A’level) private education institute that has <br></br>
                           been in operation for the past 9 years, 
                     </h5>
+                  </div>
                   </div>
                 
                 </div>
