@@ -24,6 +24,10 @@
   margin-left: 15px;
   text-align: left;
 }
+.seccard{
+  background-color: rgba(153, 153, 153, 0.642);
+}
+
 .coursesCard .text h1 {
   font-size: 30px;
   font-weight: 500;
