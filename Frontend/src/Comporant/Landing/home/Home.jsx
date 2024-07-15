@@ -8,11 +8,12 @@ import Footer from "../common/footer/Footer";
 import "./Home.css";
 import Testimonal from "./testimonal/Testimonal";
 import ImageGalleryContainer from "./ImageGalleryContainer";
+import Header from "../common/header/Headerl";
 
 const Home = () => {
   return (
     <>
-      <Heading />
+      <Header />
       <Hero />
       <AboutCard />
       <HAbout />
