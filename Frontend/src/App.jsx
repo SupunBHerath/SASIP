@@ -12,6 +12,10 @@ import Home from "./Comporant/Landing/home/Home";
 import ResetPassword from "./Pages/Admin/ResetPassword";
 import Team from "./Pages/team/Team";
 import Profile from "./Pages/User/LecturerProfile";
+import ContactPage from "./Comporant/Landing/contactpage/contactpage";
+// index.js or App.js (or equivalent)
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function App() {
   return (
@@ -22,10 +26,14 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/timetable" element={<TimeTablePage />} />
           <Route path="/teachers" element={<Team />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/profile" element={<Profile />} />
+
           {/* =====================Admin====================== */}
           {/* <Route
             path="/admin"
             element={<PrivateRoute element={<AdminHome />} />}
+          />
           />{" "} */}
           {/* Use PrivateRoute for AdminHome */}
           <Route path="/admin" element={<AdminHome />} />
