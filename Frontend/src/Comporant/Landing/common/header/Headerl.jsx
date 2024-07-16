@@ -17,26 +17,21 @@ const Header = () => {
               <Link to='/'>Home</Link>
             </li>
             <li>
-              <Link to='/'>All Courses</Link>
-            </li>
-            <li>
               <Link to='/'>About</Link>
             </li>
             <li>
-              <Link to='/'>Team</Link>
+              <Link to='/teachers'>Lecturers</Link>
             </li>
             <li>
-              <Link to='/'>Pricing</Link>
+              <Link to='/timetable'>Time Table</Link>
             </li>
             <li>
-              <Link to='/'>Journal</Link>
-            </li>
-            <li>
-              <Link to='/'>Contact</Link>
+              <Link to='/contact'>Contact Us</Link>
             </li>
           </ul>
           <div className='start'>
-            <div className='button'>SASIP INSTITUTE</div>
+          <div className='button ' style={{cursor:'pointer'}}>SASIP INSTITUTE</div>
+
           </div>
           <button className='toggle' onClick={() => setClick(!click)}>
             {click ? <i className='fa fa-times'> </i> : <i className='fa fa-bars'></i>}

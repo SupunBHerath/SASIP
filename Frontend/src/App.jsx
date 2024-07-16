@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./Pages/Admin/AdminLogin";
 import TimeTablePage from "./Pages/User/TimeTablePage";
 import { AuthProvider } from "./Config/AuthContext";
-import PrivateRoute from "./Config/PrivateRoute";
+// import PrivateRoute from "./Config/PrivateRoute";
 import Home from "./Comporant/Landing/home/Home";
 import ResetPassword from "./Pages/Admin/ResetPassword";
 import Team from "./Pages/team/Team";
@@ -30,12 +30,17 @@ export default function App() {
           <Route path="/profile" element={<Profile />} />
 
           {/* =====================Admin====================== */}
-          <Route
+          {/* <Route
             path="/admin"
             element={<PrivateRoute element={<AdminHome />} />}
           />
+          />{" "} */}
+          {/* Use PrivateRoute for AdminHome */}
+          <Route path="/admin" element={<AdminHome />} />
           <Route path="/admin/login" element={<SignIn />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/profile" element={<Profile />} />
+          {/* <Route path="/" element={<Profile />} /> */}
         </Routes>
       </BrowserRouter>
     </AuthProvider>

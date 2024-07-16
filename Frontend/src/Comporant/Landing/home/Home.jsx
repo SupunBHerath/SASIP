@@ -13,6 +13,7 @@ import Testimonal from "./testimonal/Testimonal";
 import SocialMediaSidebar from "../../Social/SocialMediaSidebar";
 import TimeTableCard2 from "../../TimeTable/TimeTableCard2";
 import Card from "./Card";
+import BasicSpeedDial from "../../ChatBot/SpeedDial";
 
 const Home = () => {
   return (
@@ -20,9 +21,11 @@ const Home = () => {
       <Header />
       <SocialMediaSidebar />
       {/* <Heading /> */}
+      <BasicSpeedDial/>
       <Hero />
       <AboutCard />
       <HAbout />
+      {/* <Lectures/> */}
       <Testimonal />
       <div className="text-center">
         <h1 style={{ color: "#00796b" }}>[ Time Table ]</h1>
@@ -31,7 +34,7 @@ const Home = () => {
       </div>
       <TimeTableCard2 />
       <ImageGalleryContainer />
-      <Card abc="fgfd" />
+      {/* <Card abc="fgfd" /> */}
       {/* <Hblog /> */}
       <Footer />
     </>
