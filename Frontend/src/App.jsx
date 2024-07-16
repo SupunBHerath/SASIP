@@ -25,6 +25,8 @@ export default function App() {
           <Route path="/teachers" element={<Team />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/about" element={<About />} />
+
         
           {/* =====================Admin====================== */}
           <Route path="/admin" element={<PrivateRoute element={<AdminHome />} />} />
