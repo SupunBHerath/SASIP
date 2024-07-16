@@ -28,6 +28,7 @@ export default function App() {
           <Route path="/profile" element={<Profile />} />
 
           {/* <Route path="/about" element={<About />} /> */}
+          {/* <Route path="/about" element={<About />} /> */}
 
         
           {/* =====================Admin====================== */}
