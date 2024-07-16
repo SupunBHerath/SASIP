@@ -151,7 +151,10 @@ const TimeTableT = () => {
     return (
         <div>
             {/* Add New Time Table Button */}
-            <Button
+           <br />
+            <TableContainer component={Paper} className='shadow-sm border border-danger-subtle' >
+                <div className="p-2">
+                <Button
                 variant="contained"
                 color="primary"
                 style={{ marginTop: 20 }}
@@ -159,8 +162,7 @@ const TimeTableT = () => {
             >
                 Add New Time Table
             </Button>
-            <br /><br />
-            <TableContainer component={Paper} className='shadow-sm border border-danger-subtle'>
+                </div>
                 <Table>
                     <TableHead>
                         <TableRow>

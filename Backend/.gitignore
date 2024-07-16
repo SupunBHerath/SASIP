@@ -1,0 +1,6 @@
+/node_modules
+/FirebaseConfig
+
+
+# Environment Variables
+.env

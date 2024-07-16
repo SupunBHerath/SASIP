@@ -21,8 +21,8 @@ const TimeTableCard = ({ image, title, onClick }) => {
       style={{ 
         position: 'relative',
         cursor: 'pointer', 
-        width: 345, 
-        height: 400,
+        width: 315, 
+        height: 350,
         transition: 'transform 0.2s ease-in-out',
         transform: isHovered ? 'scale(1.05)' : 'scale(1)',
         boxShadow: isHovered ? '0px 8px 16px rgba(0, 0, 0, 0.2)' : 'none',
@@ -46,7 +46,7 @@ const TimeTableCard = ({ image, title, onClick }) => {
         alt={title}
         style={{ 
           objectFit: 'cover',
-          transition: 'transform 0.2s ease-in-out',
+          transition: 'transform 0.8s ease-in-out',
           transform: isHovered ? 'scale(1.2)' : 'scale(1)',
           borderRadius: isHovered ? '8px' : '0'
         }}
@@ -61,7 +61,7 @@ const TimeTableCard = ({ image, title, onClick }) => {
             transform: 'translate(-50%, -50%)',
             textAlign: 'center',
             zIndex: 100,
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
             padding: '10px',
             borderRadius: '8px',
             color: '#fff',
