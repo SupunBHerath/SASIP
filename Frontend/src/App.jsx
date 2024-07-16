@@ -12,7 +12,7 @@ import Profile from './Pages/User/LecturerProfile';
 import ResetPassword from "./Pages/Admin/ResetPassword";
 
 import {AuthProvider} from './Config/AuthContext';
-import About from './Comporant/About/AboutUs';
+// import About from './Comporant/About/AboutUs';
 
 
 export default function App() {
