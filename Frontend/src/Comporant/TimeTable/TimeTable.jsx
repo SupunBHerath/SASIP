@@ -1,78 +1,80 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, TextField, Button, Pagination, Autocomplete, Tabs, Tab, Dialog, DialogTitle, DialogContent, DialogActions, Select, MenuItem, FormControl, InputLabel, Snackbar, Alert } from '@mui/material';
-import timeS from '../../../public/Image/smTime.jpg';
-import { Color, Font } from '../CSS/Css';
+import React, { useState } from 'react';
+import { Grid, TextField, Pagination, Autocomplete, Tabs, Tab, FormControl, InputLabel, Select, MenuItem, useMediaQuery, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import TimeTableCard from './TimeTableCard';
+import { Color } from '../CSS/Css';
 
-const ITEMS_PER_PAGE = 4;
+// const ITEMS_PER_PAGE = 8;
 
-let sampleTimeTables = [
-    { title: 'Mathematics Time Table 2024', image: timeS, classType: 'teary' },
-    { title: 'Science Time Table 2023', image: timeS, classType: 'revision' },
-    { title: 'History Time Table 2025', image: timeS, classType: 'paper' },
-    { title: 'Geography Time Table 2024', image: timeS, classType: 'teary' },
-    { title: 'English Time Table 2026', image: timeS, classType: 'revision' },
-    { title: 'Physics Time Table 2024', image: timeS, classType: 'paper' },
-    { title: 'Chemistry Time Table 2023', image: timeS, classType: 'teary' },
-    { title: 'Chemistry Time Table 2023', image: timeS, classType: 'teary' },
-    { title: 'Chemistry Time Table 2023', image: timeS, classType: 'teary' },
-    { title: 'Chemistry Time Table 2023', image: timeS, classType: 'teary' },
-    { title: 'Biology Time Table 2025', image: timeS, classType: 'revision' },
+const sampleTimeTables = [
+    { Class: 'Physical', medium: 'online', subjectName: 'Mathematics', year: '2025', lecture: 'John Doe', day: 'Monday', time: '10:00 AM - 12:00 PM', classType: 'yeary' },
+    { Class: 'Physical', medium: 'online', subjectName: 'Biology', year: '2024', lecture: 'Jane Smith', day: 'Tuesday', time: '1:00 PM - 3:00 PM', classType: 'revision' },
+    { Class: 'Physical', medium: 'online', subjectName: 'Chemistry', year: '2023', lecture: 'Alice Johnson', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'paper' },
+    { Class: 'Physical', medium: 'online', subjectName: 'Physics', year: '2025', lecture: 'Bob Brown', day: 'Thursday', time: '2:00 PM - 4:00 PM', classType: 'abc' },
+    { Class: 'Physical', medium: 'online', subjectName: 'History', year: '2026', lecture: 'Mary White', day: 'Friday', time: '11:00 AM - 1:00 PM', classType: 'revision' },
+    { Class: 'Physical', medium: 'online', subjectName: 'Geography', year: '2024', lecture: 'Peter Green', day: 'Monday', time: '10:00 AM - 12:00 PM', classType: 'paper' },
+    { Class: 'Physical', medium: 'online', subjectName: 'English', year: '2023', lecture: 'Linda Black', day: 'Tuesday', time: '1:00 PM - 3:00 PM', classType: 'teary' },
+    { Class: 'Physical', medium: 'online', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
+    { Class: 'Physical', medium: 'online', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
+    { Class: 'Physical', medium: 'online', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
+    { Class: 'Physical', medium: 'online', subjectName: 'Psychology', year: '2024', lecture: 'Patricia Red', day: 'Thursday', time: '2:00 PM - 4:00 PM', classType: 'teary' }
 ];
-
-export default function TimeTable() {
+const TimeTable = () => {
     const [filter, setFilter] = useState('');
-    const [filteredTimeTables, setFilteredTimeTables] = useState(
-        sampleTimeTables.filter(table => table.classType === 'teary')
-    );
+    const [filteredTimeTables, setFilteredTimeTables] = useState(sampleTimeTables);
     const [currentPage, setCurrentPage] = useState(1);
-    const [isFilterActive, setIsFilterActive] = useState(false);
     const [tabValue, setTabValue] = useState(0);
-    const [openForm, setOpenForm] = useState(false);
-    const [title, setTitle] = useState('');
-    const [imageFile, setImageFile] = useState(null);
-    const [classType, setClassType] = useState('');
-    const [year, setYear] = useState('');
     const [selectedYearFilter, setSelectedYearFilter] = useState('');
-    const [openDialog, setOpenDialog] = useState(false);
-    const [selectedImage, setSelectedImage] = useState('');
-    const [selectedImageTitle, setSelectedImageTitle] = useState('');
-    const [isAdmin, setIsAdmin] = useState(true); // Default to false for non-admin users
-    const [openAlert, setOpenAlert] = useState(false); // State for controlling alert visibility
+    const [selectedClassFilter, setSelectedClassFilter] = useState('');
+    const [openFilterDialog, setOpenFilterDialog] = useState(false);
 
     const currentYear = new Date().getFullYear();
     const last3Years = [currentYear - 1, currentYear, currentYear + 1];
+    const isSmallScreen = useMediaQuery('(max-width:800px)'); // Check for small screens
 
-    useEffect(() => {
-        // Simulating admin role here, you would integrate this with your authentication logic
-        setIsAdmin(true); // Set to true for admin role, false for regular users
-    }, []); // Ensure this runs only once on component mount
-
-    const rootStyle = {
-        flexGrow: 1,
-        padding: '10px',
-    };
+    // Number of items per page based on screen size
+    const ITEMS_PER_PAGE = isSmallScreen ? 4 : 10;
 
     const handleFilterChange = (e) => {
         const value = e.target.value;
         setFilter(value);
-        filterTimeTables(value, tabValue, selectedYearFilter);
+        filterTimeTables(value, tabValue, selectedYearFilter, selectedClassFilter);
     };
 
-    const filterTimeTables = (value, selectedTab, selectedYear) => {
+    // Filter time tables based on current filters
+    const filterTimeTables = (value, selectedTab, selectedYear, selectedClass) => {
         const filtered = sampleTimeTables.filter((table) => {
-            const includesFilter = table.title.toLowerCase().includes(value.toLowerCase());
-            const year = parseInt(table.title.split(" ")[table.title.split(" ").length - 1]);
-            return includesFilter &&
-                (selectedTab === 0 ? table.classType === 'teary' :
-                    selectedTab === 1 ? table.classType === 'revision' :
-                        selectedTab === 2 ? table.classType === 'paper' : true) &&
-                (selectedYear ? year.toString() === selectedYear.toString() : true);
+            const includesFilter = table.subjectName.toLowerCase().includes(value.toLowerCase());
+            const yearMatch = selectedYear ? table.year.toString() === selectedYear.toString() : true;
+            const classMatch = selectedClass ? table.Class.toLowerCase() === selectedClass.toLowerCase() : true;
+            const tabType = getTabType(selectedTab).toLowerCase();
+
+            // Check if table matches the selected tab type
+            const typeMatch = selectedTab === 0 || tabType === '' || table.classType.toLowerCase() === tabType;
+
+            return includesFilter && typeMatch && yearMatch && classMatch;
         });
 
         setFilteredTimeTables(filtered);
         setCurrentPage(1);
-        setIsFilterActive(!!value || !!selectedYear);
+    };
+
+    // Function to get tab type based on index
+    const getTabType = (tabIndex) => {
+        switch (tabIndex) {
+            case 0:
+                return ''; // All
+            case 1:
+                return 'teary'; // Theory
+            case 2:
+                return 'revision'; // Revision
+            case 3:
+                return 'paper'; // Paper Class
+            case 4:
+                return 'other'; // Other
+            default:
+                return '';
+        }
     };
 
     const handlePageChange = (event, value) => {
@@ -84,149 +86,211 @@ export default function TimeTable() {
 
     const handleAutocompleteChange = (event, value) => {
         if (value) {
-            setFilter(value.title);
-            filterTimeTables(value.title, tabValue, selectedYearFilter);
+            setFilter(value.subjectName);
+            filterTimeTables(value.subjectName, tabValue, selectedYearFilter, selectedClassFilter);
         } else {
             setFilter('');
             setFilteredTimeTables(sampleTimeTables);
-            setIsFilterActive(!!selectedYearFilter);
         }
     };
 
-    const handleOpenForm = () => {
-        setOpenForm(true);
+    const handleDialogOpen = () => {
+        setOpenFilterDialog(true);
     };
 
-    const handleCloseForm = () => {
-        setOpenForm(false);
-        setTitle('');
-        setImageFile(null);
-        setClassType('');
-        setYear('');
-    };
-
-    const handleAddTimeTable = () => {
-        const newTimeTable = {
-            title: title.trim() !== '' ? title : `New Time Table ${sampleTimeTables.length + 1}`,
-            image: imageFile ? URL.createObjectURL(imageFile) : timeS,
-            classType: classType || 'teary',
-            year: year || '',
-        };
-        sampleTimeTables = [...sampleTimeTables, newTimeTable];
-        filterTimeTables(filter, tabValue, selectedYearFilter);
-        setOpenForm(false);
-        setTitle('');
-        setImageFile(null);
-        setClassType('');
-        setYear('');
-    };
-
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setImageFile(file);
-        }
-    };
-
-    const handleCardClick = (image, title) => {
-        setSelectedImage(image);
-        setSelectedImageTitle(title);
-        setOpenDialog(true);
-    };
-
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
-        setSelectedImage('');
-        setSelectedImageTitle('');
-    };
-
-    const handleEdit = () => {
-        // Implement edit functionality
-        setOpenAlert(true); // Show alert after edit
-    };
-
-    const handleDelete = () => {
-        // Implement delete functionality
-        setOpenAlert(true); // Show alert after delete
+    const handleDialogClose = () => {
+        setOpenFilterDialog(false);
     };
 
     return (
-        <div style={rootStyle}>
+        <div >
             <br />
-            <Grid container spacing={2}>
-                <Grid container spacing={2} alignItems="center" className='justify-content-center m-0 py-0  pb-3' style={{backgroundColor:Color.PrimaryColor}} >
-                    <Grid item xs={12} sm={6} md={4} >
-                        <Autocomplete
-                            fullWidth
-                            options={sampleTimeTables}
-                            getOptionLabel={(option) => option.title}
-                            value={sampleTimeTables.find((option) => option.title === filter) || null}
-                            onChange={handleAutocompleteChange}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Filter"
-                                    variant="outlined"
-                                    size="medium"
-                                    style={{ backgroundColor: isFilterActive ? 'transparent' : 'transparent', float: 'right',border: '2px solid #c0c0c0',color:'white' }}
-                                />
-                            )}
-                        />
+            <Grid container spacing={2} justify="center" className=''>
+                <div className=" w-100 p-2 position-relative" style={{ backgroundColor: Color.PrimaryColor }} >
+
+                    <Grid container spacing={2} alignItems="center" style={{}} className='d-flex justify-content-center' >
+                        <Grid item xs={10} sm={4} md={3}>
+                            <Autocomplete
+                                fullWidth
+                                options={sampleTimeTables}
+                                getOptionLabel={(option) => option.subjectName}
+                                value={sampleTimeTables.find((option) => option.subjectName === filter) || null}
+                                onChange={handleAutocompleteChange}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Filter by Subject"
+                                        variant="outlined"
+                                        size="medium"
+                                        InputLabelProps={{
+                                            style: { color: '#ffffff' }, // label color
+                                        }}
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            style: { color: '#ffffff', borderColor: '#ffffff' }, // input text color
+                                        }}
+                                        sx={{
+                                            '& .MuiOutlinedInput-root': {
+                                                '& fieldset': {
+                                                    borderColor: '#ffffff',
+                                                },
+                                                '&:hover fieldset': {
+                                                    borderColor: '#ffffff',
+                                                },
+                                                '&.Mui-focused fieldset': {
+                                                    borderColor: '#ffffff',
+                                                },
+                                            },
+                                            '& .MuiInputLabel-root': {
+                                                color: '#ffffff',
+                                            },
+                                            '& .MuiInputBase-root': {
+                                                color: '#ffffff',
+                                            },
+                                        }}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        {!isSmallScreen && (
+                            <>
+
+                                <Grid item xs={10} sm={5} md={3}>
+                                    <FormControl fullWidth variant="outlined" size="medium"
+                                        sx={{
+                                            '& .MuiInputLabel-root': {
+                                                color: '#ffffff',
+                                            },
+                                            '& .MuiOutlinedInput-root': {
+                                                '& fieldset': {
+                                                    borderColor: '#ffffff',
+                                                },
+                                                '&:hover fieldset': {
+                                                    borderColor: '#ffffff',
+                                                },
+                                                '&.Mui-focused fieldset': {
+                                                    borderColor: '#ffffff',
+                                                },
+                                            },
+                                            '& .MuiSelect-icon': {
+                                                color: '#ffffff',
+                                            },
+                                            '& .MuiOutlinedInput-input': {
+                                                color: '#ffffff',
+                                            },
+                                            '& .MuiMenuItem-root': {
+                                                color: '#ffffff',
+                                            },
+                                        }}>
+                                        <InputLabel id="year-filter-label">Filter by Year</InputLabel>
+                                        <Select
+                                            labelId="year-filter-label"
+                                            id="year-filter"
+                                            value={selectedYearFilter}
+                                            style={{ color: '#000' }}
+                                            onChange={(e) => {
+                                                setSelectedYearFilter(e.target.value);
+                                                filterTimeTables(filter, tabValue, e.target.value, selectedClassFilter);
+                                            }}
+                                            label="Filter by Year"
+                                        >
+                                            <MenuItem value="" sx={{ color: 'black' }}>All</MenuItem>
+                                            {last3Years.map((yr) => (
+                                                <MenuItem key={yr} value={yr} sx={{ color: 'black' }}>
+                                                    {yr}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} sm={4} md={3}>
+                                    <FormControl fullWidth variant="outlined" size="medium"
+                                        sx={{
+                                            '& .MuiInputLabel-root': {
+                                                color: '#ffffff',
+                                            },
+                                            '& .MuiOutlinedInput-root': {
+                                                '& fieldset': {
+                                                    borderColor: '#ffffff',
+                                                },
+                                                '&:hover fieldset': {
+                                                    borderColor: '#ffffff',
+                                                },
+                                                '&.Mui-focused fieldset': {
+                                                    borderColor: '#ffffff',
+                                                },
+                                            },
+                                            '& .MuiSelect-icon': {
+                                                color: '#ffffff',
+                                            },
+                                            '& .MuiOutlinedInput-input': {
+                                                color: '#ffffff',
+                                            },
+                                            '& .MuiMenuItem-root': {
+                                                color: '#ffffff',
+                                            },
+                                        }}
+                                    >
+
+                                        <InputLabel id="class-filter-label">Filter by Class</InputLabel>
+                                        <Select
+                                            labelId="class-filter-label"
+                                            id="class-filter"
+                                            value={selectedClassFilter}
+                                            onChange={(e) => {
+                                                setSelectedClassFilter(e.target.value);
+                                                filterTimeTables(filter, tabValue, selectedYearFilter, e.target.value);
+                                            }}
+                                            label="Filter by Class"
+                                        >
+                                            <MenuItem value="">All</MenuItem>
+                                            <MenuItem value="Physical">Physical</MenuItem>
+                                            <MenuItem value="Online">Online</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                            </>)}
+                        {isSmallScreen && (
+                            <Grid item xs={1} sm={4} md={3}>
+                                <IconButton onClick={handleDialogOpen} style={{ color: '#ffffff' }}>
+                                    <FilterListIcon />
+                                </IconButton>
+                            </Grid>
+                        )}
                     </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
-                        <FormControl fullWidth>
-                            <InputLabel id="year-filter-label">Year</InputLabel>
-                            <Select
-                                labelId="year-filter-label"
-                                id="year-filter"
-                                value={selectedYearFilter}
-                                onChange={(e) => {
-                                    setSelectedYearFilter(e.target.value);
-                                    filterTimeTables(filter, tabValue, e.target.value);
-                                }}
-                                label="Year"
-                                style={{ maxWidth: '400px',border: '2px solid #c0c0c0',color:'white' }}
-                            >
-                                <MenuItem value="">All</MenuItem>
-                                {last3Years.map((yr) => (
-                                    <MenuItem key={yr} value={yr}>
-                                        {yr}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    {/* <br /> */}
-                </Grid>
+                </div>
+
                 <Grid item xs={12}>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center mb-3">
                         <Tabs
                             value={tabValue}
                             onChange={(event, newValue) => {
                                 setTabValue(newValue);
-                                filterTimeTables(filter, newValue, selectedYearFilter);
+                                filterTimeTables(filter, newValue, selectedYearFilter, selectedClassFilter);
                             }}
                             indicatorColor="primary"
                             textColor="primary"
                             variant="scrollable"
                             scrollButtons="auto"
                         >
-                            <Tab label="Teary" />
+                            <Tab label="All" />
+                            <Tab label="Theory" />
                             <Tab label="Revision" />
                             <Tab label="Paper Class" />
                         </Tabs>
                     </div>
-
-                    <br />
-
-                    <br />
                     <Grid container spacing={2} className='justify-content-center d-flex'>
                         {filteredTimeTables.slice(startIndex, endIndex).map((table, index) => (
-                            <Grid item xs={12} sm={6} md={3} key={index} className='justify-content-center d-flex'>
+                            <Grid item xs={12} sm={6} md={4} key={index} className='justify-content-center d-flex'>
                                 <TimeTableCard
-                                    image={table.image}
-                                    title={table.title}
-                                    onClick={() => handleCardClick(table.image, table.title)}
+                                    subjectName={table.subjectName}
+                                    year={table.year}
+                                    lecture={table.lecture}
+                                    day={table.day}
+                                    time={table.time}
+                                    classType={table.classType}
+                                    medium={table.medium}
+                                    Class={table.Class}
                                 />
                             </Grid>
                         ))}
@@ -241,33 +305,59 @@ export default function TimeTable() {
                 </Grid>
             </Grid>
 
-            <Dialog open={openDialog} onClose={handleCloseDialog}>
-                <DialogTitle className='text-center text-bg-success' style={{ fontFamily: Font.PrimaryFont }}>{selectedImageTitle}</DialogTitle>
+            <Dialog open={openFilterDialog} onClose={handleDialogClose}>
+                <DialogTitle>Filter Options</DialogTitle>
                 <DialogContent>
-                    <img src={selectedImage} alt={selectedImageTitle} style={{ width: '100%' }} />
+                    <DialogContentText>
+                        Use the filters below to narrow down the timetables.
+                    </DialogContentText>
+                    <FormControl fullWidth variant="outlined" size="medium" margin="dense">
+                        <InputLabel id="year-filter-label-dialog">Filter by Year</InputLabel>
+                        <Select
+                            labelId="year-filter-label-dialog"
+                            id="year-filter-dialog"
+                            value={selectedYearFilter}
+                            onChange={(e) => {
+                                setSelectedYearFilter(e.target.value);
+                                filterTimeTables(filter, tabValue, e.target.value, selectedClassFilter);
+                            }}
+                            label="Filter by Year"
+                        >
+                            <MenuItem value="">All</MenuItem>
+                            {last3Years.map((yr) => (
+                                <MenuItem key={yr} value={yr}>
+                                    {yr}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth variant="outlined" size="medium" margin="dense">
+                        <InputLabel id="class-filter-label-dialog">Filter by Class</InputLabel>
+                        <Select
+                            labelId="class-filter-label-dialog"
+                            id="class-filter-dialog"
+                            value={selectedClassFilter}
+                            onChange={(e) => {
+                                setSelectedClassFilter(e.target.value);
+                                filterTimeTables(filter, tabValue, selectedYearFilter, e.target.value);
+                            }}
+                            label="Filter by Class"
+                        >
+                            <MenuItem value="">All</MenuItem>
+                            <MenuItem value="Grade 10">Grade 10</MenuItem>
+                            <MenuItem value="Grade 11">Grade 11</MenuItem>
+                            <MenuItem value="Grade 12">Grade 12</MenuItem>
+                        </Select>
+                    </FormControl>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseDialog} color="primary">Close</Button>
-                    <Button
-                        color="primary"
-                        onClick={() => {
-                            const link = document.createElement('a');
-                            link.href = selectedImage;
-                            link.download = selectedImageTitle;
-                            link.click();
-                        }}
-                    >
-                        Download
+                    <Button onClick={handleDialogClose} color="primary">
+                        Close
                     </Button>
                 </DialogActions>
             </Dialog>
-
-            {/* Snackbar for showing alerts */}
-            <Snackbar open={openAlert} autoHideDuration={6000} onClose={() => setOpenAlert(false)}>
-                <Alert onClose={() => setOpenAlert(false)} severity="success">
-                    Action completed successfully!
-                </Alert>
-            </Snackbar>
         </div>
     );
-}
+};
+
+export default TimeTable;

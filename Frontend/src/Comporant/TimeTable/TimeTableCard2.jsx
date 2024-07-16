@@ -2,6 +2,7 @@ import React from 'react';
 import { FaCalendarAlt, FaArrowRight } from 'react-icons/fa';
 import '../../../public/Image/logoonenew.png'
 import { useNavigate } from 'react-router-dom';
+import '../Landing/home/btn.css'
 const cardStyle = {
     border: '1px solid #ddd',
     borderRadius: '12px',
@@ -80,17 +81,17 @@ const buttonHoverStyle = {
 
 const Card = ({ title, year }) => {
     const [isHovered, setIsHovered] = React.useState(false);
-   
-
+    
     return (
         <div
             style={isHovered ? cardHoverStyle : cardStyle}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            id="button-3"
         >
             {/* <FaCalendarAlt style={iconStyle} /> */}
             <div>
-                <h2 style={titleStyle}>{title}</h2>
+                <h2 style={titleStyle}>{title.toUpperCase()}</h2>
                 <p style={yearStyle}>{year}</p>
             </div>
         </div>
@@ -106,16 +107,16 @@ const TimeTableCard2 = () => {
     };
     return (
         <div style={allStyle}>
-            <div style={containerStyle}>
-                <Card title="TEARY" year="2025" />
-                <Card title="TEARY" year="2024" />
+            <div style={containerStyle} >
+                <Card title="Theory" year="2025" />
+                <Card title="Theory" year="2024" />
                 <Card title="REVISION" year="2024" />
                 <Card title="PAPER" year="2024" />
-                <Card title="TEARY" year="2023" />
+                <Card title="Theory" year="2023" />
                 <Card title="REVISION" year="2023" />
                 <Card title="PAPER" year="2023" />
             </div>
-            <div className="justify-content-center d-flex mb-2">
+            <div className="justify-content-center d-flex mb-2 mt-2">
                 <button
                     className='btn outline-btn p-2'
                     style={isButtonHovered ? buttonHoverStyle : buttonStyle}

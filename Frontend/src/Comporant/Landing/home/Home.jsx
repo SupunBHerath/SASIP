@@ -25,7 +25,6 @@ const Home = () => {
       <Hero />
       <AboutCard />
       <HAbout />
-      {/* <Lectures/> */}
       <Testimonal />
       <div className="text-center">
         <h1 style={{ color: "#00796b" }}>[ Time Table ]</h1>
