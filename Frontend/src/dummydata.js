@@ -61,29 +61,6 @@ export const home = [
     letter: "Thank you,<br />I am Amit Pussella.<br />Managing Director and Founder<br />Sasip Educational Institute"  },
 ];
 
-
-export const VisionMission = [
-  {
-    title: "Our Vision",
-    desc: "A good intelligent society.",
-    icon: "fa-eye",
-  },
-  {
-    title: "Our Mission",
-    desc: "Through formal and up-to-date practical education, well-disciplined and good in all fields, a generation of people creating.",
-    icon: "fa-lightbulb",
-  },
-  
-  {
-    title: "Excellence In Service",
-    desc: "To not just meet but exceed client expectation consistently by imbibing Teamwork, Professionalism, Personalised Service.",
-    icon: "fa-snowflake",
-  }
-];
-
-
-
-
 export const contactInfo = {
   pathTopic: [
     { subtitle: 'Telephone Numbers', key: 'telephoneNumbers' },
