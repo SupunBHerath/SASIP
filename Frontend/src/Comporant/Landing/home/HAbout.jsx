@@ -1,61 +1,96 @@
-import React from "react"
+import React, { useEffect, useState } from "react";
+import "./HAbout.css";
+import Card from "./Card";
+import Slider from "react-slick";
 
-import Heading from "../common/heading/Heading"
-import "../allcourses/courses.css"
-import { coursesCard } from "../dummydata"
+function HAbout() {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-const HAbout = () => {
-  
-  const duplicatedCourses = [...coursesCard, ...coursesCard]
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          initialSlide: 1,
+        },
+      },
+    ],
+  };
+
+  // Check for mobile screen size on component mount and resize
+  const handleResize = () => {
+    setIsSmallScreen(window.innerWidth <= 768);
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <>
-      <section className='homeAbout'>
-        <div className='container'>
-          <Heading className="titlem" subtitle='our Classes' title='explore our popular Classes' />
-
-          <div className='coursesCard'>
-            <div className='scroll-container'>
-              {duplicatedCourses.slice(0, 6).map((val, index) => (
-                <div className='items' key={index}>
-                  <div className="seccard">
-                  <div className='content flex '>
-                    <div className='left'>
-                      <div style={{marginLeft:'30%'}} className='img'>
-                        <img src={val.cover} alt={val.coursesName} />
-                      </div>
-                    </div>
-                    <div  style={{marginLeft:'30%'}}  className='text'>
-                      <h1>{val.coursesName}</h1>
-                     
-                      <div className='details'>
-                        {val.courTeacher.map((details, i) => (
-                          <React.Fragment key={i}>
-                            {/* Details content */}
-                          </React.Fragment>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  <div className='price1'>
-                    <h5> Institute of Universal Higher Studies<br></br>
-                         Institute of Universal Higher Studies (Pvt) Ltd (IUHS Campus) is <br></br>
-                          the sister company of “SASIP”, a well renowned and leading <br></br>
-                          Advanced Level (A’level) private education institute that has <br></br>
-                          been in operation for the past 9 years, 
-                    </h5>
-                  </div>
-                  </div>
-                
-                </div>
-              ))}
+    <div className="justify-content-center d-flex">
+      <div className="row w-100 p-5">
+        {isSmallScreen ? (
+          <Slider {...settings}>
+            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3 ">
+              <Card
+                img="../../../../public/Image/Lecturers/tissaSir.png"
+                firstTittle="Tissa Jananayaka"
+                isLecturer="true"
+              />
             </div>
-          </div>
-        </div>
-       
-      </section>
-    </>
-  )
+            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
+            </div>
+            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
+            </div>
+            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
+            </div>
+          </Slider>
+        ) : (
+          <>
+            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3 ">
+              <Card
+                img="../../../../public/Image/Lecturers/tissaSir.png"
+                firstTittle="Tissa Jananayaka"
+                isLecturer="true"
+              />
+            </div>
+            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
+            </div>
+            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
+            </div>
+            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default HAbout
+export default HAbout;
