@@ -12,6 +12,9 @@ import Home from "./Comporant/Landing/home/Home";
 import ResetPassword from "./Pages/Admin/ResetPassword";
 import Team from "./Pages/team/Team";
 import Profile from "./Pages/User/LecturerProfile";
+// index.js or App.js (or equivalent)
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function App() {
   return (
