@@ -1,6 +1,4 @@
-// src/App.js
-
-import React from "react";
+import React from 'react';
 import AdminHome from "./Pages/Admin/AdminHome";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -28,6 +26,12 @@ export default function App() {
           <Route path="/lecturers" element={<Team />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/profile" element={<Profile />} />
+
+          {/* <Route path="/about" element={<About />} /> */}
+
+        
+          {/* =====================Admin====================== */}
+
 
           {/* =====================Admin====================== */}
           {/* <Route
