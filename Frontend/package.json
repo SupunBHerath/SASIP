@@ -17,6 +17,7 @@
     "@mui/material": "^5.16.1",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@tailwindcss/typography": "^0.5.13",
+    "aos": "^2.3.4",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "material-icons": "^1.10.11",

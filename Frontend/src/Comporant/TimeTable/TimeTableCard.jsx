@@ -1,78 +1,23 @@
-import React, { useState } from 'react';
-import { Card, CardMedia, CardContent, Typography, Button } from '@mui/material';
-import { Font } from '../CSS/Css';
+import React from 'react';
+import { Card, CardContent, Typography } from '@mui/material'; // Assuming you're using Material-UI
 
-const TimeTableCard = ({ image, title, onClick }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
+const TimeTableCard = ({ subjectName, year, lecture, day, time }) => {
   return (
-    <Card 
-      onClick={onClick} 
-      onMouseEnter={handleMouseEnter} 
-      onMouseLeave={handleMouseLeave} 
-      style={{ 
-        position: 'relative',
-        cursor: 'pointer', 
-        width: 315, 
-        height: 350,
-        transition: 'transform 0.2s ease-in-out',
-        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-        boxShadow: isHovered ? '0px 8px 16px rgba(0, 0, 0, 0.2)' : 'none',
-        borderRadius: '8px',
-        overflow: 'hidden',
-      }} 
-      className='shadow-lg'
-    >
-        <CardContent className='bg-success'>
-        <Typography 
-          variant="h6" 
-          component="div" 
-          className='text-bg-success text-center w-100' 
-          style={{ fontFamily: Font.PrimaryFont }}
-        >
-          {title}
+    <Card>
+      <CardContent>
+        <Typography variant="h5" component="h2">
+          {subjectName}
+        </Typography>
+        <Typography color="textSecondary" gutterBottom>
+          Year: {year}
+        </Typography>
+        <Typography color="textSecondary" gutterBottom>
+          Lecture: {lecture}
+        </Typography>
+        <Typography color="textSecondary">
+          Time: {day} - {time}
         </Typography>
       </CardContent>
-        <CardMedia
-        component="img"
-        alt={title}
-        style={{ 
-          objectFit: 'cover',
-          transition: 'transform 0.8s ease-in-out',
-          transform: isHovered ? 'scale(1.2)' : 'scale(1)',
-          borderRadius: isHovered ? '8px' : '0'
-        }}
-        image={image}
-      />
-      {isHovered && (
-        <div 
-          style={{ 
-            position: 'absolute', 
-            top: '50%', 
-            left: '50%', 
-            transform: 'translate(-50%, -50%)',
-            textAlign: 'center',
-            zIndex: 100,
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            padding: '10px',
-            borderRadius: '8px',
-            color: '#fff',
-          }}
-        >
-          <Typography variant="subtitle1" style={{ fontFamily: Font.PrimaryFont }}>
-            Click to view time table
-          </Typography>
-        </div>
-      )}
-    
     </Card>
   );
 };

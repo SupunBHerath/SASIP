@@ -1,10 +1,11 @@
 import React from "react"
 import { awrapper } from "../dummydata"
+import './about.css'
 
 const Awrapper = () => {
   return (
     <>
-      <section className='awrapper'>
+      <section className='awrapper' >
         <div className='container grid'>
           {awrapper.map((val, index) => {
             return (
