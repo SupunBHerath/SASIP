@@ -140,7 +140,7 @@ const Chatbot = ({ handleClose }) => {
                       I'm always eager to connect with fellow developers and contribute to open-source projects. 
                       If you'd like to reach out, my email is supunbherath@gmail.com, and you can also reach me at 0782503387. 
                       Regarding this chatbot builder, it's a project I've been working on to help people create and deploy their own chatbots. 
-                      I'm excited to see how people use it to build powerful and helpful AI experiences.`,
+                      I'm excited to see how people use it to build powerful and helpful AI experiences . Dr. Amith Pussella is the founder and current chairman of both the Nugegoda Sasip Educational Institute and the International University of Health Sciences (IUHS) Nallananda Sarasaviya`,
             avatar: botAvatarUrl,
             type: 'text',
         },

@@ -7,50 +7,52 @@
   left: 0;
   z-index: -1;
   width: 100%;
-  height: 100vh;
+  height: 100vh; /* Default height for large screens */
   padding-top: 20%;
   padding-right: 50px;
   color: #fff;
 }
 
+@media (max-width: 768px) {
+  .hero {
+    height: 150vh; /* Increase height for small screens */
+  }
+}
 
 .hero #heading h3 {
   color: #fff;
 }
+
 .hero #heading {
   text-align: left;
   margin: 0;
   padding: 0;
 }
-.button1 {
-  padding: 17px 30px;
-  background-color: #fff;
-  color: #004aad;
-  font-weight: 600;
-  border: none;
-  margin: 30px 10px 0 0;
-  border-radius: 3px;
-  cursor: pointer;
-  box-shadow: 0 24px 36px -11px rgb(0 0 0 / 9%);
-  transition: 0.5s;
+
+.button-container {
+  margin-top: 20px;
 }
-.button1 i {
+
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  text-decoration: none; /* Ensure Link looks like a button */
+}
+
+.btn i {
   margin-left: 20px;
 }
-.button1:hover {
-  box-shadow: none;
-  cursor: pointer;
-}
-@media screen and (max-width: 768px) {
-  .margin {
-    height: 40vh;
-  }
-  .hero {
-    background-position: right;
-    padding-top: 50%;
-    height: 80vh;
-  }
-  .hero .row {
-    width: 100%;
-  }
+
+.btn:hover {
+  background-color: #004aad;
 }

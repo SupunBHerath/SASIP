@@ -23,17 +23,13 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/timetable" element={<TimeTablePage />} />
           <Route path="/teachers" element={<Team />} />
-          <Route path="/contact" element={<ContactPage/>} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/about" element={<About />} />
-
         
           {/* =====================Admin====================== */}
-
-          <Route path='/timetable' element={<TimeTablePage/>} />
-          <Route path='/admin' element={<AdminHome/>} />
-          <Route path='/admin/login' element={<SignIn/>} />
-          
+          <Route path="/admin" element={<PrivateRoute element={<AdminHome />} />} />
+          <Route path="/admin/login" element={<SignIn />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
