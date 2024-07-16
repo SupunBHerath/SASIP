@@ -8,6 +8,7 @@ body {
   font-family: var(--primary-font);
   margin: 0;
   padding: 0;
+  font-size: 1.6rem; 
 }
 
 .aboutHome {
@@ -55,14 +56,7 @@ body {
   align-items: center;
   margin-bottom: 20px; 
 }
-.backgroundSection {
-  background-image: url('../../../public//images/section.png'); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin: 50px 150px;
-  
-}
+
 
 
 .aboutHome .img {
@@ -87,58 +81,169 @@ body {
 }
 
 .aboutHome .item:hover {
-  background-color: var(--secondary-color);
-  color: #fff;
+
   cursor: pointer;
   box-shadow: 0 5px 25px -2px rgb(0 0 0 / 6%);
 }
 
-.aboutHome .item:hover p {
-  color: #fff;
+
+:root {
+  --main-color: #004aad;
+  --hover-color: #f6921e;
 }
 
-.aboutHome .vision-mission-container {
+
+.aboutHome {
+  width: 100%;
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vision-mission-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; 
 }
 
-.aboutHome .vision-mission-container .card {
+.card-box {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  border: none;
+  transform: scale(1);
+  box-shadow: 1px 1px 5px var(--main-color);
+  transition: all 0.5s;
+  padding: 25px 20px;
+  min-height: 311px;
+  text-align: center;
   background-color: #fff;
-  padding: 20px;
-  transition: 0.5s;
-  border-radius: 10px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border: 1px solid #ccc; 
 }
 
-.aboutHome .vision-mission-container .card h2 {
-  color: var(--primary-color);
-  font-size: 20px;
-  margin-bottom: 15px;
-  font-weight: bold;
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 1px 1px 5px var(--hover-color);
 }
 
-.aboutHome .vision-mission-container .card p {
-  color: #999999;
+.icon {
+  display: inline-block;
+  padding: 0px 20px;
+  transition: all 0.5s ease;
 }
 
-.aboutHome .vision-mission-container .card:hover {
-  background-color: var(--primary-color);
+.icon i {
+  background: var(--main-color);
+  padding: 26px;
   color: #fff;
-  cursor: pointer;
-  box-shadow: 0 5px 25px -2px rgba(0, 0, 0, 0.1);
-  border-color: var(--primary-color); 
+  font-size: 3rem;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  vertical-align: middle;
+  transition: all 0.5s ease;
 }
 
-.aboutHome .vision-mission-container .card:hover h2,
-.aboutHome .vision-mission-container .card:hover p {
-  color: #fff;
+.card-title {
+  padding: 25px 0 10px;
+  font-weight: 600;
+  text-transform: capitalize;
 }
+
+.card-text {
+  font-size: 14px;
+  padding: 5px;
+}
+
+.card:hover .icon i {
+  background: var(--hover-color);
+}
+
+@media (max-width: 1200px) {
+  .card-box {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 992px) {
+  .card-box {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    min-height: 280px;
+  }
+
+  .icon i {
+    padding: 20px;
+    font-size: 2.5rem;
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-box {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .card {
+    min-height: 250px;
+  }
+
+  .icon i {
+    padding: 18px;
+    font-size: 2rem;
+    width: 70px;
+    height: 70px;
+  }
+
+  .card-title {
+    padding: 20px 0 10px;
+    font-size: 1.2rem;
+  }
+
+  .card-text {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card {
+    min-height: 220px;
+  }
+
+  .icon i {
+    padding: 15px;
+    font-size: 1.5rem;
+    width: 60px;
+    height: 60px;
+  }
+
+  .card-title {
+    padding: 15px 0 10px;
+    font-size: 1rem;
+  }
+
+  .card-text {
+    font-size: 10px;
+  }
+}
+
 
 /* Awrapper Section */
 .awrapper {
@@ -179,12 +284,12 @@ body {
   font-weight: 500;
 }
 
-/* Heading Styles */
+
 #heading .main-title {
   font-weight: 700;
 }
 
-/* Responsive Styles */
+
 @media screen and (max-width: 1200px) {
   .aboutHome .right {
     padding: 60px 30px;
@@ -251,7 +356,6 @@ body {
   }
 }
 
-/* Contact Table Styles */
 .contact-table {
   width: 100%;
   border-collapse: collapse;
@@ -351,7 +455,6 @@ body {
 .content .main-title {
   font-size: 100px;
   font-weight: 600;
-  margin: 10px 0;
 }
 
 .margin {
@@ -371,5 +474,194 @@ body {
     font-size: 28px;
   }
 }
+/* OUR FEATURCES */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --card-width: 30rem;
+  --card-height: 40rem;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-secondary-light: #ffb900;
+  --color-secondary-dark: #ff7730;
+}
+
+html {
+  font-size: 62.5%; 
+  box-sizing: border-box;
+}
+
+.cards-container {
+  width: 100%;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr)); 
+  justify-content: center;
+}
+
+.card {
+  height: var(--card-height);
+  perspective: 150rem;
+  position: relative;
+  margin-bottom: 2rem; 
+}
+
+.card__side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  height: var(--card-height);
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: transform 0.8s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+}
+
+.card__side--front {
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card__side--back {
+  background-image: linear-gradient(to right bottom, var(--color-secondary-light), var(--color-secondary-dark));
+  transform: rotateY(180deg);
+  padding: 2rem;
+  color: var(--color-white);
+}
+
+.card:hover .card__side--front {
+  transform: rotateY(-180deg);
+}
+
+.card:hover .card__side--back {
+  transform: rotateY(0);
+}
+
+.card__picture {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__heading {
+  font-size: 4rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-white);
+  position: absolute;
+}
+
+.card__heading-span {
+  padding: 0.5rem 1rem;
+  background-image: linear-gradient(to right bottom, rgba(var(--color-secondary-light), 0.85), rgba(var(--color-secondary-dark), 0.85));
+  color: var(--color-white);
+  border-radius: 2px;
+}
+
+
+/* Table */
+
+/* About.css */
+
+.aboutHome {
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.right {
+  flex: 1;
+  padding: 0 15px;
+}
+
+.contact-table {
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-table td {
+  padding: 12px;
+  text-align: left;
+  transition: background-color 0.3s;
+}
+
+.contact-table .subtitle-cell {
+  width: 30%;
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
+.contact-table .detail-cell {
+  width: 70%;
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  .contact-table .subtitle-cell {
+    width: auto;
+    display: block;
+    text-align: left;
+  }
+
+  .contact-table .detail-cell {
+    width: auto;
+    display: block;
+    text-align: left;
+  }
+}
+
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Adjust spacing between contact items */
+}
+
+.contact-icon {
+  margin-right: 10px; /* Adjust spacing between icon and text */
+}
+
+.contact-text {
+  flex: 1; /* Allows the text to take up remaining space */
+}
+/* Remove table border */
+
+
+
+
+
 
 

@@ -24,34 +24,34 @@ export const homeAbout = [
     cover: "./public/images/facility/safty.png",
   },
   {
-    id: 5,
+    id: 1,
     title: "Identity System",
     desc: "Each child is assigned an identity number via a barcode ID card, which includes all information provided by the child and parents. This system ensures easier and safer management during emergencies and inquiries.",
     cover: "./public/images/facility/identyfy.png",
   },
   {
-    id: 6,
+    id: 1,
     title: "Experienced Faculty Team",
     desc: "The institution boasts a group of renowned and experienced teachers from the island. This ensures that both parents and children can have full confidence in the quality of education provided.",
     cover: "./public/images/facility/faculty.png",
   },
   {
-    id: 7,
+    id: 1,
     title: "Comprehensive Facilities",
     desc: "The institution provides spacious, orderly, and clean restaurants, sanitary facilities, and basic first aid services. This eliminates the need for children to leave the institution premises.",
     cover: "./public/images/facility/facility.png"
   },
   {
-    id: 8,
+    id: 1,
     title: "Well-Trained Workforce",
     desc: "The institution maintains a well-trained and disciplined workforce, always on duty with their uniform and identity card. An operational office staffed with friendly personnel is available to address any issues related to the children.",
-    cover: "./public/images/facility/Well-Trained Workforce.png"
+    cover: "./public/images/facility/WellTrainedWorkforce.png"
   },
   {
-    id: 9,
+    id: 1,
     title: "Safe Educational Environment",
     desc: "To ensure a safe learning environment, no outside individuals are permitted to enter the lecture hall premises. This policy enables children to engage freely and safely in their educational activities.",
-    cover: "./public/images/facility/Safe Educational Environment.png"
+    cover: "./public/images/facility/lecturehall.png"
   }
 ]
 export const home = [
@@ -64,15 +64,23 @@ export const home = [
 
 export const VisionMission = [
   {
-    title: "Vision",
+    title: "Our Vision",
     desc: "A good intelligent society.",
+    icon: "fa-eye",
   },
   {
-    title: "Mission",
+    title: "Our Mission",
     desc: "Through formal and up-to-date practical education, well-disciplined and good in all fields, a generation of people creating.",
+    icon: "fa-lightbulb",
   },
   
+  {
+    title: "Excellence In Service",
+    desc: "To not just meet but exceed client expectation consistently by imbibing Teamwork, Professionalism, Personalised Service.",
+    icon: "fa-snowflake",
+  }
 ];
+
 
 
 
@@ -104,19 +112,19 @@ export const contactInfo = {
 export const awrapper = [
   {
     cover: "https://img.icons8.com/external-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto/80/ffffff/external-graduation-education-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto.png",
-    data: "3,000",
-    title: "SUCCESS STORIES",
+    data: "3,000+",
+    title: "ALL STUDENTS",
   },
 
   {
     cover: "https://img.icons8.com/ios/80/ffffff/athlete.png",
-    data: "320",
-    title: "TRUSTED TUTORS",
+    data: "320+",
+    title: "ALL LECTURUS",
   },
   {
-    cover: "https://img.icons8.com/external-outline-icons-maxicons/80/ffffff/external-calender-insurance-outline-outline-icons-maxicons.png",
+    cover: "https://img.icons8.com/ios-filled/100/FFFFFF/trophy.png" ,
     data: "1,000",
-    title: "SCHEDULES",
+    title: "ACHURCHMENTS",
   },
   {
     cover: "https://img.icons8.com/ios/80/ffffff/macbook-idea--v3.png",
