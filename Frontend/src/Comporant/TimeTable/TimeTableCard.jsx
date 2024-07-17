@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import { AccessTimeOutlined, SchoolOutlined, LanguageOutlined, PersonOutline } from '@mui/icons-material';
+import { Color } from '../CSS/Css';
 
 const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class, medium }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -16,6 +17,7 @@ const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class
   return (
     <Card
       style={{
+        backgroundColor: '#F5FFFb',
         width: 530,
         margin: '20px',
         padding: '10px',
@@ -36,31 +38,48 @@ const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 10,
+            marginBottom: 18,
           }}
         >
           <Typography
             style={{
               fontWeight: 'bold',
-              fontSize: '1.25rem',
+              fontSize: '1.55rem',
+              color: Color.PrimaryColor,
             }}
           >
             {subjectName}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography variant="subtitle1" color="textSecondary" style={{    fontSize: '1.10rem',fontWeight: 'bold'  }}>
             {year}-{classType.toUpperCase()}
           </Typography>
         </Box>
-        <Typography style={{ marginTop: 8 }}>
-          <PersonOutline style={{ marginRight: 8, color: '#3f51b5' }} /> Lecture: {lecture}
+        <Typography style={{
+          marginTop: 8, fontWeight: 'bold',
+          fontSize: '1.10rem',
+          marginBottom:12,
+        }}>
+          <PersonOutline style={{ marginRight: 8, color: '#3f51b5', }} />Lecture &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {lecture}
         </Typography>
-        <Typography style={{ marginTop: 8 }}>
-          <SchoolOutlined style={{ marginRight: 8, color: '#f50057' }} /> Class: {Class}
+        <Typography style={{
+          marginTop: 8, fontWeight: 'bold',
+          fontSize: '1.10rem',
+          marginBottom:12,
+        }}>
+          <SchoolOutlined style={{ marginRight: 8, color: '#f50057' }} /> Class &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {Class}
         </Typography>
-        <Typography style={{ marginTop: 8 }}>
-          <LanguageOutlined style={{ marginRight: 8, color: '#009688' }} /> Medium: {medium}
+        <Typography style={{
+          marginTop: 8, fontWeight: 'bold',
+          fontSize: '1.10rem',
+          marginBottom:12,
+        }}>
+          <LanguageOutlined style={{ marginRight: 8, color: '#009688' }} /> Medium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {medium}
         </Typography>
-        <Typography style={{ marginTop: 8, color: '#666' }}>
+        <Typography style={{
+          marginTop: 8, color: '#666', fontWeight: 'bold',
+          fontSize: '1.10rem',
+          marginBottom:12,
+        }}>
           <AccessTimeOutlined style={{ marginRight: 8, color: '#ff9800' }} /> {day} - {time}
         </Typography>
       </CardContent>
