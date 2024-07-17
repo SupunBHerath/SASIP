@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./HAbout.css";
 import Card from "./Card";
 import Slider from "react-slick";
+import Heading from "../common/heading/Heading";
 
 function HAbout() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -47,47 +48,90 @@ function HAbout() {
   }, []);
 
   return (
-    <div className="justify-content-center d-flex">
-      <div className="row w-100 p-5">
-        {isSmallScreen ? (
-          <Slider {...settings}>
-            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3 ">
-              <Card
-                img="../../../../public/Image/Lecturers/tissaSir.png"
-                firstTittle="Tissa Jananayaka"
-                isLecturer="true"
-              />
-            </div>
-            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
-              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
-            </div>
-            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
-              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
-            </div>
-            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
-              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
-            </div>
-          </Slider>
-        ) : (
-          <>
-            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3 ">
-              <Card
-                img="../../../../public/Image/Lecturers/tissaSir.png"
-                firstTittle="Tissa Jananayaka"
-                isLecturer="true"
-              />
-            </div>
-            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
-              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
-            </div>
-            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
-              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
-            </div>
-            <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
-              <Card img="https://s25.postimg.cc/hj4c4qnov/cta-3.png" />
-            </div>
-          </>
-        )}
+    <div>
+      <Heading title="[Popular Lecturers]" />
+      <div className="justify-content-center d-flex">
+        <div className="row w-100 " style={{ margin: "10px" }}>
+          {isSmallScreen ? (
+            <Slider {...settings}>
+              <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3 ">
+                <Card
+                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  firstSideSecondTittle="Biology"
+                  firstSideFirstTittle="Tissa Jananayaka"
+                  firstMainTittle="Bio"
+                  isLecturer="true"
+                />
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+                <Card
+                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  firstSideSecondTittle="Biology"
+                  firstSideFirstTittle="Tissa Jananayaka"
+                  firstMainTittle="Bio"
+                  isLecturer="true"
+                />
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+                <Card
+                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  firstSideSecondTittle="Biology"
+                  firstSideFirstTittle="Tissa Jananayaka"
+                  firstMainTittle="Bio"
+                  isLecturer="true"
+                />
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+                <Card
+                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  firstSideSecondTittle="Biology"
+                  firstSideFirstTittle="Tissa Jananayaka"
+                  firstMainTittle="Bio"
+                  isLecturer="true"
+                />
+              </div>
+            </Slider>
+          ) : (
+            <>
+              <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3 ">
+                <Card
+                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  firstSideSecondTittle="Biology"
+                  firstSideFirstTittle="Tissa Jananayaka"
+                  firstMainTittle="Bio"
+                  isLecturer="true"
+                />
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+                <Card
+                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  firstSideSecondTittle="Biology"
+                  firstSideFirstTittle="Tissa Jananayaka"
+                  firstMainTittle="Bio"
+                  isLecturer="true"
+                />
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+                <Card
+                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  firstSideSecondTittle="Biology"
+                  firstSideFirstTittle="Tissa Jananayaka"
+                  firstMainTittle="Bio"
+                  isLecturer="true"
+                />
+              </div>
+              <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3">
+                <Card
+                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  firstSideSecondTittle="Biology"
+                  firstSideFirstTittle="Tissa Jananayaka"
+                  firstMainTittle="Bio"
+                  isLecturer="true"
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -35,7 +35,8 @@ function Card(props) {
         }}
       >
         <div className="inner color-white">
-          <h3 className="flip-box-header">{props.firstTittle}</h3>
+          <h3 className="flip-box-header">{props.firstSideFirstTittle}</h3>
+          <h3 className="flip-box-header1">{props.firstSideSecondTittle}</h3>
           <p>{props.firstDesc}</p>
           <span></span> {/* Diagonal animation element */}
         </div>
