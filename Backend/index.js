@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import dotenv from 'dotenv';
 import authRoutes from "./Routes/authRoutes.js"
 import albumRoutes from "./Routes/albumRoutes.js"
+import teacherRoutes from "./Routes/teacherRoutes.js"
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.use('/api', authRoutes); 
 app.use('/api', albumRoutes); 
 app.use('/api/albums', albumRoutes); 
+app.use('/api/teacher', teacherRoutes); 
 
 
 app.listen(port, () => {
