@@ -56,7 +56,7 @@ function HAbout() {
             <Slider {...settings}>
               <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3 ">
                 <Card
-                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  img="../../../../public/Image/Lecturers/t.jpg"
                   firstSideSecondTittle="Biology"
                   firstSideFirstTittle="Tissa Jananayaka"
                   firstMainTittle="Bio"
@@ -95,7 +95,7 @@ function HAbout() {
             <>
               <div className="col-lg-3 col-md-6 col-sm-6  p-1 p-md-3 mb-3 ">
                 <Card
-                  img="../../../../public/Image/Lecturers/tissaSir.png"
+                  img="../../../../public/Image/Lecturers/t.jpg"
                   firstSideSecondTittle="Biology"
                   firstSideFirstTittle="Tissa Jananayaka"
                   firstMainTittle="Bio"
