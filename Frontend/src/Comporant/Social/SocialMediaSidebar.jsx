@@ -7,15 +7,13 @@ const SocialMediaSidebar = () => {
     <Box
       sx={{
         position: 'fixed',
-        top: '50%',
-        right: 0,
+        top: 30,
+        left:180,
         transform: 'translateY(-50%)',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#fff',
-        borderRadius: '15px 0 15px 0  ',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.4)',
+        
         zIndex: 10000,
         width: 60,
         padding: '13px',

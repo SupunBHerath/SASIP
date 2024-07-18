@@ -3,6 +3,7 @@ import { Grid, TextField, Pagination, Autocomplete, Tabs, Tab, FormControl, Inpu
 import FilterListIcon from '@mui/icons-material/FilterList';
 import TimeTableCard from './TimeTableCard';
 import { Color } from '../CSS/Css';
+import Navbar from '../Navibar/Navbar';
 
 // const ITEMS_PER_PAGE = 8;
 
@@ -109,12 +110,13 @@ const TimeTable = () => {
 
     return (
         <div >
-            <br />
-            <Grid container spacing={2} justify="center" className=''>
-                <div className=" w-100 p-2 position-relative" style={{ backgroundColor: Color.PrimaryColor }} >
+            <Navbar position={true} />
 
-                    <Grid container spacing={2} alignItems="center" style={{}} className='d-flex justify-content-center' >
-                        <Grid item xs={10} sm={4} md={3}>
+            <Grid container spacing={2} justify="center" className='' >
+                <div className="w-100 p-2 mt-3" style={{ backgroundColor: Color.PrimaryColor, position: 'sticky', top: 0, zIndex: 1000 }}>
+
+                    <Grid container spacing={2} alignItems="center" className='d-flex justify-content-center'>
+                        <Grid item xs={10} sm={10} md={3}>
                             <TextField
                                 fullWidth
                                 label="Search by Lecture"
@@ -152,7 +154,6 @@ const TimeTable = () => {
                         {!isSmallScreen && (
                             <>
                                 <Grid item xs={10} sm={5} md={3}>
-
                                     <Autocomplete
                                         fullWidth
                                         options={sampleTimeTables}
@@ -196,7 +197,6 @@ const TimeTable = () => {
                                     />
                                 </Grid>
 
-
                                 <Grid item xs={10} sm={4} md={1}>
                                     <FormControl fullWidth variant="outlined" size="medium"
                                         sx={{
@@ -224,7 +224,7 @@ const TimeTable = () => {
                                                 color: '#ffffff',
                                             },
                                         }}>
-                                        <InputLabel id="year-filter-label"> Year</InputLabel>
+                                        <InputLabel id="year-filter-label">Year</InputLabel>
                                         <Select
                                             labelId="year-filter-label"
                                             id="year-filter"
@@ -273,7 +273,6 @@ const TimeTable = () => {
                                             },
                                         }}
                                     >
-
                                         <InputLabel id="class-filter-label">Class</InputLabel>
                                         <Select
                                             labelId="class-filter-label"
@@ -291,9 +290,10 @@ const TimeTable = () => {
                                         </Select>
                                     </FormControl>
                                 </Grid>
-                            </>)}
+                            </>
+                        )}
                         {isSmallScreen && (
-                            <Grid item xs={1} sm={4} md={3}>
+                            <Grid item xs={1} sm={1} md={3}>
                                 <IconButton onClick={handleDialogOpen} style={{ color: '#ffffff' }}>
                                     <FilterListIcon />
                                 </IconButton>
@@ -301,6 +301,7 @@ const TimeTable = () => {
                         )}
                     </Grid>
                 </div>
+
 
                 <Grid item xs={12}>
                     <div className="d-flex justify-content-center mb-3">
@@ -323,7 +324,7 @@ const TimeTable = () => {
                     </div>
                     <Grid container spacing={2} className='justify-content-center d-flex'>
                         {filteredTimeTables.slice(startIndex, endIndex).map((table, index) => (
-                            <Grid item xs={12} sm={6} md={4} key={index} className='justify-content-center d-flex'>
+                            <Grid item xs={12} sm={8} md={4} key={index} className='justify-content-center d-flex'>
                                 <TimeTableCard
                                     subjectName={table.subjectName}
                                     year={table.year}
@@ -349,7 +350,7 @@ const TimeTable = () => {
             </Grid >
 
             <Dialog open={openFilterDialog} onClose={handleDialogClose}>
-                <DialogTitle  className='text-center'>Filter Options</DialogTitle>
+                <DialogTitle className='text-center'>Filter Options</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         Use the filters below to narrow down the timetables.
@@ -369,7 +370,7 @@ const TimeTable = () => {
                                     label="Filter by Subject"
                                     variant="outlined"
                                     size="medium"
-                                 
+
                                 />
                             )}
                         />

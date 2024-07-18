@@ -1,26 +1,24 @@
 // import Testimonal from "./testimonal/Testimonal";
 import ImageGalleryContainer from "./ImageGalleryContainer";
-import Header from "../common/header/Headerl";
-import React from "react";
-import AboutCard from "../about/AboutCard";
-import Hblog from "./Hblog";
-import HAbout from "./HAbout";
-import Hero from "./hero/Hero";
-import Heading from "../common/header/Header";
-import Footer from "../common/footer/Footer";
-import "./Home.css";
-import Testimonal from "./testimonal/Testimonal";
-import SocialMediaSidebar from "../../Social/SocialMediaSidebar";
-import TimeTableCard2 from "../../TimeTable/TimeTableCard2";
 import Card from "./Card";
 import BasicSpeedDial from "../../ChatBot/SpeedDial";
+import Navbar from "../../Navibar/Navbar";
+import Head from "../common/header/Head";
+import AboutCard from "../about/AboutCard"
+import Hero from "./hero/Hero"
+import Footer from "../common/footer/Footer"
+import "./Home.css"
+import Testimonal from "./testimonal/Testimonal"
+import SocialMediaSidebar from "../../Social/SocialMediaSidebar"
+import TimeTableCard2 from "../../TimeTable/TimeTableCard2"
+import React from 'react';
+import HAbout from "./HAbout";
 
 const Home = () => {
   return (
     <>
-      <Header />
-      <SocialMediaSidebar />
-      {/* <Heading /> */}
+      {/* <Header /> */}
+      <Navbar/>
       <BasicSpeedDial/>
       <Hero />
       <AboutCard />
@@ -33,8 +31,7 @@ const Home = () => {
       </div>
       <TimeTableCard2 />
       <ImageGalleryContainer />
-      {/* <Card abc="fgfd" /> */}
-      {/* <Hblog /> */}
+    
       <Footer />
     </>
   );
