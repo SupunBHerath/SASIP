@@ -29,11 +29,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
-import SocialMediaInput from '../../../../public/Icon/user.png';
 
 const sampleData = [
-  { id: 1, name: 'John Doe', contact: '123-456-7890', visible: true, rank: 1 },
-  { id: 2, name: 'Jane Smith', contact: '987-654-3210', visible: false, rank: 2 },
+  { id: 1, lid:'', name: 'John Doe', contact: '123-456-7890', visible: true, rank: 1 },
+  { id: 2, lid:'', name: 'Jane Smith', contact: '987-654-3210', visible: false, rank: 2 },
   // Add more sample data as needed
 ];
 
@@ -45,17 +44,22 @@ const TeacherTable = () => {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [filterValue, setFilterValue] = useState('');
   const [editedTeacherName, setEditedTeacherName] = useState('');
+  const [editedLID, setEditedLID] = useState('');
   const [editedTeacherContact, setEditedTeacherContact] = useState('');
   const [newTeacher, setNewTeacher] = useState({
     name: '',
+    lid: '',
     contact: '',
     subject: '',
     classType: [],
     medium: [],
     bio: '',
-    qualifications: '',
-    timeTable: [],
-    socialMedia: [],
+    qualifications: [],
+    socialMedia: {
+      youtube: '',
+      facebook: '',
+      website: '',
+    },
   });
 
   const handleDeleteClick = (teacher) => {
@@ -86,6 +90,7 @@ const TeacherTable = () => {
     setSelectedTeacher(teacher);
     setEditedTeacherName(teacher.name);
     setEditedTeacherContact(teacher.contact);
+    setEditedLID(teacher.lid);
     setEditDialogOpen(true);
   };
 
@@ -93,13 +98,14 @@ const TeacherTable = () => {
     if (selectedTeacher) {
       const updatedTeachers = teachers.map((t) =>
         t.id === selectedTeacher.id
-          ? { ...t, name: editedTeacherName, contact: editedTeacherContact }
+          ? { ...t, name: editedTeacherName, contact: editedTeacherContact , lid: editedLID}
           : t
       );
       setTeachers(updatedTeachers);
       setEditDialogOpen(false);
       setSelectedTeacher(null);
       setEditedTeacherName('');
+      setEditedLID('');
       setEditedTeacherContact('');
     }
   };
@@ -138,14 +144,38 @@ const TeacherTable = () => {
       classType: [],
       medium: [],
       bio: '',
-      qualifications: '',
-      timeTable: [],
-      socialMedia: [],
+      qualifications: [],
+      socialMedia: {
+        youtube: '',
+        facebook: '',
+        website: '',
+      },
     });
   };
 
   const handleNewTeacherChange = (field, value) => {
     setNewTeacher((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleAddQualification = () => {
+    setNewTeacher((prev) => ({
+      ...prev,
+      qualifications: [...prev.qualifications, { name: '', description: '', icon: '' }],
+    }));
+  };
+
+  const handleQualificationChange = (index, field, value) => {
+    setNewTeacher((prev) => {
+      const updatedQualifications = [...prev.qualifications];
+      updatedQualifications[index] = { ...updatedQualifications[index], [field]: value };
+      return { ...prev, qualifications: updatedQualifications };
+    });
+  };
+
+  const handleUploadIcon = (index, file) => {
+    // Here you can handle the file upload logic, for simplicity, setting icon path
+    const url = URL.createObjectURL(file);
+    handleQualificationChange(index, 'icon', url);
   };
 
   const filteredTeachers = teachers.filter((teacher) =>
@@ -180,6 +210,7 @@ const TeacherTable = () => {
           <TableHead>
             <TableRow>
               <TableCell>No</TableCell>
+              <TableCell>Lecturer's ID </TableCell>
               <TableCell>Image</TableCell>
               <TableCell>Teacher Name</TableCell>
               <TableCell>Contact Number</TableCell>
@@ -193,6 +224,7 @@ const TeacherTable = () => {
             {filteredTeachers.map((teacher, index) => (
               <TableRow key={teacher.id}>
                 <TableCell>{index + 1}</TableCell>
+                <TableCell>{teacher.lid}</TableCell>
                 <TableCell>
                   <Avatar alt={teacher.name} src={`https://example.com/${teacher.id}.jpg`} />
                 </TableCell>
@@ -247,6 +279,14 @@ const TeacherTable = () => {
         <DialogTitle>Edit Teacher Details</DialogTitle>
         <DialogContent>
           <TextField
+            label="Lecturer's ID"
+            variant="outlined"
+            fullWidth
+            value={editedLID}
+            onChange={(e) => setEditedLID(e.target.value)}
+            style={{ marginBottom: 10 }}
+          />
+          <TextField
             label="Name"
             variant="outlined"
             fullWidth
@@ -275,7 +315,7 @@ const TeacherTable = () => {
 
       {/* Add Teacher Dialog */}
       <Dialog open={addDialogOpen} onClose={() => setAddDialogOpen(false)} maxWidth="md" fullWidth>
-        <DialogTitle>Add New Teacher</DialogTitle>
+        <DialogTitle>Add New Lecturer </DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -310,36 +350,31 @@ const TeacherTable = () => {
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth variant="outlined" style={{ marginBottom: 10 }}>
-                <InputLabel id="classType-label">Class Type</InputLabel>
+                <InputLabel>Type of Class </InputLabel>
                 <Select
-                  labelId="classType-label"
-                  id="classType"
                   multiple
                   value={newTeacher.classType}
                   onChange={(e) => handleNewTeacherChange('classType', e.target.value)}
-                  label="Class Type"
                   renderValue={(selected) => selected.join(', ')}
                 >
-                  <MenuItem value="Group">Group</MenuItem>
-                  <MenuItem value="Individual">Individual</MenuItem>
-                  <MenuItem value="Other">Other</MenuItem>
+                  <MenuItem value="Physical">Physical  </MenuItem>
+                  <MenuItem value="Online">Online</MenuItem>
+                  <MenuItem value="Spacial">Spacial</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth variant="outlined" style={{ marginBottom: 10 }}>
-                <InputLabel id="medium-label">Medium</InputLabel>
+                <InputLabel>Medium</InputLabel>
                 <Select
-                  labelId="medium-label"
-                  id="medium"
                   multiple
                   value={newTeacher.medium}
                   onChange={(e) => handleNewTeacherChange('medium', e.target.value)}
-                  label="Medium"
                   renderValue={(selected) => selected.join(', ')}
                 >
-                  <MenuItem value="Online">Online</MenuItem>
-                  <MenuItem value="Offline">Offline</MenuItem>
+                  <MenuItem value="English">English</MenuItem>
+                  <MenuItem value="Sinhala">Sinhala</MenuItem>
+                  <MenuItem value="Tamil">Tamil</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -349,29 +384,106 @@ const TeacherTable = () => {
                 variant="outlined"
                 fullWidth
                 multiline
-                rows={4}
+                rows={3}
                 value={newTeacher.bio}
                 onChange={(e) => handleNewTeacherChange('bio', e.target.value)}
                 style={{ marginBottom: 10 }}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                label="Qualifications"
-                variant="outlined"
-                fullWidth
-                multiline
-                rows={4}
-                value={newTeacher.qualifications}
-                onChange={(e) => handleNewTeacherChange('qualifications', e.target.value)}
-                style={{ marginBottom: 10 }}
-              />
+              <FormGroup style={{ marginBottom: 10 }}>
+                <TextField
+                  label="YouTube Link"
+                  variant="outlined"
+                  value={newTeacher.socialMedia.youtube}
+                  onChange={(e) =>
+                    handleNewTeacherChange('socialMedia', {
+                      ...newTeacher.socialMedia,
+                      youtube: e.target.value,
+                    })
+                  }
+                  style={{ marginBottom: 10 }}
+                />
+                <TextField
+                  label="Facebook Link"
+                  variant="outlined"
+                  value={newTeacher.socialMedia.facebook}
+                  onChange={(e) =>
+                    handleNewTeacherChange('socialMedia', {
+                      ...newTeacher.socialMedia,
+                      facebook: e.target.value,
+                    })
+                  }
+                  style={{ marginBottom: 10 }}
+                />
+                <TextField
+                  label="Website Link"
+                  variant="outlined"
+                  value={newTeacher.socialMedia.website}
+                  onChange={(e) =>
+                    handleNewTeacherChange('socialMedia', {
+                      ...newTeacher.socialMedia,
+                      website: e.target.value,
+                    })
+                  }
+                  style={{ marginBottom: 10 }}
+                />
+              </FormGroup>
             </Grid>
+
+            {/* Qualifications */}
             <Grid item xs={12}>
-              {/* <SocialMediaInput
-                value={newTeacher.socialMedia}
-                onChange={(value) => handleNewTeacherChange('socialMedia', value)}
-              /> */}
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<AddIcon />}
+                onClick={handleAddQualification}
+                style={{ marginBottom: 10 }}
+              >
+                Add Qualification
+              </Button>
+              {newTeacher.qualifications.map((qualification, index) => (
+
+                <div key={index} style={{ marginBottom: 10 }}>
+                  <TextField
+                    label="Qualification Name"
+                    variant="outlined"
+                    fullWidth
+                    value={qualification.name}
+                    onChange={(e) =>
+                      handleQualificationChange(index, 'name', e.target.value)
+                    }
+                    style={{ marginBottom: 5 }}
+                  />
+                  <TextField
+                    label="Qualification Description"
+                    variant="outlined"
+                    fullWidth
+                    value={qualification.description}
+                    onChange={(e) =>
+                      handleQualificationChange(index, 'description', e.target.value)
+                    }
+                    style={{ marginBottom: 5 }}
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleUploadIcon(index, e.target.files[0])}
+                    style={{ marginBottom: 5 }}
+                  />
+                  {qualification.icon && (
+                    <Avatar
+                      alt={qualification.name}
+                      src={qualification.icon}
+                      style={{ marginLeft: 10 }}
+                    />
+                  )}
+                  <br />
+                  <br />
+                  <hr />
+
+                </div>
+              ))}
             </Grid>
           </Grid>
         </DialogContent>
@@ -380,7 +492,7 @@ const TeacherTable = () => {
             Cancel
           </Button>
           <Button onClick={handleAddTeacherConfirm} color="primary">
-            Add Teacher
+            ADD Lecturer
           </Button>
         </DialogActions>
       </Dialog>

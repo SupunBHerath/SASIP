@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Box } from '@mui/material';
 import { AccessTimeOutlined, SchoolOutlined, LanguageOutlined, PersonOutline } from '@mui/icons-material';
 import { Color } from '../CSS/Css';
 
-const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class, medium }) => {
+const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class, medium,note }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -38,7 +38,7 @@ const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 18,
+            marginBottom: 6,
           }}
         >
           <Typography
@@ -81,6 +81,15 @@ const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class
           marginBottom:12,
         }}>
           <AccessTimeOutlined style={{ marginRight: 8, color: '#ff9800' }} /> {day} - {time}
+        </Typography>
+        <hr />
+        <Typography style={{
+          marginTop: 4, color: 'red', fontWeight: 'bold',
+          fontSize: '1.0rem',
+          textAlign:'center',
+        
+        }}>
+          {note}
         </Typography>
       </CardContent>
     </Card>

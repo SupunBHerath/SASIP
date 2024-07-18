@@ -1,7 +1,9 @@
 import "./Card.css";
-import React from "react";
+import React, { useState } from "react";
 import { Color } from "../../CSS/Css.jsx";
 const HeaderCard = (prop) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const cardStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -12,19 +14,20 @@ const HeaderCard = (prop) => {
     borderRadius: '8px',
     cursor: 'pointer',
     height: '150px',
-    
-    
-
-
+    transition: 'transform 0.3s ease-in-out',
+    transform: isHovered ? 'scale(1.05)' : 'scale(1)',
   };
 
   return (
-    <div  style={cardStyle}  >
-      <div className='HeaderCard__left' style={{width:'auto' , height:'80px' }}>
+    <div  style={cardStyle} 
+    onMouseEnter={() => setIsHovered(true)}
+    onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className='HeaderCard__left' style={{width:'auto' , height:'90px' }}>
         <img src={prop.icon} alt="" />
       </div>
       <div className='HeaderCard__right  w-100 mt-2  '>
-        <h2 style={{color:Color.PrimaryColor }}>{prop.title}</h2>
+        <h2 style={{color:Color.PrimaryColor , fontWeight:'bold' }}>{prop.title}</h2>
         <h3 style={{ color: Color.SecondaryColor }}>{prop.count}</h3>
       </div>
     </div>

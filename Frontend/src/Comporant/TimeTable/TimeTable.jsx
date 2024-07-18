@@ -7,17 +7,17 @@ import { Color } from '../CSS/Css';
 // const ITEMS_PER_PAGE = 8;
 
 const sampleTimeTables = [
-    { Class: 'Physical', medium: 'online', subjectName: 'Mathematics', year: '2025', lecture: 'John Doe', day: 'Monday', time: '10:00 AM - 12:00 PM', classType: 'yeary' },
-    { Class: 'Physical', medium: 'online', subjectName: 'Biology', year: '2024', lecture: 'Jane Smith', day: 'Tuesday', time: '1:00 PM - 3:00 PM', classType: 'revision' },
-    { Class: 'Physical', medium: 'online', subjectName: 'Chemistry', year: '2023', lecture: 'Alice Johnson', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'paper' },
-    { Class: 'Physical', medium: 'online', subjectName: 'Physics', year: '2025', lecture: 'Bob Brown', day: 'Thursday', time: '2:00 PM - 4:00 PM', classType: 'abc' },
-    { Class: 'Physical', medium: 'online', subjectName: 'History', year: '2026', lecture: 'Mary White', day: 'Friday', time: '11:00 AM - 1:00 PM', classType: 'revision' },
-    { Class: 'Physical', medium: 'online', subjectName: 'Geography', year: '2024', lecture: 'Peter Green', day: 'Monday', time: '10:00 AM - 12:00 PM', classType: 'paper' },
-    { Class: 'Physical', medium: 'online', subjectName: 'English', year: '2023', lecture: 'Linda Black', day: 'Tuesday', time: '1:00 PM - 3:00 PM', classType: 'teary' },
-    { Class: 'Physical', medium: 'online', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
-    { Class: 'Physical', medium: 'online', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
-    { Class: 'Physical', medium: 'online', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
-    { Class: 'Physical', medium: 'online', subjectName: 'Psychology', year: '2024', lecture: 'Patricia Red', day: 'Thursday', time: '2:00 PM - 4:00 PM', classType: 'teary' }
+    { Class: 'Physical', medium: 'Sinahala', subjectName: 'Mathematics', year: '2025', lecture: 'John Doe', day: 'Monday', time: '10:00 AM - 12:00 PM', classType: 'yeary' },
+    { note: 'Group Class 1', Class: 'Physical', medium: 'Sinahala', subjectName: 'Biology', year: '2024', lecture: 'Jane Smith', day: 'Tuesday', time: '1:00 PM - 3:00 PM', classType: 'revision' },
+    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Chemistry', year: '2023', lecture: 'Alice Johnson', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'paper' },
+    { note: 'VIP Class', Class: 'Physical', medium: 'Sinahala', subjectName: 'Physics', year: '2025', lecture: 'Bob Brown', day: 'Thursday', time: '2:00 PM - 4:00 PM', classType: 'abc' },
+    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'History', year: '2026', lecture: 'Mary White', day: 'Friday', time: '11:00 AM - 1:00 PM', classType: 'revision' },
+    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Geography', year: '2024', lecture: 'Peter Green', day: 'Monday', time: '10:00 AM - 12:00 PM', classType: 'paper' },
+    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'English', year: '2023', lecture: 'Linda Black', day: 'Tuesday', time: '1:00 PM - 3:00 PM', classType: 'teary' },
+    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
+    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
+    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
+    { Class: 'Physical', medium: 'Sinahala', subjectName: 'Psychology', year: '2024', lecture: 'Patricia Red', day: 'Thursday', time: '2:00 PM - 4:00 PM', classType: 'teary' }
 ];
 const TimeTable = () => {
     const [filter, setFilter] = useState('');
@@ -27,7 +27,7 @@ const TimeTable = () => {
     const [selectedYearFilter, setSelectedYearFilter] = useState('');
     const [selectedClassFilter, setSelectedClassFilter] = useState('');
     const [openFilterDialog, setOpenFilterDialog] = useState(false);
-
+    const [lectureFilter, setLectureFilter] = useState('');
     const currentYear = new Date().getFullYear();
     const last3Years = [currentYear - 1, currentYear, currentYear + 1];
     const isSmallScreen = useMediaQuery('(max-width:800px)'); // Check for small screens
@@ -41,6 +41,11 @@ const TimeTable = () => {
         filterTimeTables(value, tabValue, selectedYearFilter, selectedClassFilter);
     };
 
+    const handleLectureFilterChange = (e) => {
+        const value = e.target.value;
+        setLectureFilter(value);
+        filterTimeTables(value, tabValue, selectedYearFilter, selectedClassFilter);
+    };
     // Filter time tables based on current filters
     const filterTimeTables = (value, selectedTab, selectedYear, selectedClass) => {
         const filtered = sampleTimeTables.filter((table) => {
@@ -110,52 +115,89 @@ const TimeTable = () => {
 
                     <Grid container spacing={2} alignItems="center" style={{}} className='d-flex justify-content-center' >
                         <Grid item xs={10} sm={4} md={3}>
-                            <Autocomplete
+                            <TextField
                                 fullWidth
-                                options={sampleTimeTables}
-                                getOptionLabel={(option) => option.subjectName}
-                                value={sampleTimeTables.find((option) => option.subjectName === filter) || null}
-                                onChange={handleAutocompleteChange}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label="Filter by Subject"
-                                        variant="outlined"
-                                        size="medium"
-                                        InputLabelProps={{
-                                            style: { color: '#ffffff' }, // label color
-                                        }}
-                                        InputProps={{
-                                            ...params.InputProps,
-                                            style: { color: '#ffffff', borderColor: '#ffffff' }, // input text color
-                                        }}
-                                        sx={{
-                                            '& .MuiOutlinedInput-root': {
-                                                '& fieldset': {
-                                                    borderColor: '#ffffff',
-                                                },
-                                                '&:hover fieldset': {
-                                                    borderColor: '#ffffff',
-                                                },
-                                                '&.Mui-focused fieldset': {
-                                                    borderColor: '#ffffff',
-                                                },
-                                            },
-                                            '& .MuiInputLabel-root': {
-                                                color: '#ffffff',
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                color: '#ffffff',
-                                            },
-                                        }}
-                                    />
-                                )}
+                                label="Search by Lecture"
+                                variant="outlined"
+                                value={lectureFilter}
+                                onChange={handleLectureFilterChange}
+                                size="medium"
+                                InputLabelProps={{
+                                    style: { color: '#ffffff' }, // label color
+                                }}
+                                InputProps={{
+                                    style: { color: '#ffffff' }, // input text color
+                                }}
+                                sx={{
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderColor: '#ffffff',
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: '#ffffff',
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#ffffff',
+                                        },
+                                    },
+                                    '& .MuiInputLabel-root': {
+                                        color: '#ffffff',
+                                    },
+                                    '& .MuiInputBase-root': {
+                                        color: '#ffffff',
+                                    },
+                                }}
                             />
                         </Grid>
                         {!isSmallScreen && (
                             <>
-
                                 <Grid item xs={10} sm={5} md={3}>
+
+                                    <Autocomplete
+                                        fullWidth
+                                        options={sampleTimeTables}
+                                        getOptionLabel={(option) => option.subjectName}
+                                        value={sampleTimeTables.find((option) => option.subjectName === filter) || null}
+                                        onChange={handleAutocompleteChange}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Filter by Subject"
+                                                variant="outlined"
+                                                size="medium"
+                                                InputLabelProps={{
+                                                    style: { color: '#ffffff' }, // label color
+                                                }}
+                                                InputProps={{
+                                                    ...params.InputProps,
+                                                    style: { color: '#ffffff', borderColor: '#ffffff' }, // input text color
+                                                }}
+                                                sx={{
+                                                    '& .MuiOutlinedInput-root': {
+                                                        '& fieldset': {
+                                                            borderColor: '#ffffff',
+                                                        },
+                                                        '&:hover fieldset': {
+                                                            borderColor: '#ffffff',
+                                                        },
+                                                        '&.Mui-focused fieldset': {
+                                                            borderColor: '#ffffff',
+                                                        },
+                                                    },
+                                                    '& .MuiInputLabel-root': {
+                                                        color: '#ffffff',
+                                                    },
+                                                    '& .MuiInputBase-root': {
+                                                        color: '#ffffff',
+                                                    },
+                                                }}
+                                            />
+                                        )}
+                                    />
+                                </Grid>
+
+
+                                <Grid item xs={10} sm={4} md={1}>
                                     <FormControl fullWidth variant="outlined" size="medium"
                                         sx={{
                                             '& .MuiInputLabel-root': {
@@ -182,7 +224,7 @@ const TimeTable = () => {
                                                 color: '#ffffff',
                                             },
                                         }}>
-                                        <InputLabel id="year-filter-label">Filter by Year</InputLabel>
+                                        <InputLabel id="year-filter-label"> Year</InputLabel>
                                         <Select
                                             labelId="year-filter-label"
                                             id="year-filter"
@@ -203,7 +245,7 @@ const TimeTable = () => {
                                         </Select>
                                     </FormControl>
                                 </Grid>
-                                <Grid item xs={12} sm={4} md={3}>
+                                <Grid item xs={12} sm={4} md={1}>
                                     <FormControl fullWidth variant="outlined" size="medium"
                                         sx={{
                                             '& .MuiInputLabel-root': {
@@ -232,7 +274,7 @@ const TimeTable = () => {
                                         }}
                                     >
 
-                                        <InputLabel id="class-filter-label">Filter by Class</InputLabel>
+                                        <InputLabel id="class-filter-label">Class</InputLabel>
                                         <Select
                                             labelId="class-filter-label"
                                             id="class-filter"
@@ -291,6 +333,7 @@ const TimeTable = () => {
                                     classType={table.classType}
                                     medium={table.medium}
                                     Class={table.Class}
+                                    note={table.note}
                                 />
                             </Grid>
                         ))}
@@ -303,14 +346,36 @@ const TimeTable = () => {
                         style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
                     />
                 </Grid>
-            </Grid>
+            </Grid >
 
             <Dialog open={openFilterDialog} onClose={handleDialogClose}>
-                <DialogTitle>Filter Options</DialogTitle>
+                <DialogTitle  className='text-center'>Filter Options</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         Use the filters below to narrow down the timetables.
                     </DialogContentText>
+                    <br /><hr /><br />
+                    <Grid item xs={10} sm={5} md={3}>
+
+                        <Autocomplete
+                            fullWidth
+                            options={sampleTimeTables}
+                            getOptionLabel={(option) => option.subjectName}
+                            value={sampleTimeTables.find((option) => option.subjectName === filter) || null}
+                            onChange={handleAutocompleteChange}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Filter by Subject"
+                                    variant="outlined"
+                                    size="medium"
+                                 
+                                />
+                            )}
+                        />
+                    </Grid>
+
+
                     <FormControl fullWidth variant="outlined" size="medium" margin="dense">
                         <InputLabel id="year-filter-label-dialog">Filter by Year</InputLabel>
                         <Select
@@ -356,7 +421,7 @@ const TimeTable = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </div >
     );
 };
 
