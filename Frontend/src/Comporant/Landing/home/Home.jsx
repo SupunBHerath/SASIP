@@ -12,6 +12,7 @@ import Testimonal from "./testimonal/Testimonal"
 import SocialMediaSidebar from "../../Social/SocialMediaSidebar"
 import TimeTableCard2 from "../../TimeTable/TimeTableCard2"
 import React from 'react';
+import HAbout from "./HAbout";
 
 const Home = () => {
   return (
