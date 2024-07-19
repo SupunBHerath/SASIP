@@ -1,6 +1,6 @@
 import express from 'express';
 import { addLecturer, deleteLecturer, upload } from '../Controllers/AddTeacher.js';
-import { displayTeachers } from '../Controllers/GetAllTeachers.js';
+import { displayTeachers, getTeacherById } from '../Controllers/GetAllTeachers.js';
 
 const router = express.Router();
 
@@ -20,5 +20,6 @@ router.post('/add', upload.fields([
 
 router.delete('/lecturers/:id', deleteLecturer);
 router.get('/display-teachers', displayTeachers);
+router.get('/profile/:id', getTeacherById);
 
 export default router;
