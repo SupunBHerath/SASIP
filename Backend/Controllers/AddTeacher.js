@@ -45,7 +45,6 @@ const addLecturer = async (req, res) => {
 
     // Define a folder structure for the teacher's files
     const teacherFolder = `teacher/${name}`;
-    const bucketName = process.env.FIREBASE_STORAGE_BUCKET;
 
     // Array to hold promises for file uploads
     const uploadFiles = [];
@@ -68,8 +67,17 @@ const addLecturer = async (req, res) => {
         });
 
         imageBlobStream.on('finish', async () => {
-          imageUrl = `https://storage.googleapis.com/${bucketName}/${imageBlob.name}`;
-          resolve();
+          try {
+            const [url] = await imageBlob.getSignedUrl({
+              action: 'read',
+              expires: '03-01-2500', // Adjust expiration as needed
+            });
+            imageUrl = url;
+            resolve();
+          } catch (err) {
+            console.error('Error generating signed URL:', err);
+            reject(err);
+          }
         });
 
         imageBlobStream.end(imageFile.buffer);
@@ -96,9 +104,17 @@ const addLecturer = async (req, res) => {
           });
 
           fileBlobStream.on('finish', async () => {
-            const fileUrl = `https://storage.googleapis.com/${bucketName}/${fileBlob.name}`;
-            qualifications[index].fileUrl = fileUrl;
-            resolve();
+            try {
+              const [fileUrl] = await fileBlob.getSignedUrl({
+                action: 'read',
+                expires: '03-01-2500', // Adjust expiration as needed
+              });
+              qualifications[index].fileUrl = fileUrl;
+              resolve();
+            } catch (err) {
+              console.error('Error generating signed URL:', err);
+              reject(err);
+            }
           });
 
           fileBlobStream.end(file.buffer);

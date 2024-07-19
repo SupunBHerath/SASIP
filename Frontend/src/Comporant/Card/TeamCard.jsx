@@ -1,29 +1,48 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const TeamCard = ({member}) => {
+const TeamCard = ({ member }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/profile/${member.id}`);
+  };
+
   return (
-   <div className="teacher">
-     <div className="rounded-4 items shadow">
-      <div className="img ">
-        <img
-          src={member.cover}
-          alt={`${member.name}'s cover`}
-          onError={(e) => {
-            e.target.src = "/path/to/default-image.jpg"; // Fallback image
-          }}
-        />
-        <div className="overlay rounded-4">
-          <i className="fab fa-facebook-f icon" aria-label="Facebook"></i>
-          <i className="fab fa-instagram icon" aria-label="Instagram"></i>
-          <i className="fab fa-tiktok icon" aria-label="TikTok"></i>
+    <div className="teacher" onClick={handleClick} style={{ cursor: "pointer" }}>
+      <div className="rounded-4 items shadow">
+        <div className="img">
+          <img
+            src={member.imageUrl}
+            alt={`${member.name}'s cover`}
+            onError={(e) => {
+              e.target.src = "/path/to/default-image.jpg"; // Fallback image
+            }}
+          />
+          <div className="overlay rounded-4">
+            {member.socialMedia.facebook && (
+              <a href={member.socialMedia.facebook} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                <i className="fab fa-facebook-f icon" aria-label="Facebook"></i>
+              </a>
+            )}
+            {member.socialMedia.youtube && (
+              <a href={member.socialMedia.youtube} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                <i className="fab fa-youtube icon" aria-label="YouTube"></i>
+              </a>
+            )}
+            {member.socialMedia.website && (
+              <a href={member.socialMedia.website} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                <i className="fas fa-globe icon" aria-label="Website"></i>
+              </a>
+            )}
+          </div>
+        </div>
+        <div className="details">
+          <h2>{member.name}</h2>
+          <p>{member.subject}</p>
         </div>
       </div>
-      <div className="details">
-        <h2>{member.name}</h2>
-        <p>{member.work}</p>
-      </div>
     </div>
-   </div>
   );
 };
 
