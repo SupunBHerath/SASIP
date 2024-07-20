@@ -72,7 +72,7 @@ export default function Navbar({ position }) {
             <AppBar
                 position={position ? "static" : isScrolled ? "fixed" : "static"}
                 style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.504)',
+                    backgroundColor: isScrolled ? 'rgba(255, 255, 255)' : 'rgba(255, 255, 255, 0.504)',
                     color: Color.PrimaryColor,
                     fontFamily: Font.PrimaryFont,
                     fontWeight: '1000px',
@@ -83,6 +83,7 @@ export default function Navbar({ position }) {
                     left: 0,
                     right: 0,
                     zIndex: 1300,
+                    transition: 'background-color 0.3s ease, box-shadow 0.3s ease, width 0.3s ease, margin 0.3s ease' // Add transition here
                 }}
             >
                 {position && !isScrolled  ? (<SocialMediaSidebar />) : ''}

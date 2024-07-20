@@ -22,7 +22,7 @@ export default function App() {
         <Routes>
           {/* =====================User====================== */}
           <Route path="/" element={<Home />} />
-          <Route path="/timetable" element={<TimeTablePage />} />
+          <Route path="/timetable/:year/:type" element={<TimeTablePage />} />
           <Route path="/lecturers" element={<Team />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/profile/:id" element={<Profile />} />
