@@ -1,0 +1,89 @@
+import admin from '../FirebaseConfig/firebaseAdmin.js';
+
+const db = admin.firestore();
+
+export const addTimetableEntries = async (req, res) => {
+  console.log('Received body:', req.body);
+
+  const entries = req.body;
+
+  try {
+    // Check if the request body is an array
+    if (!Array.isArray(entries)) {
+      return res.status(400).json({ message: 'Request body must be an array of timetable entries.' });
+    }
+
+    // Validate and process each timetable entry
+    const batch = db.batch();
+    const idPattern = /^S\d{5}$/;
+
+    for (const entry of entries) {
+      const {
+        lid, name, subject, classMode, classType, medium, day, time, note, status
+      } = entry;
+
+      // Check for all required fields except 'note'
+      if (!lid || !name || !subject || !classMode || !classType || !medium || !day || !time || !status) {
+        return res.status(400).json({ message: 'All fields except note are required for each entry.' });
+      }
+
+      // Validate 'lid' format
+      if (!idPattern.test(lid)) {
+        return res.status(400).json({ message: `Invalid Lecture ID format for entry with lid: ${lid}. Please use format SXXXX (e.g., S0001).` });
+      }
+
+      // Create a reference to the document in the 'timetable' collection
+      const timetableRef = db.collection('timetable').doc(lid);
+
+      // Create the timetable entry object
+      const timetableEntry = {
+        name,
+        subject,
+        classMode,
+        classType,
+        medium,
+        day,
+        time,
+        note: note !== undefined ? note : '',  // Use an empty string if note is undefined
+        status,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),  // Optional
+      };
+
+      // Add the set operation to the batch
+      batch.set(timetableRef, timetableEntry, { merge: true });
+    }
+
+    // Commit the batch operation
+    await batch.commit();
+
+    return res.status(200).json({ message: 'Timetable entries added successfully.' });
+  } catch (error) {
+    console.error('Error adding timetable entries: ', error);
+    return res.status(500).json({ message: 'Failed to add timetable entries. Please try again.' });
+  }
+};
+
+export const getAllTimetableEntries = async (req, res) => {
+  try {
+    // Retrieve all documents from the 'timetable' collection
+    const timetableSnapshot = await db.collection('timetable').get();
+
+    if (timetableSnapshot.empty) {
+      return res.status(404).json({ message: 'No timetable entries found.' });
+    }
+
+    // Format the documents into an array of timetable entries
+    const timetableEntries = timetableSnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        lid: doc.id,  // Rename 'id' to 'lid'
+        ...data
+      };
+    });
+
+    return res.status(200).json(timetableEntries);
+  } catch (error) {
+    console.error('Error retrieving timetable entries: ', error);
+    return res.status(500).json({ message: 'Failed to retrieve timetable entries. Please try again.' });
+  }
+};

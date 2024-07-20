@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -13,6 +13,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import DialogContentText from '@mui/material/DialogContentText';
 import { Menu, MenuItem } from '@mui/material';
+import axios from 'axios';
 
 // Define keyframes for pulse effect
 const pulseAnimation = `
@@ -34,15 +35,25 @@ const pulseAnimation = `
 
 const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
   const [newImages, setNewImages] = useState([]);
+  const [newImagePreviews, setNewImagePreviews] = useState([]); // Track image previews
   const [deleteImage, setDeleteImage] = useState(null); // State to keep track of the image to delete
   const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false); // State to control the delete confirmation dialog
-  const [anchorEl, setAnchorEl] = React.useState(null); // State to manage the Share menu
+  const [anchorEl, setAnchorEl] = useState(null); // State to manage the Share menu
   const [fullScreenImage, setFullScreenImage] = useState(''); // State to manage the full-screen image view
+
+  useEffect(() => {
+    console.log('Album data:', album);
+    if (album?.images) {
+      album.images.forEach((image, index) => {
+        console.log(`Image ${index + 1} URL:`, image.url);
+      });
+    }
+  }, [album]);
 
   const handleShare = (src) => {
     if (navigator.share) {
       navigator.share({
-        title: album?.title,
+        title: album?.name, // Changed from `album.title` to `album.name`
         url: src,
       })
       .catch((error) => console.error('Error sharing:', error));
@@ -65,7 +76,7 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
         window.open(`https://wa.me/?text=${encodeURIComponent(src)}`, '_blank');
         break;
       case 'email':
-        window.open(`mailto:?subject=${encodeURIComponent(album?.title)}&body=${encodeURIComponent(src)}`, '_self');
+        window.open(`mailto:?subject=${encodeURIComponent(album?.name)}&body=${encodeURIComponent(src)}`, '_self');
         break;
       default:
         break;
@@ -73,27 +84,49 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
   };
 
   const handleDelete = (src) => {
-    setDeleteImage(src); // Set the image to be deleted
-    setOpenDeleteConfirm(true); // Open the confirmation dialog
+    setDeleteImage(src); 
+    setOpenDeleteConfirm(true); 
   };
 
-  const confirmDelete = () => {
-    console.log(`Deleted image: ${deleteImage}`);
-    // Add delete logic here
-    setDeleteImage(null); // Clear the image to be deleted
-    setOpenDeleteConfirm(false); // Close the confirmation dialog
+  const confirmDelete = async () => {
+    try {
+      await axios.delete('/api/albums/delete-image', { data: { albumId: album?.name, imageSrc: deleteImage } });
+      onClose(); 
+    } catch (error) {
+      console.error('Error deleting image:', error);
+    } finally {
+      setDeleteImage(null); 
+      setOpenDeleteConfirm(false); 
+    }
   };
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
     setNewImages(files);
+
+    // Create image previews
+    const previews = files.map(file => URL.createObjectURL(file));
+    setNewImagePreviews(previews);
   };
 
-  const handleAddImages = () => {
+  const handleAddImages = async () => {
     if (newImages.length > 0) {
-      const previews = newImages.map((file) => URL.createObjectURL(file));
-      onAddImages(previews);
-      setNewImages([]);
+      const formData = new FormData();
+      newImages.forEach(file => formData.append('images', file));
+      formData.append('albumId', album?.name);
+
+      try {
+        await axios.post('/api/albums/add-images', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        onAddImages(newImages.map(file => URL.createObjectURL(file)));
+        setNewImages([]);
+        setNewImagePreviews([]); // Clear previews after upload
+      } catch (error) {
+        console.error('Error adding images:', error);
+      }
     }
   };
 
@@ -104,7 +137,7 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
 
       <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth sx={{
           '& .MuiPaper-root': {
-            border: '3px solid #FF8C00', // Add border with blue color
+            border: '3px solid #FF8C00', // Add border with orange color
             borderRadius: '8px', // Optional: Add border radius
           },
         }}>
@@ -118,7 +151,7 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
             fontSize: '1.6rem'
           }}
         >
-          {album?.title}
+          {album?.name} {/* Changed from `album.title` to `album.name` */}
           <IconButton
             sx={{
               position: 'absolute',
@@ -137,14 +170,13 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
             <ImageListItem key="Subheader" cols={3}>
               <ListSubheader component="div">Album Images</ListSubheader>
             </ImageListItem>
-            {album?.images.map((src, index) => (
+            {album?.images.map((image, index) => (
               <ImageListItem key={index} sx={{ position: 'relative' }}>
                 <img
-                  srcSet={`${src}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  src={`${src}?w=248&fit=crop&auto=format`}
+                  src={`${image.url}`}
                   alt={`image-${index}`}
                   loading="lazy"
-                  onClick={() => setFullScreenImage(src)} // Set the clicked image as the full-screen image
+                  onClick={() => setFullScreenImage(image.url)} // Set the clicked image as the full-screen image
                   style={{ cursor: 'pointer' }} // Add a pointer cursor for the clickable image
                 />
                 <div style={{ position: 'absolute', top: 8, right: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -160,7 +192,7 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
                       marginBottom: 1,
                       p: 0.5,
                     }}
-                    onClick={() => handleShare(src)}
+                    onClick={() => handleShare(image.url)}
                     aria-label={`share image ${index}`}
                   >
                     <ShareIcon />
@@ -176,8 +208,41 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
                       borderRadius: '50%',
                       p: 0.5,
                     }}
-                    onClick={() => handleDelete(src)}
+                    onClick={() => handleDelete(image.url)}
                     aria-label={`delete image ${index}`}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              </ImageListItem>
+            ))}
+            {newImagePreviews.map((preview, index) => (
+              <ImageListItem key={`new-${index}`} sx={{ position: 'relative' }}>
+                <img
+                  src={preview}
+                  alt={`new-image-${index}`}
+                  style={{ cursor: 'pointer' }}
+                />
+                <div style={{ position: 'absolute', top: 8, right: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <IconButton
+                    sx={{
+                      color: 'rgba(255, 255, 255, 0.7)',
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                      borderRadius: '50%',
+                      p: 0.5,
+                    }}
+                    disabled
+                  >
+                    <ShareIcon />
+                  </IconButton>
+                  <IconButton
+                    sx={{
+                      color: 'rgba(255, 255, 255, 0.7)',
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                      borderRadius: '50%',
+                      p: 0.5,
+                    }}
+                    disabled
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -196,90 +261,60 @@ const AlbumDialog = ({ open, onClose, album, onAddImages }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Close</Button>
-          <Button onClick={handleAddImages} color="primary">
+          <Button onClick={handleAddImages} disabled={newImages.length === 0} color="primary">
             Add Images
           </Button>
         </DialogActions>
       </Dialog>
 
-      {/* Full-Screen Image View Dialog */}
+      {/* Full Screen Image View */}
       <Dialog
-        open={!!fullScreenImage}
+        open={Boolean(fullScreenImage)}
         onClose={() => setFullScreenImage('')}
         maxWidth="md"
         fullWidth
-        sx={{
-          borderRadius: '8px', // Optional: add border radius for rounded corners
-        }}
       >
-        <DialogContent
-          sx={{
-            padding: 0,
-          }}
-        >
-          <img
-            src={fullScreenImage}
-            alt="Full Screen"
-            style={{
-              width: '100%',
-              height: 'auto',
-              objectFit: 'contain',
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setFullScreenImage('')}>Close</Button>
-        </DialogActions>
+        <img
+          src={fullScreenImage}
+          alt="Full screen"
+          style={{ width: '100%', height: 'auto' }}
+        />
       </Dialog>
-
-      {/* Share Options Menu */}
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
-        <MenuItem onClick={() => handleShareOption('facebook', anchorEl)}>
-          Share on Facebook
-        </MenuItem>
-        <MenuItem onClick={() => handleShareOption('whatsapp', anchorEl)}>
-          Share on WhatsApp
-        </MenuItem>
-        <MenuItem onClick={() => handleShareOption('email', anchorEl)}>
-          Share via Email
-        </MenuItem>
-      </Menu>
 
       {/* Delete Confirmation Dialog */}
       <Dialog
         open={openDeleteConfirm}
         onClose={() => setOpenDeleteConfirm(false)}
-        maxWidth="sm"
-        fullWidth
-        sx={{
-          border: '2px solid blue', // Add blue border
-          borderRadius: '8px', // Optional: add border radius for rounded corners
-        }}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <DialogTitle
-          sx={{
-            borderBottom: '2px solid blue', // Add blue border to the title
-            paddingBottom: '16px',
-          }}
-        >
-          Confirm Delete
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">Delete Image</DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText id="alert-dialog-description">
             Are you sure you want to delete this image?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDeleteConfirm(false)}>Cancel</Button>
-          <Button onClick={confirmDelete} color="error">
+          <Button onClick={() => setOpenDeleteConfirm(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={confirmDelete} color="primary" autoFocus>
             Delete
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Share Menu */}
+      <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={() => handleShareOption('facebook', anchorEl)}>Share on Facebook</MenuItem>
+        <MenuItem onClick={() => handleShareOption('whatsapp', anchorEl)}>Share on WhatsApp</MenuItem>
+        <MenuItem onClick={() => handleShareOption('email', anchorEl)}>Share via Email</MenuItem>
+      </Menu>
     </>
   );
 };
