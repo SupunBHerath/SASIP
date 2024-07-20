@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     TextField, IconButton, Typography, Tooltip, List, ListItem, ListItemText, Divider, Card, CardContent, CardActions, Collapse, Pagination, Snackbar
@@ -8,10 +8,13 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import MuiAlert from '@mui/material/Alert';
-import axios from 'axios';
 
 const NewsHandle = () => {
-    const [newsData, setNewsData] = useState([]); // Initialize as an empty array
+    const [newsData, setNewsData] = useState([
+        { id: 1, newsId: 'N001', title: 'News Title 1', subscribers: ['user1@example.com', 'user2@example.com', 'user3@example.com', 'user4@example.com', 'user5@example.com', 'user6@example.com', 'user7@example.com', 'user8@example.com', 'user9@example.com', 'user10@example.com', 'user11@example.com'] },
+        { id: 2, newsId: 'N002', title: 'News Title 2', subscribers: ['user12@example.com', 'user13@example.com', 'user14@example.com'] },
+    ]);
+
     const [openEmailDialog, setOpenEmailDialog] = useState(false);
     const [selectedNews, setSelectedNews] = useState(null);
     const [emailForm, setEmailForm] = useState({ subject: '', description: '', image: null, link: '' });
@@ -19,27 +22,6 @@ const NewsHandle = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
     const [openSnackbar, setOpenSnackbar] = useState(false);
-
-    useEffect(() => {
-        const fetchNewsData = async () => {
-            try {
-                const response = await axios.get('/api/news/get-news'); // Adjust the API endpoint as needed
-                const data = response.data;
-                if (Array.isArray(data.news)) {
-                    const filteredNews = data.news.filter(item => item.id && item.newsId);
-                    setNewsData(filteredNews);
-                } else {
-                    console.error('Unexpected response format:', data);
-                    setNewsData([]); // Default to an empty array if response format is unexpected
-                }
-            } catch (error) {
-                console.error('Error fetching news data:', error);
-                setNewsData([]); // Default to an empty array if there's an error
-            }
-        };
-
-        fetchNewsData();
-    }, []);
 
     const handleEmailDialogOpen = (news) => {
         setSelectedNews(news);
@@ -90,13 +72,13 @@ const NewsHandle = () => {
     return (
         <div style={{ padding: '20px', maxWidth: '1200px', margin: 'auto' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                {Array.isArray(newsData) && newsData.map((news) => (
+                {newsData.map((news) => (
                     <Card key={news.id} variant="outlined" style={{ marginBottom: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
                         <CardContent>
                             <Typography variant="h6" component="div" style={{ display: 'flex', alignItems: 'center' }}>
                                 {news.newsId}: {news.title}
                                 <Typography variant="body2" color="textSecondary" style={{ marginLeft: '8px' }}>
-                                    ({news.count} emails) {/* Assuming `count` represents the number of emails */}
+                                    ({news.subscribers.length} emails)
                                 </Typography>
                                 <Tooltip title="Send All Emails">
                                     <IconButton
@@ -117,13 +99,13 @@ const NewsHandle = () => {
                         <Divider />
                         <Collapse in={expandedNews === news.id}>
                             <List>
-                                {getPaginatedSubscribers(news.subscribers || []).map((email, index) => (
+                                {getPaginatedSubscribers(news.subscribers).map((email, index) => (
                                     <ListItem key={index}>
                                         <ListItemText primary={email} />
                                     </ListItem>
                                 ))}
                             </List>
-                            {news.subscribers?.length > itemsPerPage && (
+                            {news.subscribers.length > itemsPerPage && (
                                 <CardActions style={{ justifyContent: 'center' }}>
                                     <Pagination
                                         count={Math.ceil(news.subscribers.length / itemsPerPage)}
