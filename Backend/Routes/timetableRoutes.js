@@ -1,10 +1,10 @@
 import express from 'express';
-import { addTimetableEntries, getAllTimetableEntries, getTimetableEntriesById, } from '../Controllers/AddTimetable.js';
+import { addTimetableEntries, getAllTimetables, getTimetableEntriesById, } from '../Controllers/AddTimetable.js';
 
 const router = express.Router();
 
 router.post('/add', addTimetableEntries);
-router.get('/display-timetable', getAllTimetableEntries);
+router.get('/display-timetable', getAllTimetables);
 router.get('/display-timetable/:id', getTimetableEntriesById);
 
 

@@ -32,8 +32,18 @@ export const addTimetableEntries = async (req, res) => {
         return res.status(400).json({ message: `Invalid Lecture ID format for entry with lid: ${lid}. Please use format SXXXX (e.g., S0001).` });
       }
 
+      // Check if documents already exist under the given 'lid'
+      const timetablesCollectionRef = db.collection('timetable').doc(lid).collection('timetables');
+      const existingTimetablesSnapshot = await timetablesCollectionRef.get();
+
+      if (!existingTimetablesSnapshot.empty) {
+        // Skip adding new entries if documents already exist under this 'lid'
+        console.log(`Timetables already exist for lid: ${lid}. Skipping new entries.`);
+        continue;
+      }
+
       // Create a reference to the document in the 'timetable' collection
-      const timetableRef = db.collection('timetable').doc(lid).collection('timetables').doc();
+      const timetableRef = timetablesCollectionRef.doc();
 
       // Create the timetable entry object
       const timetableEntry = {
@@ -63,28 +73,36 @@ export const addTimetableEntries = async (req, res) => {
   }
 };
 
-export const getAllTimetableEntries = async (req, res) => {
+export const getAllTimetables = async (req, res) => {
   try {
-    // Retrieve all documents from the 'timetable' collection
-    const timetableSnapshot = await db.collection('timetable').doc(id).collection('timetables').get();
+    const timetablesRef = db.collection('timetable');
+    const timetablesSnapshot = await timetablesRef.listDocuments(); // Get all document references
 
-    if (timetableSnapshot.empty) {
+    if (timetablesSnapshot.length === 0) {
       return res.status(404).json({ message: 'No timetable entries found.' });
     }
 
-    // Format the documents into an array of timetable entries
-    const timetableEntries = timetableSnapshot.docs.map(doc => {
-      const data = doc.data();
-      return {
-        lid: doc.id,  // Rename 'id' to 'lid'
-        ...data
-      };
-    });
+    const allTimetables = [];
 
-    return res.status(200).json(timetableEntries);
+    // Iterate through each document reference in the 'timetable' collection
+    for (const docRef of timetablesSnapshot) {
+      const timetablesCollectionRef = docRef.collection('timetables');
+      const timetablesCollectionSnapshot = await timetablesCollectionRef.get();
+
+      // Iterate through each document in the 'timetables' subcollection
+      for (const subDoc of timetablesCollectionSnapshot.docs) {
+        allTimetables.push({
+          lid: docRef.id,  // Add the parent document ID as 'lid'
+          tid: subDoc.id,  // Add the subcollection document ID as 'tid'
+          ...subDoc.data()
+        });
+      }
+    }
+
+    return res.status(200).json(allTimetables);
   } catch (error) {
-    console.error('Error retrieving timetable entries: ', error);
-    return res.status(500).json({ message: 'Failed to retrieve timetable entries. Please try again.' });
+    console.error('Error retrieving timetables: ', error);
+    return res.status(500).json({ message: 'Failed to retrieve timetables. Please try again.' });
   }
 };
 
