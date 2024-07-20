@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -29,12 +29,14 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
+import axios from 'axios';
 
 const sampleData = [
-  { id: 1, lid:'', name: 'John Doe', contact: '123-456-7890', visible: true, rank: 1 },
-  { id: 2, lid:'', name: 'Jane Smith', contact: '987-654-3210', visible: false, rank: 2 },
+  { id: 1,  name: 'John Doe', contact: '123-456-7890', visible: true, rank: 1 },
+  { id: 2,  name: 'Jane Smith', contact: '987-654-3210', visible: false, rank: 2 },
   // Add more sample data as needed
 ];
+
 
 const TeacherTable = () => {
   const [teachers, setTeachers] = useState(sampleData);
@@ -46,9 +48,13 @@ const TeacherTable = () => {
   const [editedTeacherName, setEditedTeacherName] = useState('');
   const [editedLID, setEditedLID] = useState('');
   const [editedTeacherContact, setEditedTeacherContact] = useState('');
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState('');
   const [newTeacher, setNewTeacher] = useState({
     name: '',
-    lid: '',
+    id: '',
+    experience: '', 
+    stream: '' ,
     contact: '',
     subject: '',
     classType: [],
@@ -61,6 +67,20 @@ const TeacherTable = () => {
       website: '',
     },
   });
+
+  useEffect(() => {
+    // Fetch teachers data from your API
+    const fetchTeachers = async () => {
+      try {
+        const response = await axios.get('/api/teacher/display-teachers'); // Adjust endpoint based on your API
+        setTeachers(response.data.teachers); // Assuming API response has a teachers array
+      } catch (error) {
+        console.error('Error fetching teachers:', error);
+      }
+    };
+
+    fetchTeachers();
+  }, []);
 
   const handleDeleteClick = (teacher) => {
     setSelectedTeacher(teacher);
@@ -76,6 +96,17 @@ const TeacherTable = () => {
     }
   };
 
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePicture(file);
+      setPreviewUrl(URL.createObjectURL(file));
+      setNewTeacher((prev) => ({ ...prev, image: file })); // Update state
+    }
+  };
+  
+  
+
   const handleVisibilityToggle = (teacher) => {
     setSelectedTeacher(teacher);
     setDeleteDialogOpen(true); // Open status change confirmation dialog
@@ -90,7 +121,7 @@ const TeacherTable = () => {
     setSelectedTeacher(teacher);
     setEditedTeacherName(teacher.name);
     setEditedTeacherContact(teacher.contact);
-    setEditedLID(teacher.lid);
+    setEditedLID(teacher.id);
     setEditDialogOpen(true);
   };
 
@@ -129,54 +160,117 @@ const TeacherTable = () => {
     setAddDialogOpen(true);
   };
 
-  const handleAddTeacherConfirm = () => {
-    const newTeacherId = teachers.length ? Math.max(...teachers.map((t) => t.id)) + 1 : 1;
-    const updatedTeachers = [
-      ...teachers,
-      { id: newTeacherId, ...newTeacher, visible: true, rank: teachers.length + 1 },
-    ];
-    setTeachers(updatedTeachers);
-    setAddDialogOpen(false);
-    setNewTeacher({
-      name: '',
-      contact: '',
-      subject: '',
-      classType: [],
-      medium: [],
-      bio: '',
-      qualifications: [],
-      socialMedia: {
-        youtube: '',
-        facebook: '',
-        website: '',
-      },
-    });
-  };
 
-  const handleNewTeacherChange = (field, value) => {
+const handleAddTeacherConfirm = async () => {
+  const formData = new FormData();
+  formData.append('name', newTeacher.name);
+  formData.append('contact', newTeacher.contact);
+  formData.append('subject', newTeacher.subject);
+  formData.append('classType', JSON.stringify(newTeacher.classType));
+  formData.append('medium', JSON.stringify(newTeacher.medium));
+  formData.append('bio', newTeacher.bio);
+  formData.append('socialMedia', JSON.stringify(newTeacher.socialMedia));
+  formData.append('experience', newTeacher.experience); 
+  formData.append('stream', newTeacher.stream);
+  
+  newTeacher.qualifications.forEach((qualification, index) => {
+    formData.append(`qualifications[${index}][name]`, qualification.name);
+    formData.append(`qualifications[${index}][description]`, qualification.description);
+    if (qualification.file) {
+      formData.append(`qualifications[${index}][file]`, qualification.file);
+    }
+  });
+
+  if (newTeacher.image) {
+    formData.append('image', newTeacher.image);
+  }
+
+  try {
+    const response = await axios.post('/api/teacher/add', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    if (response.status === 200) {
+      setTeachers((prevTeachers) => [
+        ...prevTeachers,
+        response.data
+      ]);
+      setAddDialogOpen(false);
+      setNewTeacher({
+        name: '',
+        contact: '',
+        subject: '',
+        classType: [],
+        medium: [],
+        bio: '',
+        stream: '',
+        experience: '',
+        qualifications: [],
+        socialMedia: {
+          youtube: '',
+          facebook: '',
+          website: '',
+        },
+        image: null
+      });
+    } else {
+      console.error('Failed to add lecturer');
+    }
+  } catch (error) {
+    console.error('Error adding lecturer:', error);
+  }
+};
+
+
+const handleNewTeacherChange = (field, value) => {
+  if (field === 'image') {
+    setNewTeacher((prev) => ({ ...prev, [field]: value.target.files[0] }));
+  } else {
     setNewTeacher((prev) => ({ ...prev, [field]: value }));
-  };
+  }
+};
 
-  const handleAddQualification = () => {
-    setNewTeacher((prev) => ({
-      ...prev,
-      qualifications: [...prev.qualifications, { name: '', description: '', icon: '' }],
-    }));
-  };
+const handleAddQualification = () => {
+  setNewTeacher((prev) => ({
+    ...prev,
+    qualifications: [
+      ...prev.qualifications,
+      {
+        name: '',
+        description: '',
+        icon: '',
+        file: null
+      }
+    ]
+  }));
+};
 
-  const handleQualificationChange = (index, field, value) => {
-    setNewTeacher((prev) => {
-      const updatedQualifications = [...prev.qualifications];
-      updatedQualifications[index] = { ...updatedQualifications[index], [field]: value };
-      return { ...prev, qualifications: updatedQualifications };
-    });
-  };
-
-  const handleUploadIcon = (index, file) => {
-    // Here you can handle the file upload logic, for simplicity, setting icon path
+const handleQualificationChange = (index, field, value) => {
+  setNewTeacher((prev) => {
+    const updatedQualifications = [...prev.qualifications];
+    if (field === 'file') {
+      updatedQualifications[index].file = value;
+      handleUploadIcon(index, value);
+    } else {
+      updatedQualifications[index][field] = value;
+    }
+    return { ...prev, qualifications: updatedQualifications };
+  });
+};
+  
+const handleUploadIcon = (index, file) => {
+  if (file) {
     const url = URL.createObjectURL(file);
     handleQualificationChange(index, 'icon', url);
-  };
+  }
+};
+
+const handleQualificationFileChange = (index, event) => {
+  const file = event.target.files[0];
+  handleQualificationChange(index, 'file', file);
+};
 
   const filteredTeachers = teachers.filter((teacher) =>
     teacher.name.toLowerCase().includes(filterValue.toLowerCase())
@@ -224,10 +318,15 @@ const TeacherTable = () => {
             {filteredTeachers.map((teacher, index) => (
               <TableRow key={teacher.id}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{teacher.lid}</TableCell>
+                <TableCell>{teacher.id}</TableCell>
                 <TableCell>
-                  <Avatar alt={teacher.name} src={`https://example.com/${teacher.id}.jpg`} />
+                  <Avatar
+                    alt={teacher.name}
+                    src={teacher.imageUrl} // Use placeholder if no image URL
+                    style={{ width: 50, height: 50 }} // Optional: adjust size if needed
+                  />
                 </TableCell>
+
                 <TableCell>{teacher.name}</TableCell>
                 <TableCell>{teacher.contact}</TableCell>
                 <TableCell>{teacher.rank}</TableCell>
@@ -328,6 +427,19 @@ const TeacherTable = () => {
                 style={{ marginBottom: 10 }}
               />
             </Grid>
+              <input
+              accept="image/*"
+              type="file"
+              onChange={handleProfilePictureChange}
+              style={{ marginBottom: 10 }}
+            />
+            {previewUrl && (
+              <img
+                src={previewUrl}
+                alt="Profile Preview"
+                style={{ width: '100px', height: '100px', marginBottom: 10 }}
+              />
+            )}
             <Grid item xs={12}>
               <TextField
                 label="Contact Number"
@@ -348,6 +460,23 @@ const TeacherTable = () => {
                 style={{ marginBottom: 10 }}
               />
             </Grid>
+            <Grid item xs={12}>
+            <FormControl variant="outlined" fullWidth style={{ marginBottom: 10 }}>
+            <InputLabel>Stream</InputLabel>
+            <Select
+              value={newTeacher.stream || ''} // Handle case when value might be undefined
+              onChange={(e) => handleNewTeacherChange('stream', e.target.value)}
+              label="Stream"
+            >
+              <MenuItem value="arts">Arts</MenuItem>
+              <MenuItem value="science">Science</MenuItem>
+              <MenuItem value="maths">Maths</MenuItem>
+              <MenuItem value="tech">Tech</MenuItem>
+              <MenuItem value="common">Common</MenuItem>
+            </Select>
+          </FormControl>
+
+        </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth variant="outlined" style={{ marginBottom: 10 }}>
                 <InputLabel>Type of Class </InputLabel>
@@ -390,6 +519,18 @@ const TeacherTable = () => {
                 style={{ marginBottom: 10 }}
               />
             </Grid>
+            <Grid item xs={12}>
+          <TextField
+            label="Experience"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={4}
+            value={newTeacher.experience}
+            onChange={(e) => handleNewTeacherChange('experience', e.target.value)}
+            style={{ marginBottom: 10 }}
+          />
+        </Grid>
             <Grid item xs={12}>
               <FormGroup style={{ marginBottom: 10 }}>
                 <TextField
@@ -443,7 +584,6 @@ const TeacherTable = () => {
                 Add Qualification
               </Button>
               {newTeacher.qualifications.map((qualification, index) => (
-
                 <div key={index} style={{ marginBottom: 10 }}>
                   <TextField
                     label="Qualification Name"
@@ -468,7 +608,7 @@ const TeacherTable = () => {
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => handleUploadIcon(index, e.target.files[0])}
+                    onChange={(e) => handleQualificationFileChange(index, e)}
                     style={{ marginBottom: 5 }}
                   />
                   {qualification.icon && (
@@ -481,10 +621,10 @@ const TeacherTable = () => {
                   <br />
                   <br />
                   <hr />
-
                 </div>
               ))}
             </Grid>
+
           </Grid>
         </DialogContent>
         <DialogActions>

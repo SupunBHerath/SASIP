@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState,useEffect } from 'react';
 import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
     Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem,
@@ -9,6 +9,7 @@ import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import Autocomplete from '@mui/material/Autocomplete';
+import axios from 'axios';
 
 const initialData = [
     { id: 1, lid: 'S0001', name: 'John Doe', subject: 'Mathematics', classMode: 'Physical', classType: 'Theory', medium: 'English', day: 'Monday', time: '10:00 AM - 11:00 PM', note: 'Chapter 1', status: 'Visible' },
@@ -31,7 +32,27 @@ const TimeTableT = () => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const tableRef = useRef(null);
-    const rowsPerPage = 5; // Adj
+    const rowsPerPage = 5; // 
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    useEffect(() => {
+        const fetchTimetableData = async () => {
+            try {
+                const response = await axios.get('/api/timetable/display-timetable'); 
+                if (response.status === 200) {
+                    setData(response.data);
+                } else {
+                    console.error('Failed to fetch timetable data');
+                }
+            } catch (error) {
+                console.error('Error fetching timetable data:', error);
+            }
+        };
+
+        fetchTimetableData();
+    }, []);
+
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
@@ -106,35 +127,53 @@ const TimeTableT = () => {
         setData(updatedData);
         handleCloseEdit();
     };
-
-    const handleAdd = () => {
-        const lidPattern = /^S\d{4}$/; // Example pattern: S followed by 4 digits
-        if (!lidPattern.test(formData.lid)) {
-            setAlertSeverity('error');
-            setAlertMessage('Invalid Lecture ID format. Please use format SXXXX (e.g., S0001).');
-            setAlertOpen(true);
-            return;
+///////////////////////////////////////////////////////////////////////////////////////////////
+const handleAdd = async () => {
+    const timetableEntries = [
+        {
+            lid: formData.lid || '',
+            name: formData.name || '',
+            subject: formData.subject || '',
+            classMode: formData.classMode || '',
+            classType: formData.classType || '',
+            medium: formData.medium || '',
+            day: formData.day || '',
+            time: formData.time || '',
+            note: formData.note || '',
+            status: formData.status || ''
         }
+    ];
 
-        if (!formData.lid || !formData.name || !formData.subject || !formData.classMode || !formData.classType || !formData.medium || !formData.day || !formData.time || !formData.status) {
-            setAlertSeverity('error');
-            setAlertMessage('Please fill in all required fields.');
+    // Log timetableEntries for debugging
+    console.log('Timetable Entries:', timetableEntries);
+
+    try {
+        const response = await axios.post('/api/timetable/add', timetableEntries, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.status === 200) {
+            setData((prevData) => [...prevData, ...timetableEntries]); // assuming response.data contains the added entries
             setAlertOpen(true);
-            return;
+            setAlertMessage('Timetable added successfully!');
+            setAlertSeverity('success');
+            handleCloseAdd();
+        } else {
+            setAlertOpen(true);
+            setAlertMessage('Failed to add timetable');
+            setAlertSeverity('error');
         }
+    } catch (error) {
+        console.error('Error adding timetable:', error);
+        setAlertOpen(true);
+        setAlertMessage('Error adding timetable');
+        setAlertSeverity('error');
+    }
+};
 
-        const newEntry = {
-            ...formData,
-            id: data.length + 1,
-            name: manualInput ? formData.name : autocompleteName?.name,
-            subject: manualInput ? formData.subject : autocompleteSubject?.subject,
-        };
-
-        setData([...data, newEntry]);
-        handleCloseAdd();
-    };
-
-
+////////////////////////////////////////////////////////////////////////////////////////////
     const handleDelete = (id) => {
         setData(data.filter(item => item.id !== id));
     };
@@ -153,17 +192,24 @@ const TimeTableT = () => {
     const handleFileChange = (file) => {
         if (file) {
             const reader = new FileReader();
-            reader.onload = (event) => {
+            reader.onload = async (event) => {
                 const data = new Uint8Array(event.target.result);
                 const workbook = XLSX.read(data, { type: 'array' });
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { defval: '' });
 
-                const parsedData = worksheet.map((row, index) => {
-                    if (row["Lecturer's  ID "]) {
+                 // Log the entire worksheet to check the data structure
+            console.log('Worksheet data:', worksheet);
+
+                    // Log the first row to check column names
+                if (worksheet.length > 0) {
+                    console.log('First row of data:', worksheet[0]);
+                }
+
+                const parsedData = worksheet.map((row) => {
+                    if (row["Lecturer's  ID "] || row["Lecturer's  ID"]) {
                         return {
-                            id: initialData.length + index + 1,
-                            lid: row["Lecturer's  ID"],
+                            lid: row["Lecturer's  ID "] || row["Lecturer's  ID"],
                             name: row['Lecturer Name'],
                             subject: row['Subject'],
                             classMode: row['Class ( Physical / Online )'],
@@ -172,13 +218,35 @@ const TimeTableT = () => {
                             day: row['Day'],
                             time: row['Time'],
                             note: row['Note'],
-                            status: 'Visible',
+                            status: row['Status'],
                         };
                     }
                     return null;
                 }).filter(row => row !== null);
 
-                setData(prevData => [...prevData, ...parsedData]);
+                try {
+                    const response = await axios.post('/api/timetable/xl/add', parsedData, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+    
+                    if (response.status === 200) {
+                        setData((prevData) => [...prevData, ...response.data]);
+                        setAlertOpen(true);
+                        setAlertMessage('Timetable uploaded successfully!');
+                        setAlertSeverity('success');
+                    } else {
+                        setAlertOpen(true);
+                        setAlertMessage('Failed to upload timetable');
+                        setAlertSeverity('error');
+                    }
+                } catch (error) {
+                    console.error('Error uploading timetable:', error);
+                    setAlertOpen(true);
+                    setAlertMessage('Error uploading timetable');
+                    setAlertSeverity('error');
+                }
             };
             reader.readAsArrayBuffer(file);
         }
@@ -225,9 +293,9 @@ const TimeTableT = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody >
-                        {data.map((row) => (
+                        {data.map((row, index) => (
                             <TableRow key={row.id} >
-                                <TableCell>{row.id}</TableCell>
+                                <TableCell>{index + 1}</TableCell>
                                 <TableCell>{row.lid}</TableCell>
                                 <TableCell>{row.name}</TableCell>
                                 <TableCell>{row.subject}</TableCell>
@@ -413,14 +481,14 @@ const TimeTableT = () => {
                                     <>
                                         <Autocomplete
                                             className='mb-4'
-                                            options={initialData.filter(item => item.lid === formData.lid)}
+                                            options={data.filter(item => item.lid === formData.lid)}
                                             getOptionLabel={(option) => option.name}
                                             renderInput={(params) => <TextField {...params} label="Lecturer Name" />}
                                             onChange={(e, value) => value && setFormData({ ...formData, name: value.name })}
                                         />
                                         <Autocomplete
                                             className='mb-4'
-                                            options={initialData.filter(item => item.lid === formData.lid)}
+                                            options={data.filter(item => item.lid === formData.lid)}
                                             getOptionLabel={(option) => option.subject}
                                             renderInput={(params) => <TextField {...params} label="Subject" />}
                                             onChange={(e, value) => value && setFormData({ ...formData, subject: value.subject })}

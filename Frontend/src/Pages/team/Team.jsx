@@ -1,54 +1,52 @@
 import React, { useState, useEffect } from "react";
 import TeamCard from "../../Comporant/Card/TeamCard";
 import "./team.css";
-import { team as dummyTeamData } from "../../DummyData/dummydata";
-import Heading from "../../Comporant/Landing/common/header/Header";
 import { IconButton, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, FormControl, InputLabel, Button, Pagination } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Navbar from "../../Comporant/Navibar/Navbar";
 import ScrollToTopButton from "../../Comporant/ScrollToTopButton/ScrollToTopButton";
+import axios from "axios";
 
 const Team = () => {
   const [nameFilter, setNameFilter] = useState("");
-  const [workFilter, setWorkFilter] = useState("");
+  const [subjectFilter, setSubjectFilter] = useState("");
   const [language, setLanguage] = useState("English");
   const [showNameSuggestions, setShowNameSuggestions] = useState(false);
-  const [showWorkSuggestions, setShowWorkSuggestions] = useState(false);
+  const [showSubjectSuggestions, setShowSubjectSuggestions] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [classType, setClassType] = useState("");
   const [medium, setMedium] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [teamData, setTeamData] = useState([]); // State to store fetched data
   const itemsPerPage = 12;
 
   useEffect(() => {
-    let timer;
-    const handleScroll = () => {
-      setScrolling(true);
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        setScrolling(false);
-      }, 200);
+    // Fetch data from backend
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/teacher/display-teachers"); 
+        setTeamData(response.data.teachers);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(timer);
-    };
+
+    fetchData();
   }, []);
 
-  const filteredTeam = dummyTeamData.filter((member) => {
+  const filteredTeam = teamData.filter((member) => {
     const nameMatches = member.name.toLowerCase().includes(nameFilter.toLowerCase());
-    const workMatches = member.work.toLowerCase().includes(workFilter.toLowerCase());
-    return nameMatches && workMatches;
+    const subjectMatches = member.subject.toLowerCase().includes(subjectFilter.toLowerCase());
+    return nameMatches && subjectMatches;
   });
 
-  const nameSuggestions = dummyTeamData.filter((member) =>
+  const nameSuggestions = teamData.filter((member) =>
     member.name.toLowerCase().includes(nameFilter.toLowerCase())
   );
 
-  const workSuggestions = dummyTeamData.filter((member) =>
-    member.work.toLowerCase().includes(workFilter.toLowerCase())
+  const subjectSuggestions = teamData.filter((member) =>
+    member.subject.toLowerCase().includes(subjectFilter.toLowerCase())
   );
 
   const handleNameSuggestionClick = (suggestion) => {
@@ -56,9 +54,9 @@ const Team = () => {
     setShowNameSuggestions(false);
   };
 
-  const handleWorkSuggestionClick = (suggestion) => {
-    setWorkFilter(suggestion.work);
-    setShowWorkSuggestions(false);
+  const handleSubjectSuggestionClick = (suggestion) => {
+    setSubjectFilter(suggestion.subject);
+    setShowSubjectSuggestions(false);
   };
 
   const handleDialogOpen = () => {
@@ -104,18 +102,18 @@ const Team = () => {
             <div className="filter-input">
               <input
                 type="text"
-                placeholder="Filter by Work"
-                value={workFilter}
+                placeholder="Filter by Subject"
+                value={subjectFilter}
                 onChange={(e) => {
-                  setWorkFilter(e.target.value);
-                  setShowWorkSuggestions(e.target.value.length > 0);
+                  setSubjectFilter(e.target.value);
+                  setShowSubjectSuggestions(e.target.value.length > 0);
                 }}
               />
-              {showWorkSuggestions && workSuggestions.length > 0 && (
+              {showSubjectSuggestions && subjectSuggestions.length > 0 && (
                 <ul className="suggestions">
-                  {workSuggestions.map((suggestion, index) => (
-                    <li key={index} onClick={() => handleWorkSuggestionClick(suggestion)}>
-                      {suggestion.work}
+                  {subjectSuggestions.map((suggestion, index) => (
+                    <li key={index} onClick={() => handleSubjectSuggestionClick(suggestion)}>
+                      {suggestion.subject}
                     </li>
                   ))}
                 </ul>
@@ -142,8 +140,8 @@ const Team = () => {
                 value={classType}
                 onChange={(e) => setClassType(e.target.value)}
               >
-                <MenuItem value="online">Online</MenuItem>
-                <MenuItem value="physical">Physical</MenuItem>
+                <MenuItem value="Online">Online</MenuItem>
+                <MenuItem value="Physical">Physical</MenuItem>
               </Select>
             </FormControl>
             <FormControl fullWidth margin="normal">
@@ -153,7 +151,7 @@ const Team = () => {
                 onChange={(e) => setMedium(e.target.value)}
               >
                 <MenuItem value="Sinhala">Sinhala</MenuItem>
-                <MenuItem value="English">English</MenuItem>
+                <MenuItem value="Tamil">Tamil</MenuItem>
               </Select>
             </FormControl>
             <Button onClick={handleDialogClose} variant="contained" color="primary">
