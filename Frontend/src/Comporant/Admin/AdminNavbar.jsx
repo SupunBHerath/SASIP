@@ -36,6 +36,9 @@ import Notification from '../../Pages/Admin/Notification';
 import Subject from '../../Pages/Admin/Subject';
 import BookIcon from '@mui/icons-material/Book';
 import { AuthContext } from '../../Config/AuthContext';
+import NewsFeedT from './Table/NewsFeedT';
+import NewsTabs from './NewsTab';
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -269,7 +272,7 @@ export default function AdminNavbar() {
         {activeComponent === 'lecher' && <Lecher />}
         {activeComponent === 'gallery' && <Gallery />}
         {activeComponent === 'timetable' && <TimeTable />}
-        {activeComponent === 'subject' && <Subject />}
+        {activeComponent === 'subject' && <NewsTabs />}
         {activeComponent === 'notification' && <Notification />}
       </Box>
     </Box>
