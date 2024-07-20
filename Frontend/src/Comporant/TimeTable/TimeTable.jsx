@@ -1,28 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Grid, TextField, Pagination, Autocomplete, Tabs, Tab, FormControl, InputLabel, Select, MenuItem, useMediaQuery, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import TimeTableCard from './TimeTableCard';
 import { Color } from '../CSS/Css';
 import Navbar from '../Navibar/Navbar';
+import axios from 'axios';
 
-// const ITEMS_PER_PAGE = 8;
 
-const sampleTimeTables = [
-    { Class: 'Physical', medium: 'Sinahala', subjectName: 'Mathematics', year: '2025', lecture: 'John Doe', day: 'Monday', time: '10:00 AM - 12:00 PM', classType: 'yeary' },
-    { note: 'Group Class 1', Class: 'Physical', medium: 'Sinahala', subjectName: 'Biology', year: '2024', lecture: 'Jane Smith', day: 'Tuesday', time: '1:00 PM - 3:00 PM', classType: 'revision' },
-    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Chemistry', year: '2023', lecture: 'Alice Johnson', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'paper' },
-    { note: 'VIP Class', Class: 'Physical', medium: 'Sinahala', subjectName: 'Physics', year: '2025', lecture: 'Bob Brown', day: 'Thursday', time: '2:00 PM - 4:00 PM', classType: 'abc' },
-    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'History', year: '2026', lecture: 'Mary White', day: 'Friday', time: '11:00 AM - 1:00 PM', classType: 'revision' },
-    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Geography', year: '2024', lecture: 'Peter Green', day: 'Monday', time: '10:00 AM - 12:00 PM', classType: 'paper' },
-    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'English', year: '2023', lecture: 'Linda Black', day: 'Tuesday', time: '1:00 PM - 3:00 PM', classType: 'teary' },
-    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
-    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
-    { note: 'note', Class: 'Physical', medium: 'Sinahala', subjectName: 'Economics', year: '2025', lecture: 'James Gray', day: 'Wednesday', time: '9:00 AM - 11:00 AM', classType: 'revision' },
-    { Class: 'Physical', medium: 'Sinahala', subjectName: 'Psychology', year: '2024', lecture: 'Patricia Red', day: 'Thursday', time: '2:00 PM - 4:00 PM', classType: 'teary' }
-];
+
 const TimeTable = () => {
-    const [filter, setFilter] = useState('');
+    const [sampleTimeTables, setSampleTimeTables] = useState([]);
     const [filteredTimeTables, setFilteredTimeTables] = useState(sampleTimeTables);
+
+    useEffect(() => {
+        const fetchTimeTables = async () => {
+            try {
+                const response = await axios.get('/api/timetable/display-timetable'); // Update the URL to your actual API endpoint
+                if (response.status === 200) {
+                    const formattedData = response.data.map(item => ({
+                        Class: item.classMode,
+                        medium: item.medium,
+                        subjectName: item.subject,
+                        year: new Date(item.createdAt._seconds * 1000).getFullYear().toString(),
+                        lecture: item.name,
+                        day: item.day,
+                        time: item.time,
+                        classType: item.classType
+                    }));
+                    setSampleTimeTables(formattedData);
+                }
+            } catch (error) {
+                console.error('Error fetching timetables:', error);
+            }
+        };
+
+        fetchTimeTables();
+    }, []);
+
+    useEffect(() => {
+        // Log the sampleTimeTables when it changes
+        console.log(sampleTimeTables);
+        setFilteredTimeTables(sampleTimeTables)
+    }, [sampleTimeTables]);
+
+
+    const [filter, setFilter] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [tabValue, setTabValue] = useState(0);
     const [selectedYearFilter, setSelectedYearFilter] = useState('');
@@ -35,6 +57,7 @@ const TimeTable = () => {
 
     // Number of items per page based on screen size
     const ITEMS_PER_PAGE = isSmallScreen ? 4 : 10;
+
 
     const handleFilterChange = (e) => {
         const value = e.target.value;
@@ -49,15 +72,15 @@ const TimeTable = () => {
     };
     // Filter time tables based on current filters
     const filterTimeTables = (value, selectedTab, selectedYear, selectedClass) => {
+        console.log(selectedTab);
         const filtered = sampleTimeTables.filter((table) => {
             const includesFilter = table.subjectName.toLowerCase().includes(value.toLowerCase());
             const yearMatch = selectedYear ? table.year.toString() === selectedYear.toString() : true;
             const classMatch = selectedClass ? table.Class.toLowerCase() === selectedClass.toLowerCase() : true;
             const tabType = getTabType(selectedTab).toLowerCase();
-
             // Check if table matches the selected tab type
             const typeMatch = selectedTab === 0 || tabType === '' || table.classType.toLowerCase() === tabType;
-
+ 
             return includesFilter && typeMatch && yearMatch && classMatch;
         });
 
@@ -67,11 +90,12 @@ const TimeTable = () => {
 
     // Function to get tab type based on index
     const getTabType = (tabIndex) => {
+        console.log(tabIndex);
         switch (tabIndex) {
             case 0:
                 return ''; // All
             case 1:
-                return 'teary'; // Theory
+                return 'theory'; // Theory
             case 2:
                 return 'revision'; // Revision
             case 3:
