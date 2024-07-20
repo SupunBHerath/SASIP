@@ -15,7 +15,7 @@ const AboutCard = () => {
         <div style={styles.container}>
           <div style={styles.left} data-aos="fade-right">
             <img
-              src="../public/image/logoe1.png"
+              src="../public/Image/logoe1.png"
               alt="Logo"
               style={styles.aboutLogo}
             />

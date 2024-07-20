@@ -1,0 +1,60 @@
+.card-news-slide {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensure no scrollbars */
+}
+
+.card-news-container {
+    display: flex;
+    overflow-x: hidden;
+}
+
+.card-news {
+    flex: 0 0 auto;
+    min-width: 230px;
+    margin-right: 10px; /* Adjust spacing between card-newss */
+    border:none;
+}
+
+.navigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.navigation.prev {
+    left: 10px; /* Adjust position */
+}
+
+.navigation.next {
+    right: 10px; /* Adjust position */
+}
+
+.navigation:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.navigation:active {
+    transform: translateY(-50%) scale(0.9); /* Add slight scale effect on click */
+}
+
+.navigation.prev:hover {
+    left: 5px; /* Adjust position on hover */
+}
+
+.navigation.next:hover {
+    right: 5px; /* Adjust position on hover */
+}

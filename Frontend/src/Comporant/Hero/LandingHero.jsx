@@ -91,8 +91,8 @@ const LandingHero = () => {
 
   const imageUrls = [
     'https://drive.google.com/file/d/1f_oQYuLJEm8jcMj0TbGGftK5ALhSIPlM/view?usp=sharing',
-    '../../../../public/image/Lecturers/t.jpg',
-    '../../../../public/image/Lecturers/tissaSir.png',
+    '../../../public/Image/Lecturers/t.jpg',
+    '../../../public/Image/Lecturers/tissaSir.png',
   ];
 
   const animations = [
