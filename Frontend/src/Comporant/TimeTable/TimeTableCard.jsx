@@ -20,7 +20,7 @@ const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class
     <Card
       style={{
         backgroundColor: '#F5FFFb',
-        width: 530,
+        width: 550,
         margin: '20px',
         padding: '10px',
         borderRadius: 8,
@@ -28,7 +28,7 @@ const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class
           ? '0 8px 16px rgba(0,0,0,0.2), 0 4px 8px rgba(0,0,0,0.1)'
           : '0 4px 8px rgba(0,0,0,0.1)',
         transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+        transform: isHovered ? 'scale(1.08)' : 'scale(1)',
         border: '1px solid black',
       }}
       onMouseEnter={handleMouseEnter}
@@ -58,28 +58,28 @@ const TimeTableCard = ({ subjectName, year, lecture, day, time, classType, Class
         </Box>
         <Typography style={{
           marginTop: 8, fontWeight: 'bold',
-          fontSize: isSmallScreen ? '0.9rem' : '1.10rem',
+          fontSize: isSmallScreen ? '0.9rem' : '1rem',
           marginBottom: 12,
         }}>
-          <PersonOutline style={{ marginRight: 8, color: '#3f51b5' }} />Lecture &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {lecture}
+          <PersonOutline style={{ marginRight: 8, color: '#3f51b5' }} />Lecture &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp; {lecture}
         </Typography>
         <Typography style={{
           marginTop: 8, fontWeight: 'bold',
-          fontSize: isSmallScreen ? '0.9rem' : '1.10rem',
+          fontSize: isSmallScreen ? '0.9rem' : '1rem',
           marginBottom: 12,
         }}>
-          <SchoolOutlined style={{ marginRight: 8, color: '#f50057' }} /> Class &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {Class}
+          <SchoolOutlined style={{ marginRight: 8, color: '#f50057' }} />Class Type :&nbsp; {Class}
         </Typography>
         <Typography style={{
           marginTop: 8, fontWeight: 'bold',
-          fontSize: isSmallScreen ? '0.9rem' : '1.10rem',
+          fontSize: isSmallScreen ? '0.9rem' : '1rem',
           marginBottom: 12,
         }}>
-          <LanguageOutlined style={{ marginRight: 8, color: '#009688' }} /> Medium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp; {medium}
+          <LanguageOutlined style={{ marginRight: 8, color: '#009688' }} /> Medium &nbsp;&nbsp;&nbsp; :&nbsp; {medium}
         </Typography>
         <Typography style={{
           marginTop: 8, color: '#666', fontWeight: 'bold',
-          fontSize: isSmallScreen ? '0.8rem' : '1.10rem',
+          fontSize: isSmallScreen ? '0.8rem' : '1rem',
           marginBottom: 12,
         }}>
           <AccessTimeOutlined style={{ marginRight: 8, color: '#ff9800' }} /> {day} - {time}
