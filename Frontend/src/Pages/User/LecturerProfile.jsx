@@ -5,21 +5,28 @@ import axios from "axios";
 export default function Profile() {
   const { id } = useParams();
   const [teacher, setTeacher] = useState(null);
+  const [timetables, setTimetables] = useState([]); // Updated to an array
 
   useEffect(() => {
-    const fetchTeacher = async () => {
+    const fetchTeacherAndTimetables = async () => {
       try {
-        const response = await axios.get(`/api/teacher/profile/${id}`);
-        setTeacher(response.data);
+        // Fetch teacher details
+        const teacherResponse = await axios.get(`/api/teacher/profile/${id}`);
+        setTeacher(teacherResponse.data);
+
+        // Fetch timetable details
+        const timetableResponse = await axios.get(`/api/timetable/display-timetable/${id}`);
+        // Assuming response is an array of timetable objects
+        setTimetables(timetableResponse.data);
       } catch (error) {
-        console.error("Error fetching teacher details: ", error);
+        console.error("Error fetching teacher details or timetables: ", error);
       }
     };
 
-    fetchTeacher();
+    fetchTeacherAndTimetables();
   }, [id]);
 
-  if (!teacher) {
+  if (!teacher || timetables.length === 0) {
     return <div>Loading...</div>;
   }
 
@@ -195,15 +202,19 @@ export default function Profile() {
         </div>
         <hr className="my-6 border-muted" />
         <div>
-          <h3 className="widget-subtitle font-bold">Timetable</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-            {teacher.timetable && teacher.timetable.map((slot, index) => (
+          <h3 className="widget-subtitle font-bold">Timetables</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            {timetables.map((timetable, index) => (
               <div key={index} className="bg-muted p-4 rounded-lg shadow-md">
-                <img
-                  src={slot.imageUrl}
-                  alt={`Timetable Slot ${index + 1}`}
-                  className="w-full h-full object-cover rounded-lg"
-                />
+                <p className="widget-text-xl"><strong>Class Mode:</strong> {timetable.classMode}</p>
+                <p className="widget-text-xl"><strong>Medium:</strong> {timetable.medium}</p>
+                <p className="widget-text-xl"><strong>Status:</strong> {timetable.status}</p>
+                <p className="widget-text-xl"><strong>Note:</strong> {timetable.note}</p>
+                <p className="widget-text-xl"><strong>Subject:</strong> {timetable.subject}</p>
+                <p className="widget-text-xl"><strong>Name:</strong> {timetable.name}</p>
+                <p className="widget-text-xl"><strong>Time:</strong> {timetable.time}</p>
+                <p className="widget-text-xl"><strong>Day:</strong> {timetable.day}</p>
+                <p className="widget-text-xl"><strong>Class Type:</strong> {timetable.classType}</p>
               </div>
             ))}
           </div>
