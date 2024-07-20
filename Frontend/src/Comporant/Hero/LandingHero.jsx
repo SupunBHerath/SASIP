@@ -111,14 +111,14 @@ const LandingHero = () => {
         </div>
       </div>
       <div style={styles.rightSide}>
-        <img
+        {/* <img
           src={imageUrls[currentImageIndex]}
           alt="Slideshow"
           style={styles.image}
           data-aos={animations[currentAnimationIndex]} // Apply current animation
           data-aos-duration="1000" // Duration of the animation
           key={currentImageIndex} // Add key to reinitialize animation on change
-        />
+        /> */}
       </div>
     </div>
   );
