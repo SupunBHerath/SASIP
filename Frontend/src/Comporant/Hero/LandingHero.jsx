@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Heading from '../Landing/common/heading/Heading';
-import Navbar from '../Navibar/Navbar';
 
 // Custom hook to get window size
 const useWindowSize = () => {
@@ -46,7 +44,7 @@ const LandingHero = () => {
     container: {
       display: 'flex',
       height: '100vh',
-      backgroundImage: 'url("../../../../public/image/mbg.jpg")',
+      background: 'url(your-background-image-url) no-repeat center center',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     },
@@ -83,6 +81,7 @@ const LandingHero = () => {
       borderRadius: '50%',
       objectFit: 'cover',
       position: 'absolute',
+      clipPath: 'circle(50%)', // Using circle clipPath
       boxShadow: '0px 10px 10px 0px rgba(0, 0, 0, 0.8)',
       top: width <= 600 ? '20px' : '70px', // Adjust position based on screen width
       right: width <= 600 ? '20px' : '70px',
@@ -91,27 +90,24 @@ const LandingHero = () => {
   };
 
   const imageUrls = [
-    '../../../../public/image/Lecturers/a.jpg',
+    'https://drive.google.com/file/d/1f_oQYuLJEm8jcMj0TbGGftK5ALhSIPlM/view?usp=sharing',
     '../../../../public/image/Lecturers/t.jpg',
     '../../../../public/image/Lecturers/tissaSir.png',
   ];
 
   const animations = [
-    'fade-up',
-    'fade-down',
-    'fade-left',
-    'fade-right',
     'zoom-in',
-    'zoom-out',
+    'flip-right',
+    'flip-left',
   ];
 
   return (
     <div style={styles.container}>
       <div style={styles.leftSide}>
         <div style={styles.textContainer}>
-          <h1>WELCOME TO SASIP</h1>
-          <h2>Best Education Expertise</h2>
-          <button style={styles.button}>SASIP INSTITUTE</button>
+          <h1 data-aos="fade-right" data-aos-duration="2000">WELCOME TO SASIP</h1>
+          <h2 data-aos="fade-left" data-aos-duration="2000">Best Education Expertise</h2>
+          <button style={styles.button} data-aos="fade-up" data-aos-duration="2000">SASIP INSTITUTE</button>
         </div>
       </div>
       <div style={styles.rightSide}>
