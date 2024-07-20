@@ -15,7 +15,7 @@ export const addTimetableEntries = async (req, res) => {
 
     // Validate and process each timetable entry
     const batch = db.batch();
-    const idPattern = /^S\d{5}$/;
+    const idPattern = /^S\d{4}$/;
 
     for (const entry of entries) {
       const {
@@ -33,7 +33,7 @@ export const addTimetableEntries = async (req, res) => {
       }
 
       // Create a reference to the document in the 'timetable' collection
-      const timetableRef = db.collection('timetable').doc(lid);
+      const timetableRef = db.collection('timetable').doc(lid).collection('timetables').doc();
 
       // Create the timetable entry object
       const timetableEntry = {
@@ -66,10 +66,37 @@ export const addTimetableEntries = async (req, res) => {
 export const getAllTimetableEntries = async (req, res) => {
   try {
     // Retrieve all documents from the 'timetable' collection
-    const timetableSnapshot = await db.collection('timetable').get();
+    const timetableSnapshot = await db.collection('timetable').doc(id).collection('timetables').get();
 
     if (timetableSnapshot.empty) {
       return res.status(404).json({ message: 'No timetable entries found.' });
+    }
+
+    // Format the documents into an array of timetable entries
+    const timetableEntries = timetableSnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        lid: doc.id,  // Rename 'id' to 'lid'
+        ...data
+      };
+    });
+
+    return res.status(200).json(timetableEntries);
+  } catch (error) {
+    console.error('Error retrieving timetable entries: ', error);
+    return res.status(500).json({ message: 'Failed to retrieve timetable entries. Please try again.' });
+  }
+};
+
+export const getTimetableEntriesById = async (req, res) => {
+  const { id } = req.params; // This is the ID of the document in the 'timetable' collection
+
+  try {
+    // Fetch all documents from the 'timetables' subcollection
+    const timetableSnapshot = await db.collection('timetable').doc(id).collection('timetables').get();
+
+    if (timetableSnapshot.empty) {
+      return res.status(404).json({ message: 'No timetable entries found for the given ID.' });
     }
 
     // Format the documents into an array of timetable entries
