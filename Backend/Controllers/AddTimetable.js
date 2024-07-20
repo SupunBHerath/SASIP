@@ -32,17 +32,8 @@ export const addTimetableEntries = async (req, res) => {
         return res.status(400).json({ message: `Invalid Lecture ID format for entry with lid: ${lid}. Please use format SXXXX (e.g., S0001).` });
       }
 
-      // Check if documents already exist under the given 'lid'
-      const timetablesCollectionRef = db.collection('timetable').doc(lid).collection('timetables');
-      const existingTimetablesSnapshot = await timetablesCollectionRef.get();
-
-      if (!existingTimetablesSnapshot.empty) {
-        // Skip adding new entries if documents already exist under this 'lid'
-        console.log(`Timetables already exist for lid: ${lid}. Skipping new entries.`);
-        continue;
-      }
-
       // Create a reference to the document in the 'timetable' collection
+      const timetablesCollectionRef = db.collection('timetable').doc(lid).collection('timetables');
       const timetableRef = timetablesCollectionRef.doc();
 
       // Create the timetable entry object
@@ -72,6 +63,7 @@ export const addTimetableEntries = async (req, res) => {
     return res.status(500).json({ message: 'Failed to add timetable entries. Please try again.' });
   }
 };
+
 
 export const getAllTimetables = async (req, res) => {
   try {
