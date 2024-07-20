@@ -13,12 +13,14 @@ import SocialMediaSidebar from "../../Social/SocialMediaSidebar"
 import TimeTableCard2 from "../../TimeTable/TimeTableCard2"
 import React from 'react';
 import HAbout from "./HAbout";
+import LandingHero from "../../Hero/LandingHero";
 
 const Home = () => {
   return (
     <>
       {/* <Header /> */}
       <Navbar/>
+    {/* <LandingHero/> */}
       <BasicSpeedDial/>
       <Hero />
       <AboutCard />
