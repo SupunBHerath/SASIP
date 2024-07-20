@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
     Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    TextField, IconButton, Toolbar, Typography, InputBase
+    TextField, IconButton, Toolbar, InputBase
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
-import { jsPDF } from "jspdf";
 import { styled, alpha } from '@mui/material/styles';
+import axios from 'axios';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
-    left:0,
+    left: 0,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
@@ -63,6 +63,51 @@ const NewsFeedT = () => {
     const [currentNews, setCurrentNews] = useState(null);
     const [filter, setFilter] = useState('');
     const [newsToToggle, setNewsToToggle] = useState(null); // New state to store news item for status toggle
+    const [loading, setLoading] = useState(false); // Loading state
+    const [error, setError] = useState(null); // Error state
+
+    useEffect(() => {
+        const fetchNewsData = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get('/api/news/get-news');
+                setNewsData(response.data.news); // Assuming the API returns { news: [...] }
+                setError(null);
+            } catch (error) {
+                setError('Error fetching news data');
+                console.error('Error fetching news data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchNewsData();
+    }, []);
+
+    const addNewsToBackend = async (news) => {
+        try {
+            const formData = new FormData();
+            formData.append('newsId', news.newsId);
+            formData.append('lid', news.lid);
+            formData.append('title', news.title);
+            formData.append('description', news.description);
+            formData.append('status', news.status);
+            formData.append('count', news.count);
+            formData.append('btnStatus', news.btnStatus);
+            if (news.imageFile) {
+                formData.append('image', news.imageFile);
+            }
+
+            const response = await axios.post('/api/news/add-news', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('News added successfully:', response.data);
+        } catch (error) {
+            console.error('Error adding news:', error);
+        }
+    };
 
     const handleEditOpen = (news) => {
         setCurrentNews(news);
@@ -99,9 +144,14 @@ const NewsFeedT = () => {
         setOpenEdit(false);
     };
 
-    const handleAddSave = () => {
-        setNewsData([...newsData, { ...currentNews, id: newsData.length + 1 }]);
-        setOpenAdd(false);
+    const handleAddSave = async () => {
+        try {
+            await addNewsToBackend({ ...currentNews, id: newsData.length + 1 });
+            setNewsData([...newsData, { ...currentNews, id: newsData.length + 1 }]);
+            setOpenAdd(false);
+        } catch (error) {
+            console.error('Error saving news:', error);
+        }
     };
 
     const handleDeleteConfirm = () => {
@@ -137,30 +187,16 @@ const NewsFeedT = () => {
     };
 
     const filteredNews = newsData.filter(news =>
-        news.title.toLowerCase().includes(filter.toLowerCase()) ||
-        news.description.toLowerCase().includes(filter.toLowerCase())
+        (news.title || '').toLowerCase().includes(filter.toLowerCase()) ||
+        (news.description || '').toLowerCase().includes(filter.toLowerCase())
     );
-
-    const generatePDF = () => {
-        const doc = new jsPDF();
-        doc.text("News Report", 20, 10);
-        let yOffset = 20;
-        filteredNews.forEach(news => {
-            doc.text(`NewsID: ${news.newsId}`, 10, yOffset);
-            doc.text(`Title: ${news.title}`, 10, yOffset + 10);
-            doc.text(`Description: ${news.description}`, 10, yOffset + 20);
-            doc.text(`Status: ${news.status}`, 10, yOffset + 30);
-            doc.text(`Btn Status: ${news.btnStatus}`, 10, yOffset + 40);
-            yOffset += 50;
-        });
-        doc.save("news_report.pdf");
-    };
+    
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
-            setCurrentNews({ ...currentNews, image: reader.result });
+            setCurrentNews({ ...currentNews, image: reader.result, imageFile: file });
         };
         if (file) {
             reader.readAsDataURL(file);
@@ -170,25 +206,21 @@ const NewsFeedT = () => {
     return (
         <div>
             <Toolbar>
-            <Button color="primary" variant="contained" onClick={handleAddOpen} startIcon={<AddIcon />}>
+                <Button color="primary" variant="contained" onClick={handleAddOpen} startIcon={<AddIcon />}>
                     Add News
                 </Button>
-                <Search className=''>
+                <Search>
                     <SearchIconWrapper>
                         <SearchIcon />
                     </SearchIconWrapper>
                     <StyledInputBase
                         placeholder="Search…"
-                        style={{border: '1px solid'}}
+                        style={{ border: '1px solid' }}
                         inputProps={{ 'aria-label': 'search' }}
                         value={filter}
                         onChange={handleSearch}
                     />
                 </Search>
-            
-                {/* <Button color="secondary" variant="contained" onClick={generatePDF} style={{ marginLeft: 'auto' }}>
-                    Generate PDF
-                </Button> */}
             </Toolbar>
             <TableContainer component={Paper}>
                 <Table>
@@ -212,7 +244,7 @@ const NewsFeedT = () => {
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{news.newsId}</TableCell>
                                 <TableCell>{news.lid}</TableCell>
-                                <TableCell><img src={news.image} alt="news" style={{ width: 50 }} /></TableCell>
+                                <TableCell><img src={news.imageUrl} alt="news" style={{ width: 50 }} /></TableCell>
                                 <TableCell>{news.title}</TableCell>
                                 <TableCell>{news.description}</TableCell>
                                 <TableCell>{news.count}</TableCell>
@@ -235,14 +267,16 @@ const NewsFeedT = () => {
             <Dialog open={openAdd || openEdit} onClose={openAdd ? handleAddClose : handleEditClose}>
                 <DialogTitle>{openAdd ? 'Add News' : 'Edit News'}</DialogTitle>
                 <DialogContent>
-                {!openAdd && (    <TextField
-                        margin="dense"
-                        label="News ID"
-                        fullWidth
-                        value={currentNews?.newsId || ''}
-                        onChange={(e) => setCurrentNews({ ...currentNews, newsId: e.target.value })}
-                        disabled={!openAdd} // Disable in Edit mode
-                    />)}
+                    {!openAdd && (
+                        <TextField
+                            margin="dense"
+                            label="News ID"
+                            fullWidth
+                            value={currentNews?.newsId || ''}
+                            onChange={(e) => setCurrentNews({ ...currentNews, newsId: e.target.value })}
+                            disabled={!openAdd} // Disable in Edit mode
+                        />
+                    )}
                     <TextField
                         margin="dense"
                         label="LID"
