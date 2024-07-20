@@ -15,12 +15,10 @@ const SocialMediaSidebar = () => {
         alignItems: 'center',
         
         zIndex: 10000,
-        width: 60,
+    
         padding: '13px',
         cursor: 'pointer',
-        '&:hover': {
-            backgroundColor: '#f5f5f8',
-        },
+    
 
         
       }}

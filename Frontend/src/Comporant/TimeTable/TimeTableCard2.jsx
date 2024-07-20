@@ -1,35 +1,47 @@
 import React from 'react';
 import { FaCalendarAlt, FaArrowRight } from 'react-icons/fa';
-import '../../../public/Image/logoonenew.png'
 import { useNavigate } from 'react-router-dom';
-import '../Landing/home/btn.css'
+import '../Landing/home/btn.css';
+
 const cardStyle = {
-    border: '1px solid #ddd',
-    borderRadius: '12px',
-    padding: '20px',
-    margin: '16px',
-    width: 'calc(100% - 32px)',
-    maxWidth: '280px',
-    textAlign: 'center',
-    boxShadow: '0 6px 12px 0 rgba(0, 0, 0, 0.1)',
-    transition: 'transform 0.3s, box-shadow 0.3s, background-color 0.3s',
-    backgroundColor: '#ffffff',
+    display: 'flex',
+    margin: 'auto',
+    width: '200px',
+    height: '150px',
+    backgroundColor: 'rgb(255, 255, 255)',
+    boxShadow: '-5px 5px 0px 0px rgb(0,0,0)',
+    borderRadius: '15px',
+    transition: 'all 0.5s',
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer', // Makes the card look clickable
 };
 
-const cardHoverStyle = {
-    ...cardStyle,
-    boxShadow: '0 12px 24px 0 rgba(0, 0, 0, 0.2)',
-    transform: 'translateY(-10px)',
-    backgroundColor: '#e0f7fa',
-    cursor: 'pointer',
+const hoverEffectStyle = {
+    position: 'absolute',
+    top: -3,
+    right: -3,
+    width: '50px',
+    height: '50px',
+    backgroundColor: 'rgb(42, 42, 42)',
+    borderRadius: '50%',
+    transition: 'all 0.5s',
+};
+
+const cardHoverEffectStyle = {
+    ...hoverEffectStyle,
+    width: '202px',
+    height: '152px',
+    borderRadius: '15px',
 };
 
 const containerStyle = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    padding: '16px',
-    gap: '16px',
+    padding: '26px',
+    gap: '26px',
 };
 
 const allStyle = {
@@ -38,25 +50,6 @@ const allStyle = {
     backgroundImage: 'url("../../../public/Image/mbg.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-
-    
-};
-
-const iconStyle = {
-    color: '#00796b',
-    fontSize: '30px',
-    marginBottom: '12px',
-};
-
-const titleStyle = {
-    margin: '10px 0',
-    color: '#00796b',
-};
-
-const yearStyle = {
-    margin: '0',
-    fontSize: '24px',
-    fontWeight: 'bold',
 };
 
 const buttonStyle = {
@@ -79,20 +72,52 @@ const buttonHoverStyle = {
     transform: 'scale(1.05)',
 };
 
+const cardButtonStyle = {
+    position: 'absolute',
+    width: 'max-content',
+    bottom: '5px',
+    
+    opacity: 0,
+    transition: 'opacity 0.3s',
+    color: 'white',
+    padding: '8px ',
+    left: '30px',
+};
+
+const cardButtonHoverStyle = {
+    ...cardButtonStyle,
+    opacity: 1,
+};
+
 const Card = ({ title, year }) => {
     const [isHovered, setIsHovered] = React.useState(false);
-    
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        // Construct the URL based on the title and year
+        const formattedTitle = title.toLowerCase().replace(/\s+/g, '-');
+        const url = `/timetable/${year}/${formattedTitle}`;
+        navigate(url);
+    };
+
     return (
         <div
-            style={isHovered ? cardHoverStyle : cardStyle}
+            style={cardStyle}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            id="button-3"
+            onClick={handleClick} // Make the whole card clickable
         >
-            {/* <FaCalendarAlt style={iconStyle} /> */}
-            <div>
-                <h2 style={titleStyle}>{title.toUpperCase()}</h2>
-                <p style={yearStyle}>{year}</p>
+            <div style={isHovered ? cardHoverEffectStyle : hoverEffectStyle}></div>
+            <div className="content" style={{ zIndex: 40, color: isHovered ? 'white' : 'black', textAlign: 'center' }}>
+                <FaCalendarAlt style={{ fontSize: '24px', top:9, right: 9, position: 'absolute', color: 'white' }} />
+                <h2>{title}</h2>
+                <p className='h3 mb-3' style={{marginTop:'-17px'}}>{year}</p>
+              
+                <button
+                    style={isHovered ? cardButtonHoverStyle : cardButtonStyle}
+                >
+                    View Time Table
+                </button>
             </div>
         </div>
     );
@@ -100,25 +125,26 @@ const Card = ({ title, year }) => {
 
 const TimeTableCard2 = () => {
     const [isButtonHovered, setIsButtonHovered] = React.useState(false);
-    const navi = useNavigate();
+    const navigate = useNavigate();
 
     const handleClick = () => {
-        navi('/timetable');
+        navigate('/timetable');
     };
+
     return (
         <div style={allStyle}>
-            <div style={containerStyle} >
+            <div style={containerStyle}>
                 <Card title="Theory" year="2025" />
                 <Card title="Theory" year="2024" />
-                <Card title="REVISION" year="2024" />
-                <Card title="PAPER" year="2024" />
+                <Card title="Revision" year="2024" />
+                <Card title="Paper" year="2024" />
                 <Card title="Theory" year="2023" />
-                <Card title="REVISION" year="2023" />
-                <Card title="PAPER" year="2023" />
+                <Card title="Revision" year="2023" />
+                <Card title="Paper" year="2023" />
             </div>
             <div className="justify-content-center d-flex mb-2 mt-2">
                 <button
-                    className='btn outline-btn p-2'
+                    className="btn outline-btn p-2"
                     style={isButtonHovered ? buttonHoverStyle : buttonStyle}
                     onMouseEnter={() => setIsButtonHovered(true)}
                     onMouseLeave={() => setIsButtonHovered(false)}
