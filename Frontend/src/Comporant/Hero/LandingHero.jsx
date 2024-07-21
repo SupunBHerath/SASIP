@@ -44,7 +44,9 @@ const LandingHero = () => {
     container: {
       display: 'flex',
       height: '100vh',
+
       background: 'url(your-background-image-url) no-repeat center center', 
+
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     },
@@ -81,7 +83,9 @@ const LandingHero = () => {
       borderRadius: '50%',
       objectFit: 'cover',
       position: 'absolute',
+
       clipPath: 'circle(50%)', // Using circle clipPath 
+
       boxShadow: '0px 10px 10px 0px rgba(0, 0, 0, 0.8)',
       top: width <= 600 ? '20px' : '70px', // Adjust position based on screen width
       right: width <= 600 ? '20px' : '70px',
@@ -91,16 +95,17 @@ const LandingHero = () => {
 
   const imageUrls = [
     'https://drive.google.com/file/d/1f_oQYuLJEm8jcMj0TbGGftK5ALhSIPlM/view?usp=sharing',
+
     '../../../public/Image/Lecturers/t.jpg',
     '../../../public/Image/Lecturers/tissaSir.png',
+
   ];
 
   const animations = [
     'zoom-in',
     'flip-right',
     'flip-left',
-    'flip-right',
-    'flip-left',
+
   ];
 
   return (
@@ -109,7 +114,9 @@ const LandingHero = () => {
         <div style={styles.textContainer}>
           <h1 data-aos="fade-right" data-aos-duration="2000">WELCOME TO SASIP</h1>
           <h2 data-aos="fade-left" data-aos-duration="2000">Best Education Expertise</h2>
+
           <button style={styles.button} data-aos="fade-up" data-aos-duration="2000">SASIP INSTITUTE</button> 
+
         </div>
       </div>
       <div style={styles.rightSide}>
