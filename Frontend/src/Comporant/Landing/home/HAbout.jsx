@@ -36,12 +36,21 @@ function HAbout() {
     <div>
       <Heading title="[Popular Lecturers]" />
       <div className="justify-content-center d-flex">
-        <div className="row" style={{ margin: "10px", width: "100vw" }}>
+        <div className="row" style={{ width: "100vw" }}>
           {isMobileView ? (
             <Slider {...sliderSettings}>
+              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3 ">
+                <Card
+                  img="../../../../public/a.jpg"
+                  firstSideSecondTittle="Physics"
+                  firstSideFirstTittle="Amith pussala"
+                  firstMainTittle="Bio"
+                  isLecturer={true}
+                />
+              </div>
               <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
                 <Card
-                  img="../../../../public/Image/Lecturers/t.jpg"
+                  img="../../../../public/t.jpg"
                   firstSideSecondTittle="Biology"
                   firstSideFirstTittle="Tissa Jananayaka"
                   firstMainTittle="Bio"
@@ -50,27 +59,18 @@ function HAbout() {
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
                 <Card
-                  img="../../../../public/Image/Lecturers/tissaSir.png"
-                  firstSideSecondTittle="Biology"
-                  firstSideFirstTittle="Tissa Jananayaka"
+                  img="../../../../public/aj.jpg"
+                  firstSideSecondTittle="Combined Maths"
+                  firstSideFirstTittle="Ajantha Dissanayake"
                   firstMainTittle="Bio"
                   isLecturer={true}
                 />
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
                 <Card
-                  img="../../../../public/Image/Lecturers/tissaSir.png"
-                  firstSideSecondTittle="Biology"
-                  firstSideFirstTittle="Tissa Jananayaka"
-                  firstMainTittle="Bio"
-                  isLecturer={true}
-                />
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
-                <Card
-                  img="../../../../public/Image/Lecturers/tissaSir.png"
-                  firstSideSecondTittle="Biology"
-                  firstSideFirstTittle="Tissa Jananayaka"
+                  img="../../../../public/k.jpg"
+                  firstSideSecondTittle="Chemistry"
+                  firstSideFirstTittle="ksiri Withanage"
                   firstMainTittle="Bio"
                   isLecturer={true}
                 />
@@ -78,9 +78,18 @@ function HAbout() {
             </Slider>
           ) : (
             <>
+              <div className="col-lg-3 col-md-6 col-sm-6 p-1  p-md-3 mb-3">
+                <Card
+                  img="../../../../public/a.jpg"
+                  firstSideSecondTittle="Physics"
+                  firstSideFirstTittle="Amith pussala"
+                  firstMainTittle="Bio"
+                  isLecturer={true}
+                />
+              </div>
               <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
                 <Card
-                  img="../../../../public/Image/Lecturers/t.jpg"
+                  img="../../../../public/t.jpg"
                   firstSideSecondTittle="Biology"
                   firstSideFirstTittle="Tissa Jananayaka"
                   firstMainTittle="Bio"
@@ -89,27 +98,18 @@ function HAbout() {
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
                 <Card
-                  img="../../../../public/Image/Lecturers/tissaSir.png"
-                  firstSideSecondTittle="Biology"
-                  firstSideFirstTittle="Tissa Jananayaka"
+                  img="../../../../public/aj.jpg"
+                  firstSideSecondTittle="Combined Maths"
+                  firstSideFirstTittle="Ajantha Dissanayake"
                   firstMainTittle="Bio"
                   isLecturer={true}
                 />
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
                 <Card
-                  img="../../../../public/Image/Lecturers/tissaSir.png"
-                  firstSideSecondTittle="Biology"
-                  firstSideFirstTittle="Tissa Jananayaka"
-                  firstMainTittle="Bio"
-                  isLecturer={true}
-                />
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
-                <Card
-                  img="../../../../public/Image/Lecturers/tissaSir.png"
-                  firstSideSecondTittle="Biology"
-                  firstSideFirstTittle="Tissa Jananayaka"
+                  img="../../../../public/k.jpg"
+                  firstSideSecondTittle="Chemistry"
+                  firstSideFirstTittle="ksiri Withanage"
                   firstMainTittle="Bio"
                   isLecturer={true}
                 />

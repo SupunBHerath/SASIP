@@ -27,7 +27,7 @@ function Card(props) {
 
   return (
     
-    <div className="p-4">
+    <div className="p-2">
     <div className="flip-box">
       {/* Front side */}
       <div
