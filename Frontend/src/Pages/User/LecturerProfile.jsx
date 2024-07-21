@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import TimeTableCard from "../../Comporant/TimeTable/TimeTableCard";
-import { Grid, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, MenuItem } from "@mui/material";
+import { Grid, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, MenuItem, LinearProgress } from "@mui/material";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SubjectIcon from "@mui/icons-material/Subject";
 import StreamIcon from "@mui/icons-material/Category";
@@ -10,7 +10,7 @@ import MediumIcon from "@mui/icons-material/Language";
 import ExperienceIcon from "@mui/icons-material/Work";
 import { Color } from "../../Comporant/CSS/Css";
 import Navbar from "../../Comporant/Navibar/Navbar";
-
+import logo from "../../../public/logoback.png"
 export default function Profile() {
   const { id } = useParams();
   const [teacher, setTeacher] = useState(null);
@@ -71,25 +71,35 @@ export default function Profile() {
     setFilteredTimetables(filtered);
     handleClose();
   };
-
+  function capitalizeFirstLetter(str) {
+    return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  }
   if (!teacher) {
-    return <div>Loading...</div>;
+    return <div>
+      <br />
+    </div>;
   }
 
   return (
     <>
-      <Navbar  fixed={true} />
+      <Navbar fixed={true} />
+   
       <div className="container" id="c">
         <div className="w-full p-6 bg-card text-card-foreground">
-          <div className="flex flex-col md:flex-row items-center md:items-start">
+          <div className="flex flex-col md:flex-row items-center md:items-start ">
             <img
               src={teacher.imageUrl}
               style={{ height: "407px" }}
               alt="Profile Picture"
-              className="md:mr-6 mb-6 md:mb-0 rounded-lg"
+              className="md:mr-6 mb-6 md:mb-0 rounded-lg border-3 border-solid border-slate-950"
             />
             <div className="flex-1">
-              <div className="bg-black text-primary-foreground p-6 rounded-lg shadow-md w-100" >
+              <div className=" text-primary-foreground p-6 rounded-lg shadow-md w-100" style={{backgroundPosition:'center',
+                
+                backgroundImage: "url('../../../public/logoback.png')",
+                backgroundRepeat:'no-repeat',
+                backgroundSize:"cover"
+              }} >
                 <h2 className="text-5xl font-bold">{teacher.name}</h2>
                 <br />
                 <br />
@@ -101,7 +111,7 @@ export default function Profile() {
                           <SubjectIcon
                             style={{ verticalAlign: "middle", marginRight: "10px", marginTop: '-15px', color: Color.PrimaryColor }}
                           />
-                          <strong className="h2" style={{ color: Color.PrimaryColor }}>Subject </strong>
+                          <strong className="h2" style={{ }}> Subject </strong>
                         </span>
                       </td>
                       <td >
@@ -117,13 +127,13 @@ export default function Profile() {
                           <StreamIcon
                             style={{ verticalAlign: "middle", marginRight: "10px", marginTop: '-15px', color: Color.PrimaryColor }}
                           />
-                          <strong className="h2" style={{ color: Color.PrimaryColor }}>Stream </strong>
+                          <strong className="h2" style={{}}> Stream </strong>
                         </span>
                       </td>
 
                       <td>
                         <span className="mt-5 widget-text-xl">
-                          <span className="h3">: {teacher.stream} </span>
+                          <span className="h3">: {capitalizeFirstLetter(teacher.stream)}</span>
                         </span>
                       </td>
                     </tr>
@@ -134,7 +144,7 @@ export default function Profile() {
                           <MediumIcon
                             style={{ verticalAlign: "middle", marginRight: "10px", marginTop: '-15px', color: Color.PrimaryColor }}
                           />
-                          <strong className="h2" style={{ color: Color.PrimaryColor }}>Medium </strong>
+                          <strong className="h2" style={{ }}> Medium </strong>
                         </span>
                       </td>
                       <td>
@@ -150,7 +160,7 @@ export default function Profile() {
                           <ExperienceIcon
                             style={{ verticalAlign: "middle", marginRight: "10px", marginTop: '-15px', color: Color.PrimaryColor }}
                           />
-                          <strong className="h2" style={{ color: Color.PrimaryColor }}>Experience </strong>
+                          <strong className="h2" style={{ }}> Experience </strong>
                         </span>
                       </td>
                       <td>
