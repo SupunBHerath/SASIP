@@ -29,9 +29,8 @@ const useWindowSize = () => {
 
 const backgroundImages = [
 
-  '../../../public/Image/mbg.jpg',
-  '../../../public/Image/smallt.jpg',
-  '../../../public/Image/logoonenew.png',
+  '../../../public/image/mbg.jpg',
+  '../../../public/logoback.png',
 
 ];
 
