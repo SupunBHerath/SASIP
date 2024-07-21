@@ -3,7 +3,7 @@ import { Grid, TextField, Button, Pagination, Autocomplete, Tabs, Tab, Dialog, D
 import HeaderCard from '../../Comporant/Admin/Card/HeaderCard';
 import teacher from '../../../public/Icon/teacher.png';
 import notification from '../../../public/Icon/notification.png';
-import subject from '../../../public/Icon/books.png';
+import news from '../../../public/Icon/news.png';
 import image from '../../../public/Icon/picture.png';
 import timeS from '../../../public/Image/smTime.jpg';
 import { Color, Font } from '../../Comporant/CSS/Css';
@@ -122,7 +122,7 @@ export default function ADashboard() {
           <HeaderCard icon={teacher} title="Lectures" count="110" />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <HeaderCard icon={subject} title="Subjects" count="10" />
+          <HeaderCard icon={news} title="News Feed" count="10" />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <HeaderCard icon={image} title="Images" count="10" />

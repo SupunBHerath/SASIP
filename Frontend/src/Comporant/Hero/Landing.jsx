@@ -52,7 +52,7 @@ const Landing = () => {
         setCurrentBackgroundIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
         setShowContent(true); // Show content after background changes
       }, 1000); // Wait for background image transition
-    }, 10000); // Change background image every 10 seconds
+    }, 6000); // Change background image every 10 seconds
 
     return () => clearInterval(intervalId);
   }, []);
@@ -62,7 +62,7 @@ const Landing = () => {
     height: '100vh',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    transition: 'background-image 1s ease-in-out', // Smooth transition between images
+    transition: 'background-image 1s ease-in-out', 
   };
 
   return (
