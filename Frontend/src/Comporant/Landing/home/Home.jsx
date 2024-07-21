@@ -33,14 +33,19 @@ const Home = () => {
       <CardSlide />
 
       <AboutCard />
+
+      <Heading title="[Popular Lecturers]" />
       <HAbout />
-      <Testimonal />
-      <div className="text-center">
-        <h1 style={{ color: "#00796b" }}>[ Time Table ]</h1>
-        <br />
-        <br />
-      </div>
+
+      <Heading title="[ Time Table ]" />
       <TimeTableCard2 />
+
+
+      <Testimonal />
+
+    
+
+      <Heading title="[ Gallery ]" />
       <ImageGalleryContainer />
 
       <Footer />

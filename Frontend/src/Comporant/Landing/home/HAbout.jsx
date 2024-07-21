@@ -34,7 +34,6 @@ function HAbout() {
 
   return (
     <div>
-      <Heading title="[Popular Lecturers]" />
       <div className="justify-content-center d-flex">
         <div className="row" style={{ width: "100vw" }}>
           {isMobileView ? (
