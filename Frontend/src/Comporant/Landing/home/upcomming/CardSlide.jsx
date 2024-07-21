@@ -41,7 +41,7 @@ const CardSlide = () => {
     const startAutoSlide = () => {
         intervalRef.current = setInterval(() => {
             goToNextSlide();
-        }, 2000); // Automatically slide every 2 seconds
+        }, 6000); // Automatically slide every 2 seconds
     };
 
     // Function to pause auto sliding
