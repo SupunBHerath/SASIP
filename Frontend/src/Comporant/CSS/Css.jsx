@@ -5,7 +5,7 @@ export const  Color ={
  
 }
 export const  Font ={
-  PrimaryFont : 'Oswald',
+  PrimaryFont : 'Roboto:wght@400',
  
  
 }

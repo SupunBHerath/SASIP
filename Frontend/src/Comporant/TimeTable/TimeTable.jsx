@@ -128,7 +128,12 @@ const TimeTable = () => {
     const typeFromUrl = pathParts[3];
 
     useEffect(() => {
-        setSelectedYearFilter(yearFromUrl);
+        if(yearFromUrl ==="all"){
+        setSelectedYearFilter('');
+        }else{
+            setSelectedYearFilter(yearFromUrl);
+
+        }
         setTabValue(getTableIndex(typeFromUrl));
     }, [typeFromUrl, yearFromUrl]);
 

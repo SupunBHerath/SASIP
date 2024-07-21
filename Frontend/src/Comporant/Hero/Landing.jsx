@@ -3,6 +3,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Navbar from '../Navibar/Navbar';
 import LandingHero from './LandingHero';
+import k from '../../../public/logoback.png'
 
 // Custom hook to get window size
 const useWindowSize = () => {
@@ -28,9 +29,9 @@ const useWindowSize = () => {
 
 const backgroundImages = [
 
-  '../../../public/Image/mbg.jpg',
-  '../../../public/Image/smallt.jpg',
-  '../../../public/Image/logoonenew.png',
+  '../../../public/image/mbg.jpg',
+  '../../../public/logoback.png',
+  '../../../public/landing/logo-dark.jpg',
 
 ];
 
