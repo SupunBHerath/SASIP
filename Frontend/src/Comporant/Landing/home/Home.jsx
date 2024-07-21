@@ -26,6 +26,7 @@ const Home = () => {
     <>
       {/* <Header /> */}
       <Landing />
+
       <BasicSpeedDial/>
       {/* <Hero /> */}
       <Heading title="[ Upcomming News]" />
