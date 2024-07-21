@@ -27,9 +27,11 @@ const useWindowSize = () => {
 };
 
 const backgroundImages = [
-  '../../../public/image/mbg.jpg',
-  '../../../public/image/smallt.jpg',
-  '../../../public/image/logoonenew.png',
+
+  '../../../public/Image/mbg.jpg',
+  '../../../public/Image/smallt.jpg',
+  '../../../public/Image/logoonenew.png',
+
 ];
 
 const Landing = () => {

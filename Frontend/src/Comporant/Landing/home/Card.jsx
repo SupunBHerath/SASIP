@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "./HAbout.css"; // Import your CSS file
-import "./btn.css";
 
 function Card(props) {
   const isLecturer = props.isLecturer;
+
   useEffect(() => {
     // JavaScript for diagonal animation
     const flipBox = document.querySelector(".flip-box-front.btn-6");
@@ -26,6 +26,8 @@ function Card(props) {
   }, []);
 
   return (
+    
+    <div className="p-4">
     <div className="flip-box">
       {/* Front side */}
       <div
@@ -34,7 +36,7 @@ function Card(props) {
           backgroundImage: `url(${props.img})`,
         }}
       >
-        <div className="inner color-white">
+        <div className="inner color-white ">
           <h3 className="flip-box-header">{props.firstSideFirstTittle}</h3>
           <h3 className="flip-box-header1">{props.firstSideSecondTittle}</h3>
           <p>{props.firstDesc}</p>
@@ -59,6 +61,7 @@ function Card(props) {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

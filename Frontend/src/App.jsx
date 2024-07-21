@@ -12,6 +12,7 @@ import Profile from './Pages/User/LecturerProfile';
 import ResetPassword from "./Pages/Admin/ResetPassword";
 
 import {AuthProvider} from './Config/AuthContext';
+import Card from './Comporant/Landing/home/upcomming/Card'; 
 // import About from './Comporant/About/AboutUs';
 
 
@@ -25,7 +26,8 @@ export default function App() {
           <Route path="/timetable/:year/:type" element={<TimeTablePage />} />
           <Route path="/lecturers" element={<Team />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/profile/:id" element={<Profile />} />
+
+          <Route path="/profile/:id" element={<Profile />} /> 
 
           {/* <Route path="/about" element={<About />} /> */}
           {/* <Route path="/about" element={<About />} /> */}
