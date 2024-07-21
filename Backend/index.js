@@ -7,6 +7,7 @@ import albumRoutes from "./Routes/albumRoutes.js"
 import teacherRoutes from "./Routes/teacherRoutes.js"
 import timetableRoutes from "./Routes/timetableRoutes.js"
 import multer from 'multer';
+import newsRoutes from "./Routes/newsRoutes.js"
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.use('/api/albums', albumRoutes);
 app.use('/api/teacher', teacherRoutes); 
 app.use('/api/timetable', upload.none(), timetableRoutes);
 app.use('/api/timetable/xl', timetableRoutes); 
+app.use('/api/news', newsRoutes); 
+
 
 
 app.listen(port, () => {
