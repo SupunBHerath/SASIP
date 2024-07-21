@@ -14,7 +14,10 @@ import TimeTableCard2 from "../../TimeTable/TimeTableCard2"
 import React from 'react';
 import HAbout from "./HAbout";
 import LandingHero from "../../Hero/LandingHero";
-import Landing from "../../Hero/Landing";
+
+import Landing from "../../Hero/Landing"; 
+import CardSlide from "./upcomming/CardSlide";
+
 
 const Home = () => {
   return (
@@ -25,6 +28,7 @@ const Home = () => {
       <Hero /> */}
       <AboutCard />
       <HAbout />
+      <CardSlide />
       <Testimonal />
       <div className="text-center">
         <h1 style={{ color: "#00796b" }}>[ Time Table ]</h1>

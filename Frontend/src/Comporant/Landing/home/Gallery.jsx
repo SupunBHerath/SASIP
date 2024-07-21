@@ -8,6 +8,7 @@ function Gallery() {
   const [currentSlide, setCurrentSlide] = useState(1);
   const [showTitle, setShowTitle] = useState(false);
   const [title, setTitle] = useState("");
+  const [isMobileView, setIsMobileView] = useState(false); // State to track mobile view
 
   // Sample dataset for images and titles
   const imageData = [
@@ -34,11 +35,16 @@ function Gallery() {
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((currentSlide) => (currentSlide % imageData.length) + 1);
-    }, 3500);
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 768); // Adjust this threshold as per your mobile/desktop criteria
+    };
 
-    return () => clearInterval(interval);
+    handleResize(); // Initial check on mount
+    window.addEventListener("resize", handleResize); // Listen for resize events
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Clean up
+    };
   }, []);
 
   const handlePaginationClick = (slideNumber) => {
@@ -75,43 +81,89 @@ function Gallery() {
     setShowTitle(false);
   };
 
-  return (
-    <div>
-      <Heading subtitle="Our Gallery" title="Recent From Blog" />
+  // Render different sliders based on screen size
+  if (isMobileView) {
+    return (
+      <div>
+        {/* Render mobile slider here */}
+        <ul className="slides">
+          {imageData.map((image, index) => (
+            <input
+              key={index}
+              type="radio"
+              name="radio-btn"
+              id={`img-${index + 1}`}
+              checked={currentSlide === index + 1}
+            />
+          ))}
+          {imageData.map((image, index) => (
+            <li className="slide-container" key={index}>
+              <div className="slide">
+                <img src={image.src} alt="" />
+              </div>
+              <div className="nav">
+                <label htmlFor={`img-${index + 6}`} className="prev">
+                  &#x2039;
+                </label>
+                <label htmlFor={`img-${index + 2}`} className="next">
+                  &#x203a;
+                </label>
+              </div>
+            </li>
+          ))}
+          <li className="nav-dots">
+            {imageData.map((_, index) => (
+              <label
+                key={index}
+                htmlFor={`img-${index + 1}`}
+                className="nav-dot"
+                id={`img-dot-${index + 1}`}
+              ></label>
+            ))}
+          </li>
+        </ul>
+      </div>
+    );
+  } else {
+    // Render desktop slider here
+    return (
+      <div>
+        <Heading subtitle="Our Gallery" title="Recent From Blog" />
 
-      <section id="slider">
-        {imageData.map((image, index) => (
-          <input
-            key={index}
-            type="radio"
-            name="slider"
-            id={`s${index + 1}`}
-            checked={currentSlide === index + 1}
-          />
-        ))}
+        <section id="slider">
+          {imageData.map((image, index) => (
+            <input
+              key={index}
+              type="radio"
+              name="slider"
+              id={`s${index + 1}`}
+              checked={currentSlide === index + 1}
+            />
+          ))}
 
-        {imageData.map((image, index) => (
-          <label
-            key={index}
-            htmlFor={`s${index + 1}`}
-            id={`slide${index + 1}`}
-            onMouseOver={() => handleImageMouseOver(index + 1)}
-            onMouseOut={handleImageMouseOut}
-            onClick={(event) => handleImageClick(index + 1, event)}
-          >
-            <div>
-              <img src={image.src} alt="" />
-              {showTitle && currentSlide === index + 1 && (
-                <div className="title-popup">{title}</div>
-              )}
-            </div>
-          </label>
-        ))}
-      </section>
+          {imageData.map((image, index) => (
+            <label
+              key={index}
+              htmlFor={`s${index + 1}`}
+              id={`slide${index + 1}`}
+              onMouseOver={() => handleImageMouseOver(index + 1)}
+              onMouseOut={handleImageMouseOut}
+              onClick={(event) => handleImageClick(index + 1, event)}
+            >
+              <div>
+                <img src={image.src} alt="" />
+                {showTitle && currentSlide === index + 1 && (
+                  <div className="title-popup">{title}</div>
+                )}
+              </div>
+            </label>
+          ))}
+        </section>
 
-      <div className="pagination"></div>
-    </div>
-  );
+        <div className="pagination"></div>
+      </div>
+    );
+  }
 }
 
 export default Gallery;
