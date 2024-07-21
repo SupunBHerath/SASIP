@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <>
       {/* <Header /> */}
-   <Landing/>
+      <Landing />
       {/* <BasicSpeedDial/>
       <Hero /> */}
       <AboutCard />
@@ -33,7 +33,7 @@ const Home = () => {
       </div>
       <TimeTableCard2 />
       <ImageGalleryContainer />
-    
+
       <Footer />
     </>
   );

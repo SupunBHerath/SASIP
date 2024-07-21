@@ -17,6 +17,7 @@ import { Color, Font } from '../CSS/Css';
 import SocialMediaSidebar from '../Social/SocialMediaSidebar';
 import Head from '../Landing/common/header/Head';
 import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton';
+import logo from '../../../public/Logo/logohe.png'
 
 const Logo = styled('img')({
     height: '65px',
@@ -75,7 +76,7 @@ export default function Navbar({ position, fixed }) {
             <AppBar
                 position={position ? "static" : isScrolled ? "fixed" : "static" && fixed ? 'fixed' : 'auto'}
                 style={{
-                    backgroundColor: isScrolled ? 'rgba(255, 255, 255)' : 'rgba(255, 255, 255, 0.504)',
+                    backgroundColor: isScrolled ? 'rgba(255, 255, 255)' : 'rgba(255, 255, 255, 0.604)',
                     color: Color.PrimaryColor,
                     fontFamily: Font.PrimaryFont,
                     fontWeight: '1000px',
@@ -92,7 +93,7 @@ export default function Navbar({ position, fixed }) {
                 {position || fixed && !isScrolled ? (<SocialMediaSidebar />) : ''}
                 {!position && isScrolled ? (<SocialMediaSidebar />) : ''}
                 <Toolbar disableGutters>
-                    <Logo src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsvE9gEtv1x4EFbaD8aBI4A55L65guOAr1-g&s" alt="Sasip" />
+                    <Logo src="../../../public/Logo/logohe.png" alt="Sasip" />
                     <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 900, marginLeft: 10 }}>
                     </Typography>
                     {isMobile ? (
@@ -138,11 +139,11 @@ export default function Navbar({ position, fixed }) {
                         </>
                     ) : (
                         <>
-                            <NavLink onClick={() => navigate('/')} active={isActive('/')} style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18}}>Home</NavLink>
-                            <NavLink onClick={() => navigate('/about')} active={isActive('/about')}style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18}}>About</NavLink>
-                            <NavLink onClick={() => navigate('/lecturers')} active={isActive('/lecturers')}style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18}}>Lecturers</NavLink>
-                            <NavLink onClick={() => navigate('/timetable/all/all')} active={isActive('/timetable/all/all')}style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18}}>Time Table</NavLink>
-                            <NavLink onClick={() => navigate('/contact')} active={isActive('/contact')}style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18}}>Contact Us</NavLink>
+                            <NavLink onClick={() => navigate('/')} active={isActive('/')} style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18 ,color:'#473087'}}>Home</NavLink>
+                            <NavLink onClick={() => navigate('/about')} active={isActive('/about')}style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18,color:'#473087'}}>About</NavLink>
+                            <NavLink onClick={() => navigate('/lecturers')} active={isActive('/lecturers')}style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18,color:'#473087'}}>Lecturers</NavLink>
+                            <NavLink onClick={() => navigate('/timetable/all/all')} active={isActive('/timetable/all/all')}style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18,color:'#473087'}}>Time Table</NavLink>
+                            <NavLink onClick={() => navigate('/contact')} active={isActive('/contact')}style={{fontFamily:Font.PrimaryFont , fontWeight:900,fontSize:18,color:'#473087'}}>Contact Us</NavLink>
                             <Box sx={{
                                 color: 'white',
                                 fontWeight: 'bold',

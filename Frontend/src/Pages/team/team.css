@@ -2,7 +2,9 @@
   /* Base Styles for Mobile Devices */
 .team .items {
   transition: 0.5s;
-  background-color: #004aad;
+  /* background-color: #004aad; */
+  min-height: 480px;
+  max-height: 480px;
 
 }
 
@@ -13,7 +15,7 @@
 .team img {
   width: 100%;
   height: auto;
-  /* Ensure images scale properly */
+
 }
 
 .overlay {
@@ -53,7 +55,7 @@
 }
 
 .team .items:hover {
-  background-color: #004aad;
+  background-color: #004badb0;
   color: #fff;
   cursor: pointer;
 }
