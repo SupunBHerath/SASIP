@@ -14,8 +14,8 @@ import TimeTableCard2 from "../../TimeTable/TimeTableCard2"
 import React from 'react';
 import HAbout from "./HAbout";
 import LandingHero from "../../Hero/LandingHero";
-import Landing from "../../Hero/Landing";
-import CardSlide from "./upcomming/UpcommingSlider";
+import Landing from "../../Hero/Landing"; 
+import CardSlide from "./upcomming/CardSlide";
 
 const Home = () => {
   return (
