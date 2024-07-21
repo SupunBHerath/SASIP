@@ -7,13 +7,13 @@ import SignIn from './Pages/Admin/AdminLogin';
 import TimeTablePage from './Pages/User/TimeTablePage';
 import Home from './Pages/User/UserHome';
 import Team from './Pages/team/Team';
-import ContactPage from './Comporant/Landing/contact/Contact';
 import Profile from './Pages/User/LecturerProfile';
 import ResetPassword from "./Pages/Admin/ResetPassword";
 
 import { AuthProvider } from './Config/AuthContext';
 import Card from './Comporant/Landing/home/upcomming/Card'; 
 import GalleryPage from './Pages/User/GalleryPage';
+import ContactPage from './Comporant/Landing/contactpage/contactpage';
 // import About from './Comporant/About/AboutUs';
 
 

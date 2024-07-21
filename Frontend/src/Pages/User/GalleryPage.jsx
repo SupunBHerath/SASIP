@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { imageData } from './imageData'; // Import imageData
 import CloseIcon from '@mui/icons-material/Close'; // Import Close Icon
+import Navbar from '../../Comporant/Navibar/Navbar';
 
 const GalleryPage = () => {
   const galleryRef = useRef(null);
@@ -115,13 +116,16 @@ const GalleryPage = () => {
   };
 
   return (
+    <>
+      <Navbar position={true} fixed={true}/>
+    <br /><br />
     <div>
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
         <Tabs
           value={selectedAlbum}
           onChange={handleAlbumChange}
           aria-label="album filter tabs"
-          sx={{ position: 'fixed', top: 0, zIndex: 1000 }} // Fixed on top
+          sx={{ position: 'static', top: 0, zIndex: 1000 }} // Fixed on top
         >
           {albums.map((album) => (
             <Tab
@@ -171,6 +175,8 @@ const GalleryPage = () => {
         </div>
       )}
     </div>
+    </>
+
   );
 };
 

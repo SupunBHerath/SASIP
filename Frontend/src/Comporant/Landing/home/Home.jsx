@@ -15,7 +15,7 @@ import React from 'react';
 import HAbout from "./HAbout";
 import LandingHero from "../../Hero/LandingHero";
 
-import Landing from "../../Hero/Landing"; 
+import Landing from "../../Hero/Landing";
 import CardSlide from "./upcomming/CardSlide";
 import Heading from "../common/heading/Heading";
 import Footer from "../../../Pages/User/Footer";
@@ -27,28 +27,32 @@ const Home = () => {
       {/* <Header /> */}
       <Landing />
 
-      <BasicSpeedDial/>
-      {/* <Hero /> */}
+      <BasicSpeedDial />
+      <br />
       <Heading title="[ Upcomming News]" />
-   
       <CardSlide />
+      <div className="space" style={{ height: '50px' }}></div>
 
       <AboutCard />
+      <div className="space" style={{ height: '50px' }}></div>
 
       <Heading title="[Popular Lecturers]" />
       <HAbout />
 
+
+      <div className="space" style={{ height: '50px' }}></div>
       <Heading title="[ Time Table ]" />
       <TimeTableCard2 />
 
-
+      <div className="space" style={{ height: '50px' }}></div>
+      <Heading title="[Lecturers Reviews]" />
       <Testimonal />
 
-    
-
+      <div className="space" style={{ height: '50px' }}></div>
       <Heading title="[ Gallery ]" />
       <ImageGalleryContainer />
 
+      <div className="space" style={{ height: '50px' }}></div>
       <Footer />
 
     </>

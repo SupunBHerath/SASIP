@@ -130,7 +130,7 @@ const TimeTableCard2 = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/timetable');
+        navigate('/timetable/all/all');
     };
 
     return (
