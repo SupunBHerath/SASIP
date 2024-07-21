@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Card from './Card';
 import './CardSlide.css';
 import { PostsData } from './data';
-
+import Heading from '../../common/heading/Heading';
+import ArticleIcon from '@mui/icons-material/Article';
 const CardSlide = () => {
     // Function to get the number of cards visible based on screen width
     const getNumCardsVisible = () => {
@@ -41,7 +42,7 @@ const CardSlide = () => {
     const startAutoSlide = () => {
         intervalRef.current = setInterval(() => {
             goToNextSlide();
-        }, 2000); // Automatically slide every 2 seconds
+        }, 3000); // Automatically slide every 2 seconds
     };
 
     // Function to pause auto sliding
@@ -66,6 +67,8 @@ const CardSlide = () => {
     };
 
     return (
+
+
         <div className="card-news">
             <div className="card-news-slide">
                 <div className="navigation prev" onClick={goToPreviousSlide}>
@@ -79,6 +82,7 @@ const CardSlide = () => {
                 </div>
             </div>
         </div>
+ 
     );
 };
 

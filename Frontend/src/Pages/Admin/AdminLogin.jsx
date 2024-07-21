@@ -102,7 +102,8 @@ export default function AdminLogin() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <br />
+      <Container component="main" maxWidth="xs" className='border border-solid border-slate-900  border-2 shadow-lg mt-4 rounded-md'>
         <CssBaseline />
         <Box
           sx={{
@@ -116,7 +117,7 @@ export default function AdminLogin() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+           SASIP ADMIN LOGGING 
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField

@@ -12,7 +12,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 
 const initialData = [
-    { id: 1, lid: 'S0001', name: 'John Doe', subject: 'Mathematics', classMode: 'Physical', classType: 'Theory', medium: 'English', day: 'Monday', time: '10:00 AM - 11:00 PM', note: 'Chapter 1', status: 'Visible' },
+    { id: 1, lid: 'S0001', name: 'Dr. Amith Pussalla', subject: 'Physics', classMode: 'Physical', classType: 'Theory', medium: 'Sinhala', day: 'Monday', time: '10:00 AM - 11:00 PM', note: '', status: 'Visible' },
     // Add more initial data as needed
 ];
 

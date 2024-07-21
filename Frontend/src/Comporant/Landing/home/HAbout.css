@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 35px 15px;
+    /* padding: 35px 15px; */
     width: 100%;
   }
   
@@ -118,13 +118,13 @@
   
   .flip-box-header { 
     padding: 9px;
-    font-size: 30px; 
+    font-size: 23px; 
     text-transform: uppercase;
     font-weight: bolder;
-    transform: translate(0px,200px);
+    transform: translate(0px,210px);
   }
   .flip-box-header1 {
-    font-size: 24px; 
+    font-size: 18px; 
     padding: 10px;
     text-transform: uppercase;
     font-weight: bolder;
