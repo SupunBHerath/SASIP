@@ -26,12 +26,8 @@ const Home = () => {
     <>
       {/* <Header /> */}
       <Landing />
-      <BasicSpeedDial/>
-      {/* <Hero /> */}
-      <Heading title="[ Upcomming News]" />
-   
-      <CardSlide />
-
+      {/* <BasicSpeedDial/>
+      <Hero /> */}
       <AboutCard />
       <HAbout />
       <Testimonal />
