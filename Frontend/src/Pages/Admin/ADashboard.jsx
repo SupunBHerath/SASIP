@@ -119,7 +119,7 @@ export default function ADashboard() {
       <BasicSpeedDial/>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={3}>
-          <HeaderCard icon={teacher} title="Lectures" count="110" />
+          <HeaderCard icon={teacher} title="Lecturers" count="110" />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <HeaderCard icon={news} title="News Feed" count="10" />

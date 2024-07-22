@@ -148,7 +148,7 @@ export default function AdminNavbar() {
 
   const lecher = () => {
     setActiveComponent('lecher');
-    setTite('Lectures Table ');
+    setTite('Lecturers Table ');
   };
 
   const timetable = () => {
@@ -168,7 +168,7 @@ export default function AdminNavbar() {
 
   const subject = () => {
     setActiveComponent('subject');
-    setTite('Subject Table ');
+    setTite('News Feed ');
   };
 
   return (
