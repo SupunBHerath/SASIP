@@ -388,6 +388,9 @@ const AddAlbumButtonWithAlbums = () => {
                 <AlbumCover
                   component="img"
                   image={album.coverUrl}
+                  sx={{
+                    height: 350, 
+                  }}
                   alt={album.name}
                 />
                 <AlbumTitleOverlay>

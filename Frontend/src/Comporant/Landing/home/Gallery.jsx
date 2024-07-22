@@ -128,8 +128,6 @@ function Gallery() {
     // Render desktop slider here
     return (
       <div>
-        <Heading subtitle="Our Gallery" title="Recent From Blog" />
-
         <section id="slider">
           {imageData.map((image, index) => (
             <input

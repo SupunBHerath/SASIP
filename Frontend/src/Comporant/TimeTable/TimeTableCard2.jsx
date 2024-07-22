@@ -2,6 +2,7 @@ import React from 'react';
 import { FaCalendarAlt, FaArrowRight } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import '../Landing/home/btn.css';
+import Heading from '../Landing/common/heading/Heading';
 
 const cardStyle = {
     display: 'flex',
@@ -46,8 +47,8 @@ const containerStyle = {
 
 const allStyle = {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    padding: '20px',
-    backgroundImage: 'url("../../../public/Image/mbg.jpg")',
+    padding: '30px',
+    backgroundImage: 'url("../../../public/logoback.png")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
 };
@@ -76,7 +77,7 @@ const cardButtonStyle = {
     position: 'absolute',
     width: 'max-content',
     bottom: '5px',
-    
+
     opacity: 0,
     transition: 'opacity 0.3s',
     color: 'white',
@@ -107,12 +108,13 @@ const Card = ({ title, year }) => {
             onMouseLeave={() => setIsHovered(false)}
             onClick={handleClick} // Make the whole card clickable
         >
+
             <div style={isHovered ? cardHoverEffectStyle : hoverEffectStyle}></div>
             <div className="content" style={{ zIndex: 40, color: isHovered ? 'white' : 'black', textAlign: 'center' }}>
-                <FaCalendarAlt style={{ fontSize: '24px', top:9, right: 9, position: 'absolute', color: 'white' }} />
+                <FaCalendarAlt style={{ fontSize: '24px', top: 9, right: 9, position: 'absolute', color: 'white' }} />
                 <h2>{title}</h2>
-                <p className='h3 mb-3' style={{marginTop:'-17px'}}>{year}</p>
-              
+                <p className='h3 mb-3' style={{ marginTop: '-17px' }}>{year}</p>
+
                 <button
                     style={isHovered ? cardButtonHoverStyle : cardButtonStyle}
                 >
@@ -128,12 +130,13 @@ const TimeTableCard2 = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/timetable');
+        navigate('/timetable/all/all');
     };
 
     return (
-        <div style={allStyle}>
-            <div style={containerStyle}>
+        <div style={allStyle} className=''>
+
+            <div style={containerStyle} className='mt-5'>
                 <Card title="Theory" year="2025" />
                 <Card title="Theory" year="2024" />
                 <Card title="Revision" year="2024" />
@@ -142,7 +145,7 @@ const TimeTableCard2 = () => {
                 <Card title="Revision" year="2023" />
                 <Card title="Paper" year="2023" />
             </div>
-            <div className="justify-content-center d-flex mb-2 mt-2">
+            <div className="justify-content-center d-flex mb-5 mt-5">
                 <button
                     className="btn outline-btn p-2"
                     style={isButtonHovered ? buttonHoverStyle : buttonStyle}
@@ -153,6 +156,7 @@ const TimeTableCard2 = () => {
                     <FaArrowRight style={{ marginRight: '8px' }} />
                     View All Time Tables
                 </button>
+                <br /><br />
             </div>
         </div>
     );
