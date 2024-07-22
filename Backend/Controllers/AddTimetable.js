@@ -19,11 +19,11 @@ export const addTimetableEntries = async (req, res) => {
 
     for (const entry of entries) {
       const {
-        lid, name, subject, classMode, classType, medium, day, time, note, status
+        lid, name, subject, classMode, classType, medium, day, time, note, status, year
       } = entry;
 
       // Check for all required fields except 'note'
-      if (!lid || !name || !subject || !classMode || !classType || !medium || !day || !time || !status) {
+      if (!lid || !name || !subject || !classMode || !classType || !medium || !day || !time || !status || !year) {
         return res.status(400).json({ message: 'All fields except note are required for each entry.' });
       }
 
@@ -47,6 +47,7 @@ export const addTimetableEntries = async (req, res) => {
         time,
         note: note !== undefined ? note : '',  // Use an empty string if note is undefined
         status,
+        year,
         createdAt: admin.firestore.FieldValue.serverTimestamp(),  // Optional
       };
 

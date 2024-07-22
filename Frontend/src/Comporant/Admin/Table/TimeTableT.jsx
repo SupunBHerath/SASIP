@@ -2,7 +2,7 @@ import React, { useRef, useState,useEffect } from 'react';
 import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
     Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem,
-    Select, FormControl, InputLabel, IconButton, Alert, Snackbar
+    Select, FormControl, InputLabel, IconButton, Alert, Snackbar, CircularProgress
 } from '@mui/material';
 import { Edit, Delete, FilterList, ChevronLeft, ChevronRight } from '@mui/icons-material';
 import * as XLSX from 'xlsx';
@@ -12,7 +12,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import axios from 'axios';
 
 const initialData = [
-    { id: 1, lid: 'S0001', name: 'Dr. Amith Pussalla', subject: 'Physics', classMode: 'Physical', classType: 'Theory', medium: 'Sinhala', day: 'Monday', time: '10:00 AM - 11:00 PM', note: '', status: 'Visible' },
+    { id: 1, lid: 'S0001', name: 'Dr. Amith Pussalla', subject: 'Physics', classMode: 'Physical', classType: 'Theory', medium: 'Sinhala', day: 'Monday', time: '10:00 AM - 11:00 PM', note: '', status: 'Visible', year: '2024' },
     // Add more initial data as needed
 ];
 
@@ -30,6 +30,7 @@ const TimeTableT = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [alertSeverity, setAlertSeverity] = useState('error');
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(false);
 
     const tableRef = useRef(null);
     const rowsPerPage = 5; // 
@@ -129,6 +130,7 @@ const TimeTableT = () => {
     };
 ///////////////////////////////////////////////////////////////////////////////////////////////
 const handleAdd = async () => {
+    setLoading(true);
     const timetableEntries = [
         {
             lid: formData.lid || '',
@@ -140,7 +142,9 @@ const handleAdd = async () => {
             day: formData.day || '',
             time: formData.time || '',
             note: formData.note || '',
-            status: formData.status || ''
+            status: formData.status || '',
+            year: formData.year || ''
+
         }
     ];
 
@@ -155,7 +159,7 @@ const handleAdd = async () => {
         });
 
         if (response.status === 200) {
-            setData((prevData) => [...prevData, ...timetableEntries]); // assuming response.data contains the added entries
+            setData((prevData) => [...prevData, ...timetableEntries]); 
             setAlertOpen(true);
             setAlertMessage('Timetable added successfully!');
             setAlertSeverity('success');
@@ -170,6 +174,8 @@ const handleAdd = async () => {
         setAlertOpen(true);
         setAlertMessage('Error adding timetable');
         setAlertSeverity('error');
+    } finally {
+        setLoading(false); // Stop loading
     }
 };
 
@@ -219,6 +225,7 @@ const handleAdd = async () => {
                             time: row['Time'],
                             note: row['Note'],
                             status: row['Status'],
+                            year: row['Year'],
                         };
                     }
                     return null;
@@ -281,6 +288,7 @@ const handleAdd = async () => {
                             <TableCell className="text-center " style={{ color: 'back', fontWeight: 'bolder' }} >No</TableCell>
                             <TableCell className="text-center " style={{ color: 'back', fontWeight: 'bolder' }} >Lecture ID</TableCell>
                             <TableCell className="text-center " style={{ color: 'back', fontWeight: 'bolder' }} >Lecturer Name</TableCell>
+                            <TableCell className="text-center  " style={{ color: 'back', fontWeight: 'bolder' }} >Year</TableCell>
                             <TableCell className="text-center " style={{ color: 'back', fontWeight: 'bolder' }} >Subject</TableCell>
                             <TableCell className="text-center " style={{ color: 'back', fontWeight: 'bolder' }} >Class</TableCell>
                             <TableCell className="text-center " style={{ color: 'back', fontWeight: 'bolder' }} >Class Type</TableCell>
@@ -298,6 +306,7 @@ const handleAdd = async () => {
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{row.lid}</TableCell>
                                 <TableCell>{row.name}</TableCell>
+                                <TableCell >{row.year}</TableCell>
                                 <TableCell>{row.subject}</TableCell>
                                 <TableCell>{row.classMode}</TableCell>
                                 <TableCell>{row.classType}</TableCell>
@@ -574,15 +583,37 @@ const handleAdd = async () => {
                                         <MenuItem value="Hidden">Hidden</MenuItem>
                                     </Select>
                                 </FormControl>
+                                <FormControl fullWidth
+                                    className='mb-4'
+                                >
+                                    <InputLabel>Year</InputLabel>
+                                    <Select
+                                        name="year"
+                                        value={formData.year || ''}
+                                        onChange={handleChange}
+                                    >
+                                        <MenuItem value="2024">2024</MenuItem>
+                                        <MenuItem value="2025">2025</MenuItem>
+                                        <MenuItem value="2026">2026</MenuItem>
+                                    </Select>
+                                </FormControl>
                             </>
                         )}
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleCloseAdd}>Cancel</Button>
-                        {!excel && (<Button onClick={handleAdd}>Add</Button>)}
+                        <Button onClick={handleCloseAdd} disabled={loading}>Cancel</Button>
+                        {!excel && (
+                            <Button onClick={handleAdd} disabled={loading}>
+                                {loading ? <CircularProgress size={24} /> : 'Add'}
+                            </Button>
+                        )}
                         {excel && (
-                            <Button onClick={handleAddF}>Add</Button>)}
+                            <Button onClick={handleAddF} disabled={loading}>
+                                {loading ? <CircularProgress size={24} /> : 'Add'}
+                            </Button>
+                        )}
                     </DialogActions>
+
                 </Dialog>
 
                 <Dialog open={openFilter} onClose={handleCloseFilter}>
