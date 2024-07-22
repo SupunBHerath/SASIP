@@ -5,21 +5,21 @@ import TimeTableCard from './TimeTableCard';
 import { Color } from '../CSS/Css';
 import Navbar from '../Navibar/Navbar';
 import axios from 'axios';
+import Footer from '../../Pages/User/Footer';
 const TimeTable = () => {
     const [sampleTimeTables, setSampleTimeTables] = useState([]);
     const [filteredTimeTables, setFilteredTimeTables] = useState([]);
     const [tabValue, setTabValue] = useState(0);
     const [filter, setFilter] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
+    const [lectureFilter, setLectureFilter] = useState(''); // Filter for lecture names
     const [selectedYearFilter, setSelectedYearFilter] = useState('');
     const [selectedClassFilter, setSelectedClassFilter] = useState('');
-    const [openFilterDialog, setOpenFilterDialog] = useState(false);
-    const [lectureFilter, setLectureFilter] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(false); // Loading state
     const currentYear = new Date().getFullYear();
     const last3Years = [currentYear - 1, currentYear, currentYear + 1];
     const isSmallScreen = useMediaQuery('(max-width:800px)'); // Check for small screens
-
+    const [openFilterDialog, setOpenFilterDialog] = useState(false);
     // Number of items per page based on screen size
     const ITEMS_PER_PAGE = isSmallScreen ? 4 : 10;
 
@@ -54,7 +54,7 @@ const TimeTable = () => {
 
     useEffect(() => {
         filterTimeTables();
-    }, [filter, tabValue, selectedYearFilter, selectedClassFilter, sampleTimeTables]);
+    }, [filter, tabValue, selectedYearFilter, selectedClassFilter, lectureFilter, sampleTimeTables]);
 
     const handleFilterChange = (e) => {
         setFilter(e.target.value);
@@ -128,11 +128,10 @@ const TimeTable = () => {
     const typeFromUrl = pathParts[3];
 
     useEffect(() => {
-        if(yearFromUrl ==="all"){
-        setSelectedYearFilter('');
-        }else{
+        if (yearFromUrl === "all") {
+            setSelectedYearFilter('');
+        } else {
             setSelectedYearFilter(yearFromUrl);
-
         }
         setTabValue(getTableIndex(typeFromUrl));
     }, [typeFromUrl, yearFromUrl]);
@@ -140,12 +139,13 @@ const TimeTable = () => {
     const filterTimeTables = () => {
         const filtered = sampleTimeTables.filter((table) => {
             const includesFilter = table.subjectName.toLowerCase().includes(filter.toLowerCase());
+            const includesLectureFilter = table.lecture.toLowerCase().includes(lectureFilter.toLowerCase()); // Check lecture filter
             const yearMatch = selectedYearFilter ? table.year.toString() === selectedYearFilter.toString() : true;
             const classMatch = selectedClassFilter ? table.Class.toLowerCase() === selectedClassFilter.toLowerCase() : true;
             const tabType = getTabType(tabValue).toLowerCase();
             const typeMatch = tabValue === 0 || tabType === '' || table.classType.toLowerCase() === tabType;
 
-            return includesFilter && typeMatch && yearMatch && classMatch;
+            return includesFilter && includesLectureFilter && typeMatch && yearMatch && classMatch;
         });
 
         setFilteredTimeTables(filtered);
@@ -160,9 +160,8 @@ const TimeTable = () => {
             return !duplicate;
         });
     };
-
     const uniqueSampleTimeTables = uniqueSubjects(sampleTimeTables);
- 
+
 
     return (
         <div >
@@ -459,7 +458,7 @@ const TimeTable = () => {
                             ))}
                         </Select>
                     </FormControl>
-                    <FormControl fullWidth variant="outlined" size="medium" margin="dense">
+                    {/* <FormControl fullWidth variant="outlined" size="medium" margin="dense">
                         <InputLabel id="class-filter-label-dialog">Filter by Class</InputLabel>
                         <Select
                             labelId="class-filter-label-dialog"
@@ -476,7 +475,7 @@ const TimeTable = () => {
                             <MenuItem value="Grade 11">Grade 11</MenuItem>
                             <MenuItem value="Grade 12">Grade 12</MenuItem>
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleDialogClose} color="primary">
@@ -484,6 +483,8 @@ const TimeTable = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <br />
+            <Footer />
         </div >
     );
 };

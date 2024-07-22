@@ -11,6 +11,7 @@ import ExperienceIcon from "@mui/icons-material/Work";
 import { Color } from "../../Comporant/CSS/Css";
 import Navbar from "../../Comporant/Navibar/Navbar";
 import logo from "../../../public/logoback.png"
+import Footer from "./Footer";
 export default function Profile() {
   const { id } = useParams();
   const [teacher, setTeacher] = useState(null);
@@ -29,11 +30,12 @@ export default function Profile() {
         // Fetch teacher details
         const teacherResponse = await axios.get(`/api/teacher/profile/${id}`);
         setTeacher(teacherResponse.data);
-
         // Fetch timetable details
         const timetableResponse = await axios.get(`/api/timetable/display-timetable/${id}`);
         setTimetables(timetableResponse.data);
-        setFilteredTimetables(timetableResponse.data); // Initialize filteredTimetables
+        setFilteredTimetables(timetableResponse.data);
+    console.log(timetableResponse.data);
+    // Initialize filteredTimetables
       } catch (error) {
         console.error("Error fetching teacher details or timetables: ", error);
       }
@@ -89,9 +91,9 @@ export default function Profile() {
           <div className="flex flex-col md:flex-row items-center md:items-start ">
             <img
               src={teacher.imageUrl}
-              style={{ height: "407px" }}
+              style={{ height: "407px",borderRadius:20,border: "1px solid blue"}}
               alt="Profile Picture"
-              className="md:mr-6 mb-6 md:mb-0 rounded-lg border-3 border-solid border-slate-950"
+              className="md:mr-6 mb-6 md:mb-0  shadow-lg"
             />
             <div className="flex-1">
               <div className=" text-primary-foreground p-6 rounded-lg shadow-md w-100" style={{backgroundPosition:'center',
@@ -256,7 +258,7 @@ export default function Profile() {
                         lecture={timetable.name}
                         day={timetable.day}
                         time={timetable.time}
-                        classMode={timetable.classMode}
+                        Class={timetable.classMode}
                         medium={timetable.medium}
                         classType={timetable.classType}
                         fileUrl={timetable.fileUrl}
@@ -324,6 +326,7 @@ export default function Profile() {
           </Dialog>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

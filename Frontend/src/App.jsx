@@ -14,6 +14,7 @@ import { AuthProvider } from './Config/AuthContext';
 import Card from './Comporant/Landing/home/upcomming/Card'; 
 import GalleryPage from './Pages/User/GalleryPage';
 import ContactPage from './Comporant/Landing/contactpage/contactpage';
+import AboutPage from './Pages/User/About';
 // import About from './Comporant/About/AboutUs';
 
 
@@ -27,9 +28,9 @@ export default function App() {
           <Route path="/timetable/:year/:type" element={<TimeTablePage />} />
           <Route path="/lecturers" element={<Team />} />
           <Route path="/contact" element={<ContactPage />} />
-
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/about" element={<AboutPage />} />
 
           {/* <Route path="/about" element={<About />} /> */}
 

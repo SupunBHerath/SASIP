@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import "./HAbout.css"; // Import your CSS file
+import { useNavigate } from "react-router-dom";
 
 function Card(props) {
   const isLecturer = props.isLecturer;
-
+  const navi = useNavigate();
   useEffect(() => {
     // JavaScript for diagonal animation
     const flipBox = document.querySelector(".flip-box-front.btn-6");
@@ -56,7 +57,7 @@ function Card(props) {
           <p>{props.secondDesc}</p>
           {isLecturer && (
             <div className="cus-btn">
-              <button id="button-3">View Profile</button>
+              <button id="button-3" onClick={()=>{navi(`/profile/${props.lid}`)}}>View Profile</button>
             </div>
           )}
         </div>
