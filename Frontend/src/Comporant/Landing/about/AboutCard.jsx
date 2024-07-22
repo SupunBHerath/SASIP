@@ -3,12 +3,13 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { homeAbout } from "../dummydata";
 import Awrapper from "./Awrapper";
+import { useNavigate } from "react-router-dom";
 
 const AboutCard = () => {
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
-
+const navi = useNavigate();
   return (
     <>
       <section style={styles.aboutHome}>
@@ -45,7 +46,7 @@ const AboutCard = () => {
                 </div>
               ))}
             </div>
-            <button style={styles.btn}>Read More</button>
+            <button style={styles.btn} onClick={()=>{navi('/about')}}>Read More</button>
           </div>
         </div>
       </section>

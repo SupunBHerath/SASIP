@@ -44,6 +44,7 @@ function HAbout() {
                   firstSideSecondTittle="Physics"
                   firstSideFirstTittle="Amith pussala"
                   firstMainTittle="Bio"
+                  lid="S0001"
                   isLecturer={true}
                 />
               </div>
@@ -53,6 +54,7 @@ function HAbout() {
                   firstSideSecondTittle="Biology"
                   firstSideFirstTittle="Tissa Jananayaka"
                   firstMainTittle="Bio"
+                  lid="S0002"
                   isLecturer={true}
                 />
               </div>
@@ -62,6 +64,7 @@ function HAbout() {
                   firstSideSecondTittle="Combined Maths"
                   firstSideFirstTittle="Ajantha Dissanayake"
                   firstMainTittle="Bio"
+                  lid="S0003"
                   isLecturer={true}
                 />
               </div>
@@ -71,6 +74,7 @@ function HAbout() {
                   firstSideSecondTittle="Chemistry"
                   firstSideFirstTittle="ksiri Withanage"
                   firstMainTittle="Bio"
+                  lid="S0004"
                   isLecturer={true}
                 />
               </div>
@@ -83,6 +87,7 @@ function HAbout() {
                   firstSideSecondTittle="Physics"
                   firstSideFirstTittle="Amith pussala"
                   firstMainTittle="Bio"
+                  lid="S0001"
                   isLecturer={true}
                 />
               </div>
@@ -92,6 +97,7 @@ function HAbout() {
                   firstSideSecondTittle="Biology"
                   firstSideFirstTittle="Tissa Jananayaka"
                   firstMainTittle="Bio"
+                  lid="S0002"
                   isLecturer={true}
                 />
               </div>
@@ -101,6 +107,7 @@ function HAbout() {
                   firstSideSecondTittle="Combined Maths"
                   firstSideFirstTittle="Ajantha Dissanayake"
                   firstMainTittle="Bio"
+                  lid="S0003"
                   isLecturer={true}
                 />
               </div>
@@ -110,6 +117,7 @@ function HAbout() {
                   firstSideSecondTittle="Chemistry"
                   firstSideFirstTittle="ksiri Withanage"
                   firstMainTittle="Bio"
+                  lid="S0004"
                   isLecturer={true}
                 />
               </div>
