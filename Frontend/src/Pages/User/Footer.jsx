@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Box, Container, Grid, Typography, IconButton, InputBase, Paper, Link, Divider, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import { Box, Container, Grid, Typography, IconButton, InputBase, Paper, Divider, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import { Facebook, Twitter, Instagram, Email, Home, Info, School, Schedule, ContactMail, ContactPhone } from '@mui/icons-material';
-
+import { Link } from 'react-router-dom';
 const Footer = () => {
     const [email, setEmail] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -145,7 +145,7 @@ const Footer = () => {
 
                 <Dialog open={openDialog} onClose={handleCloseDialog}>
                     <DialogTitle>Developers</DialogTitle>
-                    <DialogContent>
+                    {/* <DialogContent>
                         <Typography variant="body1">
                             Supun B Herath
                         </Typography>
@@ -171,7 +171,7 @@ const Footer = () => {
                             <ContactPhone />
                             Contact us
                         </Typography>
-                    </DialogContent>
+                    </DialogContent> */}
                     <DialogActions>
                         <Button onClick={handleCloseDialog} color="primary">
                             Close

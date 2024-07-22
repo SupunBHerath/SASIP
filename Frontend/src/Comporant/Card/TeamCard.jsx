@@ -13,6 +13,7 @@ const TeamCard = ({ member }) => {
       <div className="rounded-4 items shadow">
         <div className="img">
           <img
+          // style={{ height:380}}
             src={member.imageUrl}
             alt={`${member.name}'s cover`}
             onError={(e) => {
@@ -38,8 +39,9 @@ const TeamCard = ({ member }) => {
           </div>
         </div>
         <div className="details">
-          <h2>{member.name}</h2>
-          <p>{member.subject}</p>
+          <h2 style={{color:'burlywood',fontWeight:900}}>{member.name}</h2>
+          <h5 style={{fontWeight:800}}>{member.subject}</h5>
+          {/* <p>{member.medium}</p> */}
         </div>
       </div>
     </div>

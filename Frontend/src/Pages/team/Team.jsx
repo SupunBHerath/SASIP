@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import TeamCard from "../../Comporant/Card/TeamCard";
 import "./team.css";
-import { IconButton, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, FormControl, InputLabel, Button, Pagination } from "@mui/material";
+import { IconButton, Dialog, DialogTitle, DialogContent, TextField, Select, MenuItem, FormControl, InputLabel, Button, Pagination, LinearProgress } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Navbar from "../../Comporant/Navibar/Navbar";
 import ScrollToTopButton from "../../Comporant/ScrollToTopButton/ScrollToTopButton";
 import axios from "axios";
+import Footer from "../User/Footer";
 
 const Team = () => {
   const [nameFilter, setNameFilter] = useState("");
@@ -20,13 +21,16 @@ const Team = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [teamData, setTeamData] = useState([]); // State to store fetched data
   const itemsPerPage = 12;
-
+  const [isloanding, setIsanding] = useState(false);
   useEffect(() => {
     // Fetch data from backend
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/teacher/display-teachers"); 
+        const response = await axios.get("/api/teacher/display-teachers");
         setTeamData(response.data.teachers);
+        setTimeout(() => {
+          setIsanding(true);
+        }, 2000);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -74,7 +78,7 @@ const Team = () => {
 
   return (
     <>
-      <Navbar position={true}/>
+      <Navbar position={true}  />
       <div className="teacher">
         <div className={`filters-container ${scrolling ? "hidden" : ""}`}>
           <div className="filters">
@@ -133,7 +137,7 @@ const Team = () => {
 
         <Dialog open={openDialog} onClose={handleDialogClose} >
           <DialogTitle>Filter Options</DialogTitle>
-          <DialogContent style={{minWidth:'250px'}}>
+          <DialogContent style={{ minWidth: '250px' }}>
             <FormControl fullWidth margin="normal">
               <InputLabel>Class Type</InputLabel>
               <Select
@@ -159,23 +163,27 @@ const Team = () => {
             </Button>
           </DialogContent>
         </Dialog>
-
-        <section className="team padding">
-          <div className="container grid">
-            {currentItems.map((member, index) => (
-              <TeamCard key={index} member={member} />
-            ))}
-          </div>
-          <div className="pagination d-flex justify-center mt-5">
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={(event, value) => setCurrentPage(value)}
-              color="primary"
-            />
-          </div>
-        </section>
+        {!isloanding ? (<LinearProgress color="secondary" />) : (
+          <>
+            <section className="team padding">
+              <div className="container grid">
+                {currentItems.map((member, index) => (
+                  <TeamCard key={index} member={member} />
+                ))}
+              </div>
+              <div className="pagination d-flex justify-center mt-5">
+                <Pagination
+                  count={totalPages}
+                  page={currentPage}
+                  onChange={(event, value) => setCurrentPage(value)}
+                  color="primary"
+                />
+              </div>
+            </section>
+          </>
+        )}
       </div>
+     {isloanding && ( <Footer />)}
     </>
   );
 };
