@@ -37,6 +37,7 @@ const TimeTable = () => {
                         lecture: item.name,
                         day: item.day,
                         time: item.time,
+                        note: item.note,
                         classType: item.classType
                     }));
                     setSampleTimeTables(formattedData);
