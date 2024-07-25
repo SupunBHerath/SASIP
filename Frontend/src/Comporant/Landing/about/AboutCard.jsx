@@ -16,7 +16,7 @@ const navi = useNavigate();
         <div style={styles.container}>
           <div style={styles.left} data-aos="fade-right">
             <img
-              src="../public/Image/logoe1.png"
+              src="../../../../public/Logo/logohe.png"
               alt="Logo"
               style={styles.aboutLogo}
             />
@@ -50,7 +50,6 @@ const navi = useNavigate();
           </div>
         </div>
       </section>
-      <Awrapper />
     </>
   );
 };

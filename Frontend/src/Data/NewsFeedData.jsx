@@ -1,6 +1,6 @@
 // data.js
 
-export const PostsData = [
+export const NewsFeedData = [
     {
         title: 'Physics ',
         desc: 'Description for Card 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',

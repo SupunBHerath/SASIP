@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate } from 'react-router-dom';
+import {backgroundImages , textData }from '../../Data/LandingHeroData'; 
 
 // Custom hook to get window size
 const useWindowSize = () => {
@@ -27,7 +28,8 @@ const useWindowSize = () => {
 
 const LandingHero = () => {
   const { width } = useWindowSize(); // Get the current window width
- const navi = useNavigate();
+  const navi = useNavigate();
+
   useEffect(() => {
     AOS.init();
   }, []);
@@ -86,16 +88,16 @@ const LandingHero = () => {
   return (
     <div style={styles.container}>
       <div style={styles.textContainer}>
-        <h1 style={styles.heading} data-aos="fade-right" data-aos-duration="2000">WELCOME TO SASIP</h1>
-        <h2 style={styles.subHeading} data-aos="fade-left" data-aos-duration="2000">Best Education Expertise</h2>
+        <h1 style={styles.heading} data-aos="fade-right" data-aos-duration="2000">{textData.heading}</h1>
+        <h2 style={styles.subHeading} data-aos="fade-left" data-aos-duration="2000">{textData.subHeading}</h2>
         <p style={styles.text} data-aos="fade-up" data-aos-duration="2000">
-          Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
+          {textData.paragraph}
         </p>
         <div style={styles.buttonContainer}>
-          <button onClick={()=>{window.open('https://www.sasipinstitute.com/', '_blank')}} style={{ ...styles.button, ...styles.getStartedButton }} data-aos="fade-up" data-aos-duration="2000">
+          <button onClick={() => { window.open('https://www.sasipinstitute.com/', '_blank') }} style={{ ...styles.button, ...styles.getStartedButton }} data-aos="fade-up" data-aos-duration="2000">
             GET STARTED NOW
           </button>
-          <button onClick={()=>{navi('/timetable/all/all')}} style={{ ...styles.button, ...styles.viewCourseButton }} data-aos="fade-up" data-aos-duration="2000">
+          <button onClick={() => { navi('/timetable/all/all') }} style={{ ...styles.button, ...styles.viewCourseButton }} data-aos="fade-up" data-aos-duration="2000">
             VIEW TIME TABLE
           </button>
         </div>

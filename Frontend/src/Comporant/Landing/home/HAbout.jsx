@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./HAbout.css";
 import Card from "./Card";
-import Heading from "../common/heading/Heading";
+import { HAboutData } from "../../../Data/HAboutData"; 
 
 function HAbout() {
   const [isMobileView, setIsMobileView] = useState(false);
@@ -38,89 +38,33 @@ function HAbout() {
         <div className="row" style={{ width: "100vw" }}>
           {isMobileView ? (
             <Slider {...sliderSettings}>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3 ">
-                <Card
-                  img="../../../../public/a.jpg"
-                  firstSideSecondTittle="Physics"
-                  firstSideFirstTittle="Amith pussala"
-                  firstMainTittle="Bio"
-                  lid="S0001"
-                  isLecturer={true}
-                />
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
-                <Card
-                  img="../../../../public/t.jpg"
-                  firstSideSecondTittle="Biology"
-                  firstSideFirstTittle="Tissa Jananayaka"
-                  firstMainTittle="Bio"
-                  lid="S0002"
-                  isLecturer={true}
-                />
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
-                <Card
-                  img="../../../../public/aj.jpg"
-                  firstSideSecondTittle="Combined Maths"
-                  firstSideFirstTittle="Ajantha Dissanayake"
-                  firstMainTittle="Bio"
-                  lid="S0003"
-                  isLecturer={true}
-                />
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
-                <Card
-                  img="../../../../public/k.jpg"
-                  firstSideSecondTittle="Chemistry"
-                  firstSideFirstTittle="ksiri Withanage"
-                  firstMainTittle="Bio"
-                  lid="S0004"
-                  isLecturer={true}
-                />
-              </div>
+              {HAboutData.map((item) => (
+                <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3" key={item.lid}>
+                  <Card
+                    img={item.img}
+                    firstSideSecondTittle={item.firstSideSecondTittle}
+                    firstSideFirstTittle={item.firstSideFirstTittle}
+                    firstMainTittle={item.firstMainTittle}
+                    lid={item.lid}
+                    isLecturer={item.isLecturer}
+                  />
+                </div>
+              ))}
             </Slider>
           ) : (
             <>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1  p-md-3 mb-3">
-                <Card
-                  img="../../../../public/a.jpg"
-                  firstSideSecondTittle="Physics"
-                  firstSideFirstTittle="Amith pussala"
-                  firstMainTittle="Bio"
-                  lid="S0001"
-                  isLecturer={true}
-                />
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
-                <Card
-                  img="../../../../public/t.jpg"
-                  firstSideSecondTittle="Biology"
-                  firstSideFirstTittle="Tissa Jananayaka"
-                  firstMainTittle="Bio"
-                  lid="S0002"
-                  isLecturer={true}
-                />
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
-                <Card
-                  img="../../../../public/aj.jpg"
-                  firstSideSecondTittle="Combined Maths"
-                  firstSideFirstTittle="Ajantha Dissanayake"
-                  firstMainTittle="Bio"
-                  lid="S0003"
-                  isLecturer={true}
-                />
-              </div>
-              <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3">
-                <Card
-                  img="../../../../public/k.jpg"
-                  firstSideSecondTittle="Chemistry"
-                  firstSideFirstTittle="ksiri Withanage"
-                  firstMainTittle="Bio"
-                  lid="S0004"
-                  isLecturer={true}
-                />
-              </div>
+              {HAboutData.map((item) => (
+                <div className="col-lg-3 col-md-6 col-sm-6 p-1 p-md-3 mb-3" key={item.lid}>
+                  <Card
+                    img={item.img}
+                    firstSideSecondTittle={item.firstSideSecondTittle}
+                    firstSideFirstTittle={item.firstSideFirstTittle}
+                    firstMainTittle={item.firstMainTittle}
+                    lid={item.lid}
+                    isLecturer={item.isLecturer}
+                  />
+                </div>
+              ))}
             </>
           )}
         </div>

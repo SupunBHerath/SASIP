@@ -35,7 +35,6 @@ export default function App() {
           {/* <Route path="/about" element={<About />} /> */}
 
 
-          {/* =====================Admin====================== */}
 
 
 
