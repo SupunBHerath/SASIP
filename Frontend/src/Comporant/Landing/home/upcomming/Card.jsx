@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import '../../../../../public/logoback.png';
+import '../../../../../public/landing/logoback.png';
 import './Card.css'
 function Card({ details }) {
   const [openSubscribe, setOpenSubscribe] = useState(false);
@@ -41,7 +41,7 @@ function Card({ details }) {
     <div>
       <figure className="snip1369 green">
         <img
-          src='../../../../../public/logoback.png'
+          src='../../../../../public/landing/logoback.png'
           style={{ height: "400px", width: "auto", position: 'relative', top: 100 }}
           alt="pr-sample15"
         />

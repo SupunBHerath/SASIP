@@ -10,7 +10,6 @@ import MediumIcon from "@mui/icons-material/Language";
 import ExperienceIcon from "@mui/icons-material/Work";
 import { Color } from "../../Comporant/CSS/Css";
 import Navbar from "../../Comporant/Navibar/Navbar";
-import logo from "../../../public/logoback.png"
 import Footer from "./Footer";
 export default function Profile() {
   const { id } = useParams();
