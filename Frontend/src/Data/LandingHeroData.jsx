@@ -7,8 +7,8 @@ export const textData = {
 
 export const backgroundImages = [
   '../../public/landing/logoback.png',
-  'https://z-p3-scontent.fcmb9-1.fna.fbcdn.net/v/t39.30808-6/435700213_990027145820228_374095329094466250_n.jpg',
-  'https://z-p3-scontent.fcmb9-1.fna.fbcdn.net/v/t39.30808-6/438088360_990036185819324_2378637075562672293_n.jpg'
+  'https://images.unsplash.com/photo-1607419726991-5fc7e74cda67?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  'https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 ];
 
   
