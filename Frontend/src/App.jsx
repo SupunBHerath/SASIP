@@ -39,7 +39,6 @@ export default function App() {
 
 
 
-          {/* =====================Admin====================== */}
 
           {/* <Route
             path="/admin"
