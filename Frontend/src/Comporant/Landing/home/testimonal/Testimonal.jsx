@@ -1,7 +1,6 @@
 import React from "react"
 import { testimonal } from "../../dummydata"
 import "./style.css"
-import Heading from "../../common/heading/Heading"
 
 const Testimonal = () => {
   return (

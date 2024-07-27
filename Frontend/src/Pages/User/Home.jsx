@@ -1,15 +1,14 @@
-import ImageGalleryContainer from "./ImageGalleryContainer";
-import BasicSpeedDial from "../../ChatBot/SpeedDial";
-import AboutCard from "../about/AboutCard"
-import "./Home.css"
-import Testimonal from "./testimonal/Testimonal"
-import TimeTableCard2 from "../../TimeTable/TimeTableCard2"
+import ImageGalleryContainer from "../../Comporant/Landing/home/ImageGalleryContainer";
+import BasicSpeedDial from "../../Comporant/ChatBot/SpeedDial";
+import AboutCard from "../../Comporant/Landing/about/AboutCard"
+import Testimonal from "../../Comporant/Landing/home/testimonal/Testimonal"
+import TimeTableCard2 from "../../Comporant/TimeTable/TimeTableCard2"
 import React from 'react';
-import HAbout from "./HAbout";
-import CardSlide from "./upcomming/CardSlide";
-import Heading from "../common/heading/Heading";
-import Footer from "../../../Pages/User/Footer";
-import Landing from "../../Hero/Hero";
+import HAbout from "../../Comporant/Landing/home/HAbout";
+import CardSlide from "../../Comporant/Landing/home/upcomming/CardSlide";
+import Heading from "../../Comporant/Landing/common/heading/Heading";
+import Footer from "./Footer";
+import Landing from "../../Comporant/Hero/Hero";
 
 
 const Home = () => {
@@ -36,8 +35,8 @@ const Home = () => {
       <TimeTableCard2 />
 
       <div className="space" style={{ height: '50px' }}></div>
-      <Heading title="[Lecturers Reviews]" />
-      <Testimonal />
+      {/* <Heading title="[Lecturers Reviews]" /> */}
+      {/* <Testimonal /> */}
 
       <div className="space" style={{ height: '50px' }}></div>
       <Heading title="[ Gallery ]" />
