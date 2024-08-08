@@ -1,6 +1,6 @@
 export const HAboutData = [
     {
-      img: "../../../../public/landing/a.jpg",
+      img: "../../../../accests/landing/a.jpg",
       firstSideSecondTittle: "Physics",
       firstSideFirstTittle: "Amith Pussala",
       firstMainTittle: "Bio",
@@ -8,7 +8,7 @@ export const HAboutData = [
       isLecturer: true
     },
     {
-      img: "../../../../public/landing/t.jpg",
+      img: "../../../../accests/landing/t.jpg",
       firstSideSecondTittle: "Biology",
       firstSideFirstTittle: "Tissa Jananayaka",
       firstMainTittle: "Bio",
@@ -16,7 +16,7 @@ export const HAboutData = [
       isLecturer: true
     },
     {
-      img: "../../../../public/landing/aj.jpg",
+      img: "../../../../accests/landing/aj.jpg",
       firstSideSecondTittle: "Combined Maths",
       firstSideFirstTittle: "Ajantha Dissanayake",
       firstMainTittle: "Bio",
@@ -24,7 +24,7 @@ export const HAboutData = [
       isLecturer: true
     },
     {
-      img: "../../../../public/landing/k.jpg",
+      img: "../../../../accests/landing/k.jpg",
       firstSideSecondTittle: "Chemistry",
       firstSideFirstTittle: "Ksiri Withanage",
       firstMainTittle: "Bio",

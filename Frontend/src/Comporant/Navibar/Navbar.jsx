@@ -17,7 +17,7 @@ import { Color, Font } from '../CSS/Css';
 import SocialMediaSidebar from '../Social/SocialMediaSidebar';
 import Head from '../Landing/common/header/Head';
 import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton';
-import logo from '../../../public/Logo/logohe.png'
+import logo from '../../../accests/Logo/logohe.png'
 
 const Logo = styled('img')({
     height: '65px',
@@ -93,7 +93,7 @@ export default function Navbar({ position, fixed }) {
                 {position || fixed && !isScrolled ? (<SocialMediaSidebar />) : ''}
                 {!position && isScrolled ? (<SocialMediaSidebar />) : ''}
                 <Toolbar disableGutters>
-                    <Logo src="../../../public/Logo/logohe.png" alt="Sasip" />
+                    <Logo src="../../../accests/Logo/logohe.png" alt="Sasip" />
                     <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 900, marginLeft: 10 }}>
                     </Typography>
                     {isMobile ? (

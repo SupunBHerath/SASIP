@@ -97,7 +97,7 @@ export default function Profile() {
             <div className="flex-1">
               <div className=" text-primary-foreground p-6 rounded-lg shadow-md w-100" style={{backgroundPosition:'center',
                 
-                backgroundImage: "url('../../../public/logoback.png')",
+                backgroundImage: "url('../../../accests/logoback.png')",
                 backgroundRepeat:'no-repeat',
                 backgroundSize:"cover"
               }} >

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Button, Pagination, Autocomplete, Tabs, Tab, Dialog, DialogTitle, DialogContent, DialogActions, Select, MenuItem, FormControl, InputLabel, Input } from '@mui/material';
 import HeaderCard from '../../Comporant/Admin/Card/HeaderCard';
-import teacher from '../../../public/Icon/teacher.png';
-import notification from '../../../public/Icon/notification.png';
-import news from '../../../public/Icon/news.png';
-import image from '../../../public/Icon/picture.png';
+import teacher from '../../../accests/Icon/teacher.png';
+import notification from '../../../accests/Icon/notification.png';
+import news from '../../../accests/Icon/news.png';
+import image from '../../../accests/Icon/picture.png';
 import { Color, Font } from '../../Comporant/CSS/Css';
 import TimeTableT from '../../Comporant/Admin/Table/TimeTableT';
 import BasicSpeedDial from '../../Comporant/ChatBot/SpeedDial';

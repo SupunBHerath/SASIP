@@ -3,8 +3,8 @@ import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import Avatar from '@mui/material/Avatar';
 import ChatIcon from '@mui/icons-material/Chat';
-import logo from '../../../public/Icon/robo.png';
-import icon from '../../../public/Icon/help2.png';
+import logo from '../../../accests/Icon/robo.png';
+import icon from '../../../accests/Icon/help2.png';
 import { Dialog, DialogContent } from '@mui/material';
 import Chatbot from './Chatbot';
 

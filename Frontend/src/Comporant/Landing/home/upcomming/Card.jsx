@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import '../../../../../public/landing/logoback.png';
+import '../../../../../accests/landing/logoback.png';
 import './Card.css'
 function Card({ details }) {
   const [openSubscribe, setOpenSubscribe] = useState(false);

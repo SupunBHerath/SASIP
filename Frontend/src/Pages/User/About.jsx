@@ -5,6 +5,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Footer from './Footer';
 import Navbar from '../../Comporant/Navibar/Navbar';
+import InstituteHistory from './About-Utils/InstituteHistory';
 
 const AboutPage = () => {
     useEffect(() => {
@@ -66,7 +67,7 @@ const AboutPage = () => {
             <Grid container spacing={4}>
                 {/* Header Section */}
                 <Grid item xs={12} md={3}>
-                    <img src="../../../public/a.jpg" alt="About Us" style={{ width: 'auto%', height: '450px', borderRadius: '15px', objectFit: 'fill' }} />
+                    <img src="../../../accests/landing/a.jpg" alt="About Us" style={{ width: 'auto%', height: '450px', borderRadius: '15px', objectFit: 'fill' }} />
                 </Grid>
                 <Grid item xs={12} md={9}>
                     <Typography variant="h3" gutterBottom style={{ fontWeight: 900 }}>Inception of SASIP Institute</Typography>
@@ -108,7 +109,7 @@ const AboutPage = () => {
                     >
                         <CardContent
                             style={{
-                                backgroundImage: 'url(../../../public/About/o.png)',
+                                backgroundImage: 'url(../../../accests/About/o.png)',
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundPosition: 'center',
@@ -119,7 +120,7 @@ const AboutPage = () => {
                                 className="overlay"
                                 style={{
                                     ...overlayStyles,
-                                    backgroundImage: 'url(../../../public/logoback.png)',
+                                    backgroundImage: 'url(../../../accests/logoback.png)',
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
                                     backgroundPosition: 'center',
@@ -143,7 +144,7 @@ const AboutPage = () => {
                     >
                         <CardContent
                             style={{
-                                backgroundImage: 'url(../../../public/About/m.png)',
+                                backgroundImage: 'url(../../../accests/About/m.png)',
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundPosition: 'center',
@@ -153,7 +154,7 @@ const AboutPage = () => {
                             <Box className="overlay"
                                 style={{
                                     ...overlayStyles,
-                                    backgroundImage: 'url(../../../public/About/m2.png)',
+                                    backgroundImage: 'url(../../../accests/About/m2.png)',
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
                                     backgroundPosition: 'center',
@@ -176,7 +177,7 @@ const AboutPage = () => {
                     >
                         <CardContent
                             style={{
-                                backgroundImage: 'url(../../../public/About/v.png)',
+                                backgroundImage: 'url(../../../accests/About/v.png)',
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundPosition: 'center',
@@ -186,7 +187,7 @@ const AboutPage = () => {
                             <Box className="overlay"
                                 style={{
                                     ...overlayStyles,
-                                    backgroundImage: 'url(../../../public/About/v2.png)',
+                                    backgroundImage: 'url(../../../accests/About/v2.png)',
                                     backgroundSize: 'cover',
                                     backgroundRepeat: 'no-repeat',
                                     backgroundPosition: 'center',
@@ -196,31 +197,8 @@ const AboutPage = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-
-
-
-
-                {/* Facilities Section */}
-                {/* {['Facility 1', 'Facility 2', 'Facility 3', 'Facility 4', 'Facility 5'].map((facility, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index} data-aos="fade-up">
-                        <Card
-                            style={cardStyles}
-                            onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <CardContent>
-                                <Box display="flex" alignItems="center">
-                                    <img src={`icon-url-${index}.png`} alt={facility} style={{ marginRight: '10px', width: '40px', height: '40px' }} />
-                                    <Typography variant="h6">{facility}</Typography>
-                                </Box>
-                                <Box className="overlay" style={overlayStyles}></Box>
-                                <Typography className="description" style={descriptionStyles} variant="body2">
-                                    Description of the facility goes here. This text will be shown when the card is hovered.
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))} */}
+                {/* New History Section */}
+                <InstituteHistory />
             </Grid>
         </Box>
         <Footer/>

@@ -3,8 +3,8 @@ import { Container, TextField, IconButton, List, ListItem, ListItemText, Paper, 
 import SendIcon from '@mui/icons-material/Send';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import axios from 'axios';
-import logo from '../../../public/Icon/robo.png';
-import user from '../../../public/Icon/user.png';
+import logo from '../../../accests/Icon/robo.png';
+import user from '../../../accests/Icon/user.png';
 import { Color, Font } from '../CSS/Css';
 import { CloseRounded } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
