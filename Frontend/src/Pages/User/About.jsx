@@ -6,6 +6,9 @@ import 'aos/dist/aos.css';
 import Footer from './Footer';
 import Navbar from '../../Comporant/Navibar/Navbar';
 import InstituteHistory from './About-Utils/InstituteHistory';
+import StaffSection from './About-Utils/StaffSection';
+import AwardsSlideshow from './About-Utils/AwardsSection';
+import FacilitiesSection from './About-Utils/FacilitiesSection';
 
 const AboutPage = () => {
     useEffect(() => {
@@ -199,6 +202,9 @@ const AboutPage = () => {
                 </Grid>
                 {/* New History Section */}
                 <InstituteHistory />
+                <StaffSection/>
+                <AwardsSlideshow/>
+                <FacilitiesSection/>
             </Grid>
         </Box>
         <Footer/>
